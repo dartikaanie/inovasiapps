@@ -34,17 +34,16 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('roles', 'roleController');
 
-Route::resource('kategoris', 'kategoriController');
+Route::resource('kategoris', 'admin\kategoriController');
 
-Route::resource('subKategoris', 'subKategoriController');
+Route::resource('subKategoris', 'admin\subKategoriController');
 
-Route::resource('kriterias', 'kriteriaController');
 
-Route::resource('kriterias', 'kriteriaController');
+Route::resource('kriterias', 'admin\kriteriaController');
 
 Route::resource('kriteraiaKategoriPenilaians', 'kriteraiaKategoriPenilaianController');
 
-Route::resource('tims', 'timController');
+Route::resource('tims', 'peserta\timController');
 
 Route::resource('anggitaTims', 'anggotaTimController');
 
@@ -56,4 +55,6 @@ Route::resource('streams', 'streamController');
 
 Route::resource('penilaianTims', 'penilaianTimController');
 
-Route::resource('subKriterias', 'subKriteriaController');
+Route::resource('subKriterias', 'admin\subKriteriaController');
+
+Route::get('/data/kriterias','kriteriaController@getData')->name('getDataKriteria');

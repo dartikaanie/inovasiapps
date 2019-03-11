@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\peserta;
 
 use App\Http\Requests\CreatetimRequest;
 use App\Http\Requests\UpdatetimRequest;
 use App\Repositories\timRepository;
 use App\Http\Controllers\AppBaseController;
+use App\User;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -43,7 +44,8 @@ class timController extends AppBaseController
      */
     public function create()
     {
-        return view('tims.create');
+        $peserta = User::pluck('nama','nip');
+        return view('tims.create',compact('peserta'));
     }
 
     /**

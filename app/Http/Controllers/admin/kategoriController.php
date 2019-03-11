@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Requests\CreatekategoriRequest;
 use App\Http\Requests\UpdatekategoriRequest;
+use App\Models\kategori;
+use App\Models\subKategori;
 use App\Repositories\kategoriRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -29,11 +31,11 @@ class kategoriController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $this->kategoriRepository->pushCriteria(new RequestCriteria($request));
-        $kategoris = $this->kategoriRepository->all();
+        $kategoris = kategori::all();
+        $subKategori = subKategori::all();
 
-        return view('kategoris.index')
-            ->with('kategoris', $kategoris);
+
+        return view('kategoris.index', compact('kategoris','subKategori'));
     }
 
     /**

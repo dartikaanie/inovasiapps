@@ -1,16 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Requests\CreatekriteriaRequest;
 use App\Http\Requests\UpdatekriteriaRequest;
 use App\Models\kategori;
+use App\Models\kriteraiaKategoriPenilaian;
+use App\Models\kriteria;
+use App\Models\subKategori;
+use App\Models\subKriteria;
 use App\Repositories\kriteriaRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use PhpParser\Builder;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Yajra\Datatables\Datatables;
 
 class kriteriaController extends AppBaseController
 {
@@ -30,13 +36,23 @@ class kriteriaController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $this->kriteriaRepository->pushCriteria(new RequestCriteria($request));
-        $kriterias = $this->kriteriaRepository->all();
+       $kategoris = kategori::all();
+//       $krikats = kriteraiaKategoriPenilaian::all()->groupBy('sub_kategori_id');
+//       dd($krikat);
 
-        return view('kriterias.index')
-            ->with('kriterias', $kriterias);
+        $subKategoris= subKategori::all();
+       $kriterias=kriteria::all();
+       $subKriterias = subKriteria::all();
+
+        return view('kriterias.index', compact('kategoris','kriterias','subKategoris','subKriterias'));
     }
 
+    public function getData(){
+
+        $kriterias = kriteria::select(['kriteria_id','nama_kriteria','created_at','updated_at']);
+
+        return Datatables::of($kriterias)->make();
+    }
     /**
      * Show the form for creating a new kriteria.
      *

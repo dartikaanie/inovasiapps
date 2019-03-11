@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Requests\CreatesubKategoriRequest;
 use App\Http\Requests\UpdatesubKategoriRequest;
 use App\Models\kategori;
+use App\Models\subKategori;
 use App\Repositories\subKategoriRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class subKategoriController extends AppBaseController
     public function create()
     {
         $kategoris = kategori::pluck('nama_kategori','kategori_id');
-        return view('sub_kategoris.create', compact('kategoris'));
+        return view('kategoris.sub_kategoris.create', compact('kategoris'));
     }
 
     /**
@@ -61,9 +62,9 @@ class subKategoriController extends AppBaseController
 
         $subKategori = $this->subKategoriRepository->create($input);
 
-        Flash::success('Sub Kategori saved successfully.');
+        Flash::success('Sub Kategori Berhasil disimpan');
 
-        return redirect(route('subKategoris.index'));
+        return redirect(route('kategoris.index'));
     }
 
     /**
@@ -73,18 +74,18 @@ class subKategoriController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
-    {
-        $subKategori = $this->subKategoriRepository->findWithoutFail($id);
-
-        if (empty($subKategori)) {
-            Flash::error('Sub Kategori not found');
-
-            return redirect(route('subKategoris.index'));
-        }
-
-        return view('sub_kategoris.show')->with('subKategori', $subKategori);
-    }
+//    public function show($id)
+//    {
+//        $subKategori = subKategori::where('sub_kategori_id', $id)->first();
+//        dd($subKategori);
+//        if (empty($subKategori)) {
+//            Flash::error('Sub Kategori not found');
+//
+//            return redirect(route('subKategoris.index'));
+//        }
+//
+//        return view('sub_kategoris.show')->with('subKategori', $subKategori);
+//    }
 
     /**
      * Show the form for editing the specified subKategori.
@@ -95,7 +96,8 @@ class subKategoriController extends AppBaseController
      */
     public function edit($id)
     {
-        $subKategori = $this->subKategoriRepository->findWithoutFail($id);
+        $subKategori = subKategori::where('sub_kategori_id', $id)->first();
+        $kategoris = kategori::pluck('nama_kategori','kategori_id');
 
         if (empty($subKategori)) {
             Flash::error('Sub Kategori not found');
@@ -103,7 +105,7 @@ class subKategoriController extends AppBaseController
             return redirect(route('subKategoris.index'));
         }
 
-        return view('sub_kategoris.edit')->with('subKategori', $subKategori);
+        return view('kategoris.sub_kategoris.edit', compact('subKategori', 'kategoris'));
     }
 
     /**
@@ -116,19 +118,19 @@ class subKategoriController extends AppBaseController
      */
     public function update($id, UpdatesubKategoriRequest $request)
     {
-        $subKategori = $this->subKategoriRepository->findWithoutFail($id);
+        $subKategori = subKategori::where('sub_kategori_id', $id)->first();
 
         if (empty($subKategori)) {
             Flash::error('Sub Kategori not found');
 
-            return redirect(route('subKategoris.index'));
+            return redirect(route('kategoris.index'));
         }
 
-        $subKategori = $this->subKategoriRepository->update($request->all(), $id);
+        $subKategori->update($request->all());
 
         Flash::success('Sub Kategori updated successfully.');
 
-        return redirect(route('subKategoris.index'));
+        return redirect(route('kategoris.index') );
     }
 
     /**
@@ -140,18 +142,19 @@ class subKategoriController extends AppBaseController
      */
     public function destroy($id)
     {
-        $subKategori = $this->subKategoriRepository->findWithoutFail($id);
+        $subKategori = subKategori::where('sub_kategori_id', $id)->first();
+//        dd($subKategori);
 
         if (empty($subKategori)) {
-            Flash::error('Sub Kategori not found');
+            Flash::error('Sub Kategori tidak ditemukan');
 
-            return redirect(route('subKategoris.index'));
+            return redirect(route('kategoris.index'));
         }
 
-        $this->subKategoriRepository->delete($id);
+        $subKategori->delete();
 
         Flash::success('Sub Kategori deleted successfully.');
 
-        return redirect(route('subKategoris.index'));
+        return redirect(route('kategoris.index'));
     }
 }

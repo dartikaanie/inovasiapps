@@ -20,6 +20,7 @@ class kategori extends Model
     
 
     protected $dates = ['deleted_at'];
+    protected $primaryKey = "kategori_id";
 
 
     public $fillable = [

@@ -56,4 +56,5 @@ class kriteria extends Model
     {
         return $this->belongsTo(kategori::class, 'kategori_id', 'kategori_id');
     }
+
 }

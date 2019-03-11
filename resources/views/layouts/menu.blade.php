@@ -1,22 +1,22 @@
-<li class="{{ Request::is('roles*') ? 'active' : '' }}">
-    <a href="{!! route('roles.index') !!}"><i class="fa fa-edit"></i><span>Roles</span></a>
-</li>
+{{--<li class="{{ Request::is('roles*') ? 'active' : '' }}">--}}
+    {{--<a href="{!! route('roles.index') !!}"><i class="fa fa-edit"></i><span>Roles</span></a>--}}
+{{--</li>--}}
 
 <li class="{{ Request::is('kategoris*') ? 'active' : '' }}">
     <a href="{!! route('kategoris.index') !!}"><i class="fa fa-edit"></i><span>Kategoris</span></a>
 </li>
 
-<li class="{{ Request::is('subKategoris*') ? 'active' : '' }}">
-    <a href="{!! route('subKategoris.index') !!}"><i class="fa fa-edit"></i><span>Sub Kategoris</span></a>
-</li>
+{{--<li class="{{ Request::is('subKategoris*') ? 'active' : '' }}">--}}
+    {{--<a href="{!! route('subKategoris.index') !!}"><i class="fa fa-edit"></i><span>Sub Kategoris</span></a>--}}
+{{--</li>--}}
 
-<li class="{{ Request::is('kriterias*') ? 'active' : '' }}">
-    <a href="{!! route('kriterias.index') !!}"><i class="fa fa-edit"></i><span>Kriterias</span></a>
-</li>
+{{--<li class="{{ Request::is('kriterias*') ? 'active' : '' }}">--}}
+    {{--<a href="{!! route('kriterias.index') !!}"><i class="fa fa-edit"></i><span>Kriteria Penilaian</span></a>--}}
+{{--</li>--}}
 
-<li class="{{ Request::is('subKriterias*') ? 'active' : '' }}">
-    <a href="{!! route('subKriterias.index') !!}"><i class="fa fa-edit"></i><span>Sub Kriterias</span></a>
-</li>
+{{--<li class="{{ Request::is('subKriterias*') ? 'active' : '' }}">--}}
+    {{--<a href="{!! route('subKriterias.index') !!}"><i class="fa fa-edit"></i><span>Sub Kriterias</span></a>--}}
+{{--</li>--}}
 
 
 <li class="{{ Request::is('kriteraiaKategoriPenilaians*') ? 'active' : '' }}">

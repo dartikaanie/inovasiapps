@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Requests\CreatesubKriteriaRequest;
 use App\Http\Requests\UpdatesubKriteriaRequest;
@@ -103,7 +103,7 @@ class subKriteriaController extends AppBaseController
             return redirect(route('subKriterias.index'));
         }
 
-        return view('sub_kriterias.edit')->with('subKriteria', $subKriteria);
+        return view('kriteria.sub_kriterias.edit')->with('subKriteria', $subKriteria);
     }
 
     /**

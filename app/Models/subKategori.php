@@ -20,9 +20,11 @@ class subKategori extends Model
     use SoftDeletes;
 
     public $table = 'sub_kategoris';
+    protected $primaryKey = "sub_kategori_id";
     
 
     protected $dates = ['deleted_at'];
+
 
 
     public $fillable = [
