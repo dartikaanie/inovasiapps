@@ -43,13 +43,22 @@ Route::resource('kriterias', 'admin\kriteriaController');
 
 Route::resource('kriteraiaKategoriPenilaians', 'kriteraiaKategoriPenilaianController');
 
+//-------------------------peserta--------------------------------------------
+
 Route::resource('tims', 'peserta\timController');
 
-Route::resource('anggitaTims', 'anggotaTimController');
+Route::resource('anggotaTims', 'peserta\anggotaTimController');
+
+Route::get('/anggotaTimjum','peserta\anggotaTimController@directToForm')->name('directToForm');
+
+Route::resource('inovasis', 'peserta\inovasiController');
+
+Route::get('tambahInovasi/{tim_tid}','peserta\inovasiController@create');
+
+//---------------------------------------------------------------------------------
+
 
 Route::resource('statusAnggotas', 'statusAnggotaController');
-
-Route::resource('inovasis', 'inovasiController');
 
 Route::resource('streams', 'streamController');
 

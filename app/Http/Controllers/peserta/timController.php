@@ -4,13 +4,19 @@ namespace App\Http\Controllers\peserta;
 
 use App\Http\Requests\CreatetimRequest;
 use App\Http\Requests\UpdatetimRequest;
+use App\Models\anggotaTim;
+use App\Models\inovasi;
+use App\Models\statusAnggota;
+use App\Models\tim;
 use App\Repositories\timRepository;
 use App\Http\Controllers\AppBaseController;
 use App\User;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use DB;
 
 class timController extends AppBaseController
 {
@@ -30,11 +36,12 @@ class timController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $this->timRepository->pushCriteria(new RequestCriteria($request));
-        $tims = $this->timRepository->all();
+        $tims = DB::select("select * from  tims join anggota_tims on tims.tim_id = anggota_tims.tim_id join users on users.nip = anggota_tims.nip WHERE users.nip = ?",[Auth::user()->nip]);
+//        $anggota_tims = anggotaTim::where('nip', Auth::user()->nip);
+        $status = statusAnggota::pluck('status_anggota','status_anggota_id');
+        $peserta = User::all();
 
-        return view('tims.index')
-            ->with('tims', $tims);
+        return view('peserta.tims.index', compact('tims', 'peserta','status'));
     }
 
     /**
@@ -44,8 +51,8 @@ class timController extends AppBaseController
      */
     public function create()
     {
-        $peserta = User::pluck('nama','nip');
-        return view('tims.create',compact('peserta'));
+        $nip = Auth::user()->nip;
+        return view('tims.create',compact('nip'));
     }
 
     /**
@@ -60,6 +67,13 @@ class timController extends AppBaseController
         $input = $request->all();
 
         $tim = $this->timRepository->create($input);
+        $timL = tim::all()->last();
+
+        anggotaTim::create([
+           'nip' => $request->nip,
+            'tim_id' => $timL->tim_id,
+            'status_anggota_id' => 1
+        ]);
 
         Flash::success('Tim saved successfully.');
 
@@ -76,6 +90,12 @@ class timController extends AppBaseController
     public function show($id)
     {
         $tim = $this->timRepository->findWithoutFail($id);
+        $inovasis = inovasi::where('tim_id', $tim->tim_id)->get();
+        $stat_ketua = statusAnggota::where('status_anggota', 'Ketua')->first();
+        $stat_fasilitator = statusAnggota::where('status_anggota', 'Fasilitator')->first();
+        $ketua = anggotaTim::where('tim_id', $tim->tim_id)->where('status_anggota_id', $stat_ketua->status_anggota_id )->first();
+        $fasilitator = anggotaTim::where('tim_id', $tim->tim_id)->where('status_anggota_id', $stat_fasilitator->status_anggota_id )->first();
+        $anggota = anggotaTim::where('tim_id', $tim->tim_id)->get();
 
         if (empty($tim)) {
             Flash::error('Tim not found');
@@ -83,7 +103,7 @@ class timController extends AppBaseController
             return redirect(route('tims.index'));
         }
 
-        return view('tims.show')->with('tim', $tim);
+        return view('peserta.tims.show', compact('tim','inovasis','ketua','fasilitator','anggota'));
     }
 
     /**

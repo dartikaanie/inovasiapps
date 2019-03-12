@@ -19,10 +19,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/AdminLTE.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/skins/_all-skins.min.css">
 
+
     <!-- iCheck -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/_all.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
+    <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
 
     @yield('css')
 </head>
@@ -160,6 +162,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
     <!-- DataTables -->
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<!-- Select2 -->
+<script src="{{asset('js/select2.full.min.js')}}"></script>
 
     @yield('scripts')
 </body>

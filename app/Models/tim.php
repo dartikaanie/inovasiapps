@@ -23,6 +23,7 @@ class tim extends Model
     
 
     protected $dates = ['deleted_at'];
+    protected $primaryKey = "tim_id";
 
 
     public $fillable = [
@@ -59,5 +60,10 @@ class tim extends Model
     public function users()
     {
         return $this->hasMany(\App\Models\users::class, ' nip', 'nip');
+    }
+
+    public function inovasis()
+    {
+        return $this->belongsTo(inovasi::class, 'tim_id', 'tim_id');
     }
 }

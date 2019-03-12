@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -60,7 +61,7 @@ class anggotaTim extends Model
      **/
     public function users()
     {
-        return $this->hasMany(\App\Models\users::class, ' nip', 'nip');
+        return $this->belongsTo(User::class, 'nip', 'nip');
     }
 
     /**
@@ -68,7 +69,7 @@ class anggotaTim extends Model
      **/
     public function tims()
     {
-        return $this->hasMany(\App\Models\tims::class, ' tim_id', 'tim_id');
+        return $this->belongsTo(tim::class, 'tim_id', 'tim_id');
     }
 
     /**
@@ -76,6 +77,6 @@ class anggotaTim extends Model
      **/
     public function statusAnggotas()
     {
-        return $this->hasMany(\App\Models\status_anggotas::class, ' status_anggota_id', 'status_anggota_id');
+        return $this->belongsTo(statusAnggota::class, 'status_anggota_id', 'status_anggota_id');
     }
 }

@@ -82,24 +82,16 @@ class inovasi extends Model
     public static $rules = [
         'tim_id' => 'required',
         'area_implementasi' => 'required',
-        'nip_inisiator' => 'required',
         'sub_kategori_id' => 'required',
-        'judul' => 'deskripsi string text',
-        'latar_belakang' => 'required',
-        'tujuan_inovasi' => 'required',
-        'saving' => 'required',
-        'opp_lost' => 'required',
-        'status_implementasi' => 'required',
-        'dokumen_tim' => 'required',
-        'status_registrasi' => 'required'
+        'judul' => 'required'
     ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function tims()
+    public function TimInovasi()
     {
-        return $this->hasMany(\App\Models\tims::class, ' tim_id', 'tim_id');
+        return $this->belongsTo(tim::class, 'tim_id', 'tim_id');
     }
 
     /**
@@ -115,6 +107,6 @@ class inovasi extends Model
      **/
     public function subKategoris()
     {
-        return $this->hasMany(\App\Models\sub_kategoris::class, ' sub_kategori_id', ' sub_kategori_id');
+        return $this->belongsTo(subKategori::class, 'sub_kategori_id', 'sub_kategori_id');
     }
 }

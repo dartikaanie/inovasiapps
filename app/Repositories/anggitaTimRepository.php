@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\anggitaTim;
+use App\Models\anggotaTim;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**

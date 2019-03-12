@@ -28,12 +28,12 @@
 </li>
 
 <li class="{{ Request::is('anggitaTims*') ? 'active' : '' }}">
-    <a href="{!! route('anggitaTims.index') !!}"><i class="fa fa-edit"></i><span>Anggita Tims</span></a>
+    <a href="{!! route('anggotaTims.index') !!}"><i class="fa fa-edit"></i><span>Anggita Tims</span></a>
 </li>
 
-<li class="{{ Request::is('statusAnggotas*') ? 'active' : '' }}">
-    <a href="{!! route('statusAnggotas.index') !!}"><i class="fa fa-edit"></i><span>Status Anggotas</span></a>
-</li>
+{{--<li class="{{ Request::is('statusAnggotas*') ? 'active' : '' }}">--}}
+    {{--<a href="{!! route('statusAnggotas.index') !!}"><i class="fa fa-edit"></i><span>Status Anggotas</span></a>--}}
+{{--</li>--}}
 
 <li class="{{ Request::is('inovasis*') ? 'active' : '' }}">
     <a href="{!! route('inovasis.index') !!}"><i class="fa fa-edit"></i><span>Inovasis</span></a>
