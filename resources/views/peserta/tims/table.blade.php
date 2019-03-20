@@ -10,7 +10,7 @@
     <tbody>
     @foreach($tims as $tim)
         <tr>
-            <td>{!! $tim->nama   !!}</td>
+            <td>{!! $tim->nama_tim   !!}</td>
             <td>{!! $tim->departemen !!}</td>
             <td>
                 <?php $anggota = \App\Models\anggotaTim::where('tim_id', $tim->tim_id)->get();?>
@@ -25,9 +25,7 @@
 
                 {{--{!! Form::open(['route' => ['tims.destroy', $tim->tim_id], 'method' => 'delete']) !!}--}}
 
-                    <a class="btn btn-primary" data-toggle="modal" data-target="#modalTambah-{{$tim->tim_id}}">
-                        <i class="fa fa-plus"> </i>   Anggota   </a>
-                    {{--@include ('peserta.tims.modal.modal_tambah')--}}
+                      {{--@include ('peserta.tims.modal.modal_tambah')--}}
                 <a href="{!! route('tims.show', [$tim->tim_id]) !!}" class='btn btn-info'><i class="glyphicon glyphicon-eye-open"></i> Lihat </a>
 
                 {{--                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger ', 'onclick' => "return confirm('Are you sure?')"]) !!}--}}

@@ -3,15 +3,15 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Anggita Tim
+            Sub Kriteria
         </h1>
     </section>
     <div class="content">
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
-                    @include('anggita_tims.show_fields')
-                    <a href="{!! route('anggitaTims.index') !!}" class="btn btn-default">Back</a>
+                    @include('admin.kendalas.show_fields')
+                    <a href="{!! route('kendalas.index') !!}" class="btn btn-default">Back</a>
                 </div>
             </div>
         </div>

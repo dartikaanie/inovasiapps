@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,12 +25,11 @@ class stream extends Model
     
 
     protected $dates = ['deleted_at'];
+    protected $primaryKey = "stream_id";
 
 
     public $fillable = [
-        'nip_juri',
-        'inovasi_id',
-        'nama_stream'
+        'nama_stream', 'kategori_id'
     ];
 
     /**
@@ -38,8 +38,6 @@ class stream extends Model
      * @var array
      */
     protected $casts = [
-        'nip_juri' => 'integer',
-        'inovasi_id' => 'integer',
         'nama_stream' => 'string'
     ];
 
@@ -49,24 +47,18 @@ class stream extends Model
      * @var array
      */
     public static $rules = [
-        'nip_juri' => 'required',
-        'inovasi_id' => 'required',
-        'nama_stream' => 'requires'
+        'nama_stream' => 'required',
+        'kategori_id' => 'required'
     ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function users()
+
+
+    public function kategoris()
     {
-        return $this->hasMany(\App\Models\users::class, ' nip_juri', 'nip_inisiator');
+        return $this->belongsTo(kategori::class, 'kategori_id', 'kategori_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function inovases()
-    {
-        return $this->hasMany(\App\Models\inovasis::class, ' inovasi_id', 'inovasi_id');
-    }
 }

@@ -14,7 +14,7 @@
                 <div class="row">
                     {!! Form::open(['route' => 'streams.store']) !!}
 
-                        @include('streams.fields')
+                        @include('admin.streams.fields')
 
                     {!! Form::close() !!}
                 </div>

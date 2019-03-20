@@ -30,13 +30,13 @@ class anggotaTimController extends AppBaseController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index($id,Request $request)
     {
 
-        $anggitaTims = anggotaTim::all();
+        $anggotaTims = anggotaTim::where('tim_id',$id)->get();
 
         return view('tims.anggota_tims.index')
-            ->with('anggitaTims', $anggitaTims);
+            ->with('anggotaTims', $anggotaTims);
     }
 
     /**
@@ -48,7 +48,7 @@ class anggotaTimController extends AppBaseController
     {
         $status = statusAnggota::pluck('status_anggota','status_anggota_id');
         $peserta = User::all();
-        return view('tims.anggota_tims.create', compact('status','peserta'));
+        return view('peserta.tims.anggota_tims.create', compact('status','peserta'));
     }
 
     public function directToForm(Request $r){
@@ -56,7 +56,7 @@ class anggotaTimController extends AppBaseController
         $status = statusAnggota::pluck('status_anggota','status_anggota_id');
         $peserta = User::all();
         $tim = tim::where('tim_id', $r->tim_id)->first();
-        return view('tims.anggota_tims.create', compact('status','peserta','tim','jum'));
+        return view('peserta.tims.anggota_tims.create', compact('status','peserta','tim','jum'));
     }
 
     /**
@@ -85,7 +85,7 @@ class anggotaTimController extends AppBaseController
 
 
 
-        return redirect(route('tims.index'));
+        return redirect(route('tims.show',[$input['tim_id']]));
     }
 
     /**
@@ -115,17 +115,14 @@ class anggotaTimController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($tim_id)
     {
-//        $anggitaTim = $this->anggitaTimRepository->findWithoutFail($id);
+        $peserta =User::all();
+        $tim=tim::where('tim_id', $tim_id)->first();
+        $anggotaTims = anggotaTim::where('tim_id',$tim_id)->get();
+        $status = statusAnggota::all();
 
-        if (empty($anggitaTim)) {
-            Flash::error('Anggita Tim not found');
-
-            return redirect(route('anggitaTims.index'));
-        }
-
-        return view('anggita_tims.edit')->with('anggitaTim', $anggitaTim);
+        return view('peserta.tims.anggota_tims.index', compact('anggotaTims','tim','peserta','status'));
     }
 
     /**

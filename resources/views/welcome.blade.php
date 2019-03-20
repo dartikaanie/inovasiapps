@@ -46,8 +46,8 @@
                             <!--<li><a href="#download">Download</a></li>-->
                         </ul>
                         <ul class="member-actions">
-                            <li><a href="login.php" class="login">Masuk</a></li>
-                            <li><a href="registrasi.php" class="btn-white btn-small">Daftar</a></li>
+                            <li><a href="{{route('login')}}" class="login">Masuk</a></li>
+                            <li><a href="{{route('register')}}" class="btn-white btn-small">Daftar</a></li>
                         </ul>
                     </nav>
                 </div>

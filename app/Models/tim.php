@@ -66,4 +66,8 @@ class tim extends Model
     {
         return $this->belongsTo(inovasi::class, 'tim_id', 'tim_id');
     }
+
+    public function anggotaTims(){
+        return $this->belongsTo(anggotaTim::class, 'tim_id', 'tim_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\anggotaTim;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\anggitaTim;
 
@@ -25,6 +26,6 @@ class UpdateanggitaTimRequest extends FormRequest
      */
     public function rules()
     {
-        return anggitaTim::$rules;
+        return anggotaTim::$rules;
     }
 }

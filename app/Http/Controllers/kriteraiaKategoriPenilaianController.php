@@ -34,7 +34,7 @@ class kriteraiaKategoriPenilaianController extends AppBaseController
         $this->kriteraiaKategoriPenilaianRepository->pushCriteria(new RequestCriteria($request));
         $kriteraiaKategoriPenilaians = $this->kriteraiaKategoriPenilaianRepository->all();
 
-        return view('kriteraia_kategori_penilaians.index')
+        return view('admin.kriteraia_kategori_penilaians.index')
             ->with('kriteraiaKategoriPenilaians', $kriteraiaKategoriPenilaians);
     }
 

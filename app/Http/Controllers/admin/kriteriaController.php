@@ -44,7 +44,7 @@ class kriteriaController extends AppBaseController
        $kriterias=kriteria::all();
        $subKriterias = subKriteria::all();
 
-        return view('kriterias.index', compact('kategoris','kriterias','subKategoris','subKriterias'));
+        return view('admin.kriterias.index', compact('kategoris','kriterias','subKategoris','subKriterias'));
     }
 
     public function getData(){

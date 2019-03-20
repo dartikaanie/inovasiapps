@@ -16,7 +16,7 @@
                     <div class="col-md-6">
                     {!! Form::open(['route' => 'tims.store']) !!}
 
-                        @include('tims.fields')
+                        @include('peserta.tims.fields')
 
                     {!! Form::close() !!}
                     </div>

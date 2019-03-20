@@ -35,7 +35,7 @@ class kategoriController extends AppBaseController
         $subKategori = subKategori::all();
 
 
-        return view('kategoris.index', compact('kategoris','subKategori'));
+        return view('admin.kategoris.index', compact('kategoris','subKategori'));
     }
 
     /**

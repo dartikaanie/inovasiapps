@@ -9,7 +9,7 @@
     {!! Form::label('departemen', 'Departemen:') !!}
     {!! Form::text('departemen', null, ['class' => 'form-control']) !!}
 </div>
---<!-- Nip Field -->--}}
+{{----<!-- Nip Field -->--}}
 <div class="form-group col-sm-6">
 {{--{!! Form::label('nip', 'Nama Peserta:') !!}--}}
     {!! Form::hidden('nip', $nip , null, ['class' => 'form-control', 'data-placeholder'=> 'Select']) !!}
@@ -18,9 +18,7 @@
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('tims.index') !!}" class="btn btn-default">Cancel</a>
+    {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('tims.index') !!}" class="btn btn-default">Kembali</a>
 </div>
 
-
-</script>

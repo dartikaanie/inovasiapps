@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Stream
+            Juri
         </h1>
    </section>
    <div class="content">
@@ -11,9 +11,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($stream, ['route' => ['streams.update', $stream->id], 'method' => 'patch']) !!}
+                   {!! Form::model($juri, ['route' => ['juris.update', $juri->nip], 'method' => 'PATCH']) !!}
 
-                        @include('streams.fields')
+                        @include('admin.juris.fields')
 
                    {!! Form::close() !!}
                </div>

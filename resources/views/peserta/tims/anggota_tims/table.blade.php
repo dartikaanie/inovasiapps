@@ -1,28 +1,41 @@
+<?php $i=1; ?>
+{!! Form::model($tim, ['route' => ['anggotaTims.update', $tim->tim_id], 'method' => 'patch']) !!}
+{!! Form::hidden('tim_id', $tim->tim_id, null, ['class' => 'form-control']) !!}
 <table class="table table-responsive" id="anggitaTims-table">
-    <thead>
-        <tr>
-            <th>Nip</th>
-        <th>Tim Id</th>
-        <th>Status Anggota Id</th>
-            <th colspan="3">Action</th>
-        </tr>
-    </thead>
+
     <tbody>
-    @foreach($anggitaTims as $anggitaTim)
-        <tr>
-            <td>{!! $anggitaTim->nip !!}</td>
-            <td>{!! $anggitaTim->tim_id !!}</td>
-            <td>{!! $anggitaTim->status_anggota_id !!}</td>
-            <td>
-                {!! Form::open(['route' => ['anggitaTims.destroy', $anggitaTim->id], 'method' => 'delete']) !!}
-                <div class='btn-group'>
-                    <a href="{!! route('anggitaTims.show', [$anggitaTim->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('anggitaTims.edit', [$anggitaTim->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                </div>
-                {!! Form::close() !!}
-            </td>
-        </tr>
-    @endforeach
-    </tbody>
+    @foreach($anggotaTims  as $anggotaTim)
+            <tr>
+                <!-- Nip Field -->
+                <td>
+                    <label name="nip">Nama Anggota {{$i}} :</label>
+                    <select name="nip" id="nip" class="form-control selectpicker" data-live-search="true">
+                        @foreach($peserta as $p)
+                            @if($p->nim ==$anggotaTim->nip)
+                                <option value="{{$p->nip}}" selected>{{$p->nama}}</option>
+                                @endif
+                            <option value="{{$p->nip}}">{{$p->nama}}</option>
+                        @endforeach
+                </td>
+                <td>                        <!-- Status Anggota Id Field -->
+                    <label name="status">Status Anggota {{$i}} :</label>
+                    <select name="status_anggota_id" class="form-control">
+
+                        @foreach($status as $stat)
+                            @if($stat->status_anggota_id == $anggotaTim->status_anggota_id)
+                                <option value="{{$stat->status_anggota_id}}" selected>{{$stat->status_anggota}}</option>
+                            @else
+                                <option value="{{$stat->status_anggota_id}}">{{$stat->status_anggota}}</option>
+                            @endif
+                    @endforeach
+                </td>
+            </tr>
+        <?php $i++; ?>
+        @endforeach
+        </tbody>
 </table>
+
+{!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+<a href="{!! route('tims.show',[$tim->tim_id]) !!}" class="btn btn-default">Kembali</a>
+
+{!! Form::close() !!}

@@ -24,7 +24,7 @@ class kategori extends Model
 
 
     public $fillable = [
-        'nama_kategori'
+        'nama_kategori', 'kategori_id'
     ];
 
     /**
@@ -33,7 +33,8 @@ class kategori extends Model
      * @var array
      */
     protected $casts = [
-        'nama_kategori' => 'string'
+        'nama_kategori' => 'string',
+         'kategori_id' => 'integer'
     ];
 
     /**
@@ -42,7 +43,8 @@ class kategori extends Model
      * @var array
      */
     public static $rules = [
-        'nama_kategori' => 'required'
+        'nama_kategori' => 'required',
+        'kategori_id' => 'required'
     ];
 
     

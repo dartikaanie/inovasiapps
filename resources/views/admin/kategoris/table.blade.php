@@ -12,11 +12,8 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <div class="box-group" id="accordion">
-                    <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-
-                    @foreach($subKategori as $sub)
-
+                <div class="box-group" id="accordion">  <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                     @foreach($subKategori as $sub)
                         <?php $n=0; ?>
                         @if($sub->kategori_id == $kategori->kategori_id)
                             <div class="panel box box-default">
@@ -39,14 +36,14 @@
                                             {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
                                         </div>
                                         {!! Form::close() !!}
-                                        @include ("kategoris.modal.modal_edit")
+                                        @include ("admin.kategoris.modal.modal_edit")
                                     </div>
                                 </div>
                             </div>
                             <?php $n=$n+1; ?>
                         @endif
                         <?php $i=$i+1; ?>
-                        @include('kategoris.modal.modal_tambah')
+                        @include('admin.kategoris.modal.modal_tambah')
                     @endforeach
                     </div>
                 </div>

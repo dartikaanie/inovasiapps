@@ -34,18 +34,37 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('roles', 'roleController');
 
-Route::resource('kategoris', 'admin\kategoriController');
+//------------------------- ADMIN-----------------------------------------
 
-Route::resource('subKategoris', 'admin\subKategoriController');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('kategoris', 'admin\kategoriController');
+    Route::resource('subKategoris', 'admin\subKategoriController');
+    Route::resource('kriterias', 'admin\kriteriaController');
+    Route::resource('kriteraiaKategoriPenilaians', 'kriteraiaKategoriPenilaianController');
+    Route::resource('listInovasis', 'admin\listInovasiController');
+    Route::resource('streams', 'admin\streamController');
+    Route::get('streams/delete/{id}', 'admin\streamController@delete')->name('deleteStream');
 
 
-Route::resource('kriterias', 'admin\kriteriaController');
+    Route::get('addJuriStream/{stream_tid}','admin\streamController@addJuri')->name('addJuriStream');
+    Route::post('addJuriStream/','admin\streamController@streamJuri')->name('streamJuri');
+    Route::get('delJuriStream/{nip}/{stream_id}','admin\streamController@deleteStreamJuri')->name('delStreamJuri');
 
-Route::resource('kriteraiaKategoriPenilaians', 'kriteraiaKategoriPenilaianController');
+    Route::get('addInovasiStream/{stream_tid}','admin\streamController@addInovasi')->name('addInovasiStream');
+    Route::post('addInovasiStream/','admin\streamController@streamInovasi')->name('streamInovasi');
+    Route::get('delInovasiStream/{inovasi_id}/{stream_id}','admin\streamController@deleteStreamInovasi')->name('delStreamInovasi');
+    Route::get('detailInovasiStream/{inovasi_id}/{stream_id}','admin\streamController@detailStreamInovasi')->name('detailStreamInovasi');
+
+
+    Route::resource('juris', 'admin\juriController');
+    Route::get('juris/statusJuri/{nip}','admin\juriController@ubahStatus')->name('statusJuri');
+
 
 //-------------------------peserta--------------------------------------------
 
 Route::resource('tims', 'peserta\timController');
+
+Route::patch('statusUpdate/{inovasi_id}', 'peserta\inovasiController@editStatus')->name('editStatus');
 
 Route::resource('anggotaTims', 'peserta\anggotaTimController');
 
@@ -53,17 +72,26 @@ Route::get('/anggotaTimjum','peserta\anggotaTimController@directToForm')->name('
 
 Route::resource('inovasis', 'peserta\inovasiController');
 
+Route::resource('inovasiPesertas', 'peserta\inovasiPesertaController');
+
 Route::get('tambahInovasi/{tim_tid}','peserta\inovasiController@create');
+
+//-------------------------------------JURI-----------------------------------------
+
+    Route::resource('penilaianTims', 'penilaianTimController');
 
 //---------------------------------------------------------------------------------
 
 
 Route::resource('statusAnggotas', 'statusAnggotaController');
 
-Route::resource('streams', 'streamController');
 
-Route::resource('penilaianTims', 'penilaianTimController');
 
 Route::resource('subKriterias', 'admin\subKriteriaController');
 
 Route::get('/data/kriterias','kriteriaController@getData')->name('getDataKriteria');
+
+
+Route::resource('kendalas', 'kendalaController');
+
+});

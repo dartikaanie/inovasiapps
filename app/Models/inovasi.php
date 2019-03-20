@@ -35,6 +35,7 @@ class inovasi extends Model
     
 
     protected $dates = ['deleted_at'];
+    protected $primaryKey = "inovasi_id";
 
 
     public $fillable = [
@@ -50,7 +51,11 @@ class inovasi extends Model
         'status_implementasi',
         'tgl_pelaksanaan',
         'dokumen_tim',
-        'status_registrasi'
+        'status_registrasi',
+        'dokumen_pendukung',
+        'revenue',
+        'stream_id'
+
     ];
 
     /**

@@ -28,9 +28,11 @@ class CreateinovasisTable extends Migration
             $table->date('tgl_pelaksanaan');
             $table->string('dokumen_tim');
             $table->integer('status_registrasi');
+            $table->integer('stream_id');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('tim_id')->references('tim_id')->on('tims');
+            $table->foreign('stream_id')->references('stream_id')->on('streams');
             $table->foreign('nip_inisiator')->references('nip')->on('users');
             $table->foreign('sub_kategori_id')->references('sub_kategori_id')->on('sub_kategoris');
         });

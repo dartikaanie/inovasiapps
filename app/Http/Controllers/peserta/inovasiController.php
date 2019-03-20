@@ -4,6 +4,7 @@ namespace App\Http\Controllers\peserta;
 
 use App\Http\Requests\CreateinovasiRequest;
 use App\Http\Requests\UpdateinovasiRequest;
+use App\Models\anggotaTim;
 use App\Models\inovasi;
 use App\Models\subKategori;
 use App\Models\tim;
@@ -66,7 +67,7 @@ class inovasiController extends AppBaseController
 
         Flash::success('Inovasi saved successfully.');
 
-        return redirect(route('tims.index'));
+        return redirect( route('inovasis.edit', [$inovasi->inovasi_id]));
     }
 
     /**
@@ -86,7 +87,7 @@ class inovasiController extends AppBaseController
             return redirect(route('inovasis.index'));
         }
 
-        return view('inovasis.show')->with('inovasi', $inovasi);
+        return view('peserta.inovasis.show')->with('inovasi', $inovasi);
     }
 
     /**
@@ -99,6 +100,7 @@ class inovasiController extends AppBaseController
     public function edit($id)
     {
         $inovasi = $this->inovasiRepository->findWithoutFail($id);
+        $anggota = anggotaTim::where('tim_id', $inovasi->tim_id)->join('users','users.nip','=','anggota_tims.nip')->pluck('users.nama','users.nip');
 
         if (empty($inovasi)) {
             Flash::error('Inovasi not found');
@@ -106,7 +108,7 @@ class inovasiController extends AppBaseController
             return redirect(route('inovasis.index'));
         }
 
-        return view('inovasis.edit')->with('inovasi', $inovasi);
+        return view('peserta.inovasis.edit', compact('inovasi', 'anggota'));
     }
 
     /**
@@ -117,9 +119,51 @@ class inovasiController extends AppBaseController
      *
      * @return Response
      */
+
+
     public function update($id, UpdateinovasiRequest $request)
     {
+
         $inovasi = $this->inovasiRepository->findWithoutFail($id);
+
+        $input = $request->all();
+        if($request->hasFile('dokumen_tim')) {
+           $file = $request->file('dokumen_tim');
+           if($file->getClientOriginalExtension() == "pdf") {
+              $tahun = date_format(date_create($inovasi->created_at), 'Y');
+              $filename = $tahun . '_' . $inovasi->tim_id . '_' . $inovasi->inovasi_id . '_' . $inovasi->judul . '.' . $file->getClientOriginalExtension();
+              $file->move('dokumen_tim/', $filename);
+              $input['dokumen_tim'] = $filename;
+            }else{
+                    $input['dokumen_tim']=null;
+                    Flash::error('Dokumen tim harus .pdf');
+           }
+        }
+        else {
+            if (!$inovasi->dokumen_tim) {
+                $input['dokumen_tim'] = null;
+            } else {
+                $input['dokumen_tim'] = $inovasi->dokumen_tim;
+            }
+        }
+
+        if($request->hasFile('dokumen_pendukung')) {
+                $file = $request->file('dokumen_pendukung');
+                $tahun = date_format(date_create($inovasi->created_at),'Y');
+                $filename = 'P_'.$tahun.'_'.$inovasi->tim_id . '_' . $inovasi->inovasi_id . '_' . $file->getClientOriginalExtension();
+                $file->move('dokumen_pendukung/', $filename);
+                $input['dokumen_pendukung'] = $filename;
+        }else{
+            if($inovasi->dokumen_pendukung)
+            {
+                $input['dokumen_pendukung']=$inovasi->dokumen_pendukung;
+            }else{
+                $input['dokumen_pendukung']= null;
+            }
+        }
+
+
+
 
         if (empty($inovasi)) {
             Flash::error('Inovasi not found');
@@ -127,11 +171,12 @@ class inovasiController extends AppBaseController
             return redirect(route('inovasis.index'));
         }
 
-        $inovasi = $this->inovasiRepository->update($request->all(), $id);
+
+        $inovasi->update($input);
 
         Flash::success('Inovasi updated successfully.');
 
-        return redirect(route('inovasis.index'));
+        return redirect(route('inovasis.show', [$inovasi->inovasi_id]));
     }
 
     /**
@@ -148,14 +193,39 @@ class inovasiController extends AppBaseController
         if (empty($inovasi)) {
             Flash::error('Inovasi not found');
 
-            return redirect(route('inovasis.index'));
+            return redirect(route('tims.show',[$inovasi->tim_id]));
         }
 
         $this->inovasiRepository->delete($id);
 
         Flash::success('Inovasi deleted successfully.');
 
-        return redirect(route('inovasis.index'));
+        return redirect(route('tims.show',[$inovasi->tim_id]));
     }
 
+    public function editStatus ($id, Request $r){
+       $update = $r->all();
+       $inovasi = inovasi::where('inovasi_id', $id)->first();
+       if( ($inovasi->latar_belakang != null) &&
+           ($inovasi->tujuan_inovasi != null) &&
+           ($inovasi->saving != 0) &&
+           ($inovasi->opp_lost != 0) &&
+           ($inovasi->revenue != null) &&
+           ($inovasi->dokumen_tim != null) &&
+           ($inovasi->judul != null)) {
+
+           if($update['status_implementasi']){
+               if($update['status_implementasi'] == 1){
+                   $update['status_registrasi'] =1 ;
+               }
+           }
+
+           $inovasi->update($update);
+           Flash::success('status implementasi inovasi berhasil diubah');
+       }else{
+           Flash::error('pengisian form belum lengkap');
+       }
+
+       return redirect(route('inovasis.show',[$inovasi->inovasi_id]));
+    }
 }

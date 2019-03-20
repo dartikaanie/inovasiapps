@@ -6,6 +6,7 @@ use App\Http\Requests\CreatetimRequest;
 use App\Http\Requests\UpdatetimRequest;
 use App\Models\anggotaTim;
 use App\Models\inovasi;
+use App\Models\kendala;
 use App\Models\statusAnggota;
 use App\Models\tim;
 use App\Repositories\timRepository;
@@ -36,8 +37,9 @@ class timController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $tims = DB::select("select * from  tims join anggota_tims on tims.tim_id = anggota_tims.tim_id join users on users.nip = anggota_tims.nip WHERE users.nip = ?",[Auth::user()->nip]);
+//        $tims = DB::select("select * from  tims join anggota_tims on tims.tim_id = anggota_tims.tim_id join users on users.nip = anggota_tims.nip WHERE users.nip = ?",[Auth::user()->nip]);
 //        $anggota_tims = anggotaTim::where('nip', Auth::user()->nip);
+        $tims = tim::join('anggota_tims','anggota_tims.tim_id','=','tims.tim_id')->join('users','users.nip','=','anggota_tims.nip')->where('anggota_tims.nip', Auth::user()->nip)->get();
         $status = statusAnggota::pluck('status_anggota','status_anggota_id');
         $peserta = User::all();
 
@@ -52,7 +54,7 @@ class timController extends AppBaseController
     public function create()
     {
         $nip = Auth::user()->nip;
-        return view('tims.create',compact('nip'));
+        return view('peserta.tims.create',compact('nip'));
     }
 
     /**
@@ -96,6 +98,9 @@ class timController extends AppBaseController
         $ketua = anggotaTim::where('tim_id', $tim->tim_id)->where('status_anggota_id', $stat_ketua->status_anggota_id )->first();
         $fasilitator = anggotaTim::where('tim_id', $tim->tim_id)->where('status_anggota_id', $stat_fasilitator->status_anggota_id )->first();
         $anggota = anggotaTim::where('tim_id', $tim->tim_id)->get();
+        $kendalas = kendala::join('inovasis','inovasis.inovasi_id','=','kendalas.inovasi_id')
+                            ->join('tims','tims.tim_id','=','inovasis.tim_id')
+                            ->get();
 
         if (empty($tim)) {
             Flash::error('Tim not found');
@@ -103,7 +108,7 @@ class timController extends AppBaseController
             return redirect(route('tims.index'));
         }
 
-        return view('peserta.tims.show', compact('tim','inovasis','ketua','fasilitator','anggota'));
+        return view('peserta.tims.show', compact('tim','inovasis','ketua','fasilitator','anggota','kendalas'));
     }
 
     /**

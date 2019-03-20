@@ -20,7 +20,7 @@
             <div class="box-body">
                 <div class="row">
                     {!! Form::open(['route' => 'anggotaTims.store']) !!}
-                        @include('tims.anggota_tims.fields')
+                        @include('peserta.tims.anggota_tims.fields')
                     {!! Form::close() !!}
                 </div>
             </div>

@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'subKategoris.store']) !!}
-                @include('kategoris.modal.fields_sub')
+                @include('admin.kategoris.modal.fields_sub')
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
