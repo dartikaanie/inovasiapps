@@ -30,9 +30,9 @@ class penilaianTim extends Model
 
 
     public $fillable = [
-        'stream_id',
-        'sub_kategori_id',
-        'sub_kriteria_id',
+        'inovasi_id',
+        'nip_juri',
+        'krikat_id',
         'nilai',
         'saran'
     ];
@@ -56,9 +56,6 @@ class penilaianTim extends Model
      * @var array
      */
     public static $rules = [
-        'stream_id' => 'required',
-        'sub_kategori_id' => 'required',
-        'sub_kriteria_id' => 'required'
     ];
 
     /**

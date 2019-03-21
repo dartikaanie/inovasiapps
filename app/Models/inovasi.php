@@ -54,7 +54,8 @@ class inovasi extends Model
         'status_registrasi',
         'dokumen_pendukung',
         'revenue',
-        'stream_id'
+        'stream_id',
+        'status_penilaian'
 
     ];
 

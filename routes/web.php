@@ -78,7 +78,10 @@ Route::get('tambahInovasi/{tim_tid}','peserta\inovasiController@create');
 
 //-------------------------------------JURI-----------------------------------------
 
-    Route::resource('penilaianTims', 'penilaianTimController');
+    Route::resource('penilaianTims', 'juri\penilaianTimController');
+    Route::resource('inovasiJuris', 'juri\inovasiJuriController');
+    Route::get('showPenilaian/{id}', 'juri\inovasiJuriController@showPenilaian')->name('showPenilaian');
+    Route::get('kunciNilai/{inovasi_id}', 'juri\penilaianTimController@kunciNilai')->name('kunciNilai');
 
 //---------------------------------------------------------------------------------
 

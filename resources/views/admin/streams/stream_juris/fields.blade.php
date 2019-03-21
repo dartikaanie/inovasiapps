@@ -1,14 +1,34 @@
 
+{!! Form::hidden('stream_id', $stream_id, null, ['class' => 'form-control']) !!}
 
-    {!! Form::hidden('stream_id', $stream_id, null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-12">
+    <table class="table table-bordered">
+        <thead>
+        <th>check</th>
+        <th>Nama Tim</th>
+        <th>Judul Inovasi</th>
+        <th>Departemen tim</th>
+        </thead>
+        <tbody>
 
-    <div class="form-group col-sm-6">
-        {!! Form::label('nip_juri', 'Juri:') !!}
-        {!! Form::select('nip_juri', $users, null, ['class' => 'form-control']) !!}
-    </div>
+        @foreach($users as $user)
+            <tr>
+                <td>
+                    <input type="checkbox"  name="nip_juri[]" value="{{$user->nip}}" >
+                </td>
+                <td>{{$user->nip}}</td>
+                <td>{{$user->nama}}</td>
+                <td>{{$user->unit_biro}}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 
-    <!-- Submit Field -->
-    <div class="form-group col-sm-12">
-        {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
-        <a href="{!! route('streams.show', [$stream_id]) !!}" class="btn btn-default">Batal</a>
-    </div>
+    @if(count($users)==0)
+        <div class="text-center">Tidak ada juri aktif yang belum bergabung dalam stream</div>
+@else
+    {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
+@endif
+<!-- Submit Field -->
+    <a href="{!! route('streams.show', [$stream_id]) !!}" class="btn btn-default">Kembali</a>
+</div>

@@ -197,7 +197,8 @@ class streamController extends AppBaseController
         $users = User::join('juris','juris.nip','=','users.nip')
                        ->where('juris.status_aktif','=','1')
                        ->where('juris.stream_id','=',null)
-                       ->pluck('nama','users.nip');
+                       ->get();
+
         return view('admin.streams.stream_juris.create', compact('users','stream_id'));
     }
 
@@ -205,11 +206,16 @@ class streamController extends AppBaseController
     public function streamJuri(Request $request){
         $input = $request->all();
         $stream_id = $input['stream_id'];
-        $juri = juri::where('nip', $input['nip_juri'])->first();
-        $juri->update([
-            'stream_id' => $stream_id
-        ]);
+
+
+        foreach ($input['nip_juri'] as $item){
+            $juri = juri::where('nip', $item)->first();
+            $juri->update([
+                'stream_id' => $stream_id
+            ]);
+        }
         return redirect(route('streams.show',[$stream_id]));
+
     }
 
     public  function deleteStreamJuri($nip,$stream_id){
@@ -243,14 +249,15 @@ class streamController extends AppBaseController
     public function streamInovasi(Request $request){
         $input = $request->all();
         $stream_id = $input['stream_id'];
-        dd($input);
 
-        for($n=0 ; $n<count($input)-2; $n++){
-           $inovasi = inovasi::where('inovasi_id', $input['inovasi-'.$n])->first();
-           $inovasi->update([
-               'stream_id' => $stream_id
-           ]);
+
+        foreach ($input['inovasi_id'] as $item){
+            $inovasi = inovasi::where('inovasi_id', $item)->first();
+            $inovasi->update([
+                'stream_id' => $stream_id
+            ]);
         }
+
         return redirect(route('streams.show',[$stream_id]));
     }
 

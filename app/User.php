@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\juri;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -27,4 +28,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function juris(){
+        return $this->belongsTo(juri::class, 'nip', 'nip');
+    }
 }

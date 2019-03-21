@@ -51,5 +51,9 @@
         <li class="{{ Request::is('penilaianTims*') ? 'active' : '' }}">
             <a href="{!! route('penilaianTims.index') !!}"><i class="fa fa-edit"></i><span>Penilaian Tims</span></a>
         </li>
+        <li class="{{ Request::is('inovasiJuri*') ? 'active' : '' }}">
+            <a href="{!! route('inovasiJuris.index') !!}"><i class="fa fa-edit"></i><span>Inovasi Tims</span></a>
+        </li>
+
         @endif
 @endif

@@ -15,7 +15,7 @@
                 @foreach($inovasis as $inovasi)
                 <tr>
                     <td>
-                        <input type="checkbox"  name="inovasi_id-{{$i}}" value="{{$inovasi->inovasi_id}}">
+                        <input type="checkbox"  name="inovasi_id[]" value="{{$inovasi->inovasi_id}}" >
                     </td>
                     <td>{{$inovasi->timInovasi->nama_tim}}</td>
                     <td>{{$inovasi->judul}}</td>
