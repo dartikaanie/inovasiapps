@@ -10,9 +10,10 @@
     </thead>
     <tbody>
     @foreach($inovasis as $inovasi)
-        @if($inovasi->status_implementasi != 0)
+        @if($inovasi->status != 0)
             <tr>
                 <td>{{date_format(date_create($inovasi->created_at), 'd-m-Y')}}</td>
+                <td>{{$inovasi->nama_tim}}</td>
                 <td>{!! substr($inovasi->judul,0,30) !!}
                     @if(strlen($inovasi->judul) > 30)
                         ...
@@ -20,12 +21,16 @@
                 </td>
                 <td>{!! $inovasi->subKategoris->nama_sub_kategori!!}</td>
                 <td>
-                    @if($inovasi->status_registrasi == 1 )
-                        <label class="label label-warning">proses verifikasi admin</label>
-                    @elseif($inovasi->status_registrasi == 2 )
-                        <label class="label label-success">Masuk Tahap Penilaian</label>
+                    @if($inovasi->status == 0 )
+                        <label class="label label-danger">Belum Terimplementasi</label>
+                    @elseif($inovasi->status == 1 )
+                        <label class="label label-warning">Terimplementasi</label>
+                    @elseif($inovasi->status == 2 )
+                        <label class="label label-info">Terregistrasi</label>
+                    @elseif($inovasi->status == 3 )
+                        <label class="label label-primary">Proses Penilaian</label>
                     @else
-                        <label class="label label-danger">Belum Teregistrasi</label>
+                        <label class="label label-success">Selesai</label>
                 @endif
                 <td>
                 <td>

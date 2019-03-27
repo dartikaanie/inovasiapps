@@ -22,20 +22,18 @@
                     @endif
             </td>
             <td>{!! $inovasi->subKategoris->nama_sub_kategori!!}</td>
-           {{--<td>@if($inovasi->status_implementasi == 0 )--}}
-                    {{--<label class="label label-danger">belum terimplementasi</label>--}}
-                    {{--@else--}}
-                    {{--<label class="label label-success">proses verifikasi</label>--}}
-                {{--@endif--}}
-            {{--</td>--}}
             <td>
-                @if($inovasi->status_registrasi == 1 )
-                    <label class="label label-warning">proses verifikasi admin</label>
-                @elseif($inovasi->status_registrasi == 2 )
-                    <label class="label label-success">Masuk Tahap Penilaian</label>
+                @if($inovasi->status == 0 )
+                    <label class="label label-danger">Belum Terimplementasi</label>
+                @elseif($inovasi->status == 1 )
+                    <label class="label label-warning">Terimplementasi</label>
+                @elseif($inovasi->status == 2 )
+                    <label class="label label-info">Terregistrasi</label>
+                @elseif($inovasi->status == 3 )
+                    <label class="label label-primary">Proses Penilaian</label>
                 @else
-                    <label class="label label-danger">Belum Teregistrasi</label>
-                 @endif
+                    <label class="label label-success">Selesai</label>
+            @endif
             <td>
                 {!! Form::open(['route' => ['inovasis.destroy', $inovasi->inovasi_id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

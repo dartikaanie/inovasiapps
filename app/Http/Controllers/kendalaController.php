@@ -11,15 +11,16 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Auth;
 
 class kendalaController extends AppBaseController
 {
     /** @var  kendalaRepository */
     private $kendalaRepository;
 
-    public function __construct(kendalaRepository $kendalaRepo)
+    public function __construct()
     {
-        $this->kendalaRepository = $kendalaRepo;
+        $this->middleware('auth');
     }
 
     /**

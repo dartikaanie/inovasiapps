@@ -7,7 +7,7 @@
     <!-- Nip Field -->
     <div class="form-group col-sm-6">
         <label name="nip">Nama Anggota {{$i}} :</label>
-            <select name="nip" id="nip" class="form-control selectpicker" data-live-search="true">
+            <select name="nip[{{$i}}]" id="nip" class="form-control select2">
                 @foreach($peserta as $p)
                 <option value="{{$p->nip}}">{{$p->nama}}</option>
                 @endforeach
@@ -16,7 +16,7 @@
     <!-- Status Anggota Id Field -->
     <div class="form-group col-sm-6">
         {!! Form::label('status_anggota_id', 'Status Anggota Id:') !!}
-        {!! Form::select('status_anggota_id', $status, null, ['class' => 'form-control']) !!}
+        {!! Form::select('status_anggota_id['.$i.']', $status, null, ['class' => 'form-control']) !!}
     </div>
 @endfor
 <!-- Submit Field -->

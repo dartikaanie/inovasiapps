@@ -12,15 +12,25 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Auth;
 
 class subKategoriController extends AppBaseController
 {
     /** @var  subKategoriRepository */
     private $subKategoriRepository;
 
-    public function __construct(subKategoriRepository $subKategoriRepo)
+    public function __construct()
     {
-        $this->subKategoriRepository = $subKategoriRepo;
+        $this->middleware(function ($request, $next) {
+
+            $this->user = Auth::user();
+
+            if($this->user['role_id'] != 0 || Auth::user() === null){
+                return redirect()->back();
+            }
+
+            return $next($request);
+        });
     }
 
     /**

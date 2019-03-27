@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatestreamRequest;
 use App\Models\inovasi;
 use App\Models\juri;
 use App\Models\kategori;
+use App\Models\penilaianInovasi;
 use App\Models\stream;
 use App\Models\streamInovasi;
 use App\Models\streamJuri;
@@ -17,15 +18,25 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Auth;
 
 class streamController extends AppBaseController
 {
     /** @var  streamRepository */
     private $streamRepository;
 
-    public function __construct(streamRepository $streamRepo)
+    public function __construct()
     {
-        $this->streamRepository = $streamRepo;
+        $this->middleware(function ($request, $next) {
+
+            $this->user = Auth::user();
+
+            if($this->user['role_id'] != 0 || Auth::user() === null){
+                return redirect()->back();
+            }
+
+            return $next($request);
+        });
     }
 
     /**
@@ -37,7 +48,6 @@ class streamController extends AppBaseController
     public function index(Request $request)
     {
         $streams = stream::all()->sortBy('kategori_id');
-        $streams = $this->streamRepository->all();
 
         return view('admin.streams.index')
             ->with('streams', $streams);
@@ -239,7 +249,7 @@ class streamController extends AppBaseController
         $inovasis = inovasi::join('sub_kategoris','sub_kategoris.sub_kategori_id','=','inovasis.sub_kategori_id')
             ->join('kategoris','kategoris.kategori_id','=','sub_kategoris.kategori_id')
             ->where('kategoris.kategori_id',$stream->kategori_id)
-            ->where('inovasis.status_registrasi','2')
+            ->where('inovasis.status','2')
             ->where('inovasis.stream_id', null)
             ->get();
 //        dd($inovasis);
@@ -254,7 +264,8 @@ class streamController extends AppBaseController
         foreach ($input['inovasi_id'] as $item){
             $inovasi = inovasi::where('inovasi_id', $item)->first();
             $inovasi->update([
-                'stream_id' => $stream_id
+                'stream_id' => $stream_id,
+                'status' => 3
             ]);
         }
 
@@ -268,7 +279,10 @@ class streamController extends AppBaseController
             return redirect(route('streams.show',[$stream_id]));
         }
         Flash::success('berhasil dihapus');
-        $inovasi->delete();
+        $inovasi->update([
+            'stream_id' => null,
+            'status' => 2
+        ]);
         return redirect(route('streams.show',[$stream_id]));
 
 

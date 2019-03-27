@@ -71,8 +71,6 @@
     <div class="down-arrow floating-arrow"><a href="#"><i class="fa fa-angle-down"></i></a></div>
 </section>
 
-<!--<iframe src="tes_file.pdf#toolbar=0" width="800px"  height="1000px" style="pointer-events: none;"></iframe>-->
-
 <section class="features-extra section-padding" id="assets">
     <div class="container">
         <div class="row">
@@ -201,6 +199,18 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+</section>
+
+
+<section class="features-extra section-padding" id="assets">
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h3 >Silakan Daftarkan Inovasi Disini</h3 >
+                <a class="btn btn-fill btn-accent btn-small" href="{{route("tims.index")}}"><i class="fa fa-lightbulb-o"></i> Daftar Inovasi</a>
+            </div>
         </div>
     </div>
 </section>

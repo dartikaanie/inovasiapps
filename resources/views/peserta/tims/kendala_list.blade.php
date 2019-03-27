@@ -12,8 +12,9 @@
     </thead>
     <tbody>
     @foreach($kendalas as $kendala)
+
         <tr>
-            <td>{{$kendala->inovasis->judul}}</td>
+            <td>{{$kendala->judul}}</td>
             <td>{{$kendala->isi_kendala}}</td>
             <td>
                 {!! Form::open(['route' => ['kendalas.destroy', $kendala->kendala_id], 'method' => 'delete']) !!}

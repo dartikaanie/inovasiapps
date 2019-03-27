@@ -17,15 +17,25 @@ use PhpParser\Builder;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Yajra\Datatables\Datatables;
+use Auth;
 
 class kriteriaController extends AppBaseController
 {
     /** @var  kriteriaRepository */
     private $kriteriaRepository;
 
-    public function __construct(kriteriaRepository $kriteriaRepo)
+    public function __construct()
     {
-        $this->kriteriaRepository = $kriteriaRepo;
+        $this->middleware(function ($request, $next) {
+
+            $this->user = Auth::user();
+
+            if($this->user['role_id'] != 0 || Auth::user() === null){
+                return redirect()->back();
+            }
+
+            return $next($request);
+        });
     }
 
     /**

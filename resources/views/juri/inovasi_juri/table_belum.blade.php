@@ -10,8 +10,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach($inovasis as $inovasi)
-        @if($inovasi->status_penilaian == 0)
+    @foreach($inovBelum as $inovasi)
             <tr>
                 <td>{{date_format(date_create($inovasi->created_at), 'd-m-Y')}}</td>
                 <td>{!! $inovasi->TimInovasi->nama_tim !!}</td>
@@ -25,10 +24,10 @@
                 <td>
                     <div class='btn-group'>
                         <a href="{!! route('inovasiJuris.show', [$inovasi->inovasi_id]) !!}" class='btn btn-default'><i class="glyphicon glyphicon-eye-open"></i> Nilai</a>
+                        <a href="{!! route('showNilaiInovasiJuri', [$inovasi->inovasi_id]) !!}" class='btn btn-primary'><i class="glyphicon glyphicon-check"></i> Juri lain</a>
                     </div>
                 </td>
             </tr>
-        @endif
     @endforeach
     </tbody>
 </table>

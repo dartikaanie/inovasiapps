@@ -78,24 +78,31 @@
                             </tr>
 
                             <tr>
-                                <td>Status Implementasi</td>
-                                <td>: @if($inovasi->status_implementasi == 0 )
-                                    <label class="label label-danger">belum terimplementasi</label>
+                                <td>Status </td>
+                                <td>: @if($inovasi->status == 0 )
+                                        <label class="label label-danger">Belum Terimplementasi</label>
+                                    @elseif($inovasi->status == 1 )
+                                        <label class="label label-warning">Terimplementasi</label>
+                                    @elseif($inovasi->status == 2 )
+                                        <label class="label label-success">Terregistrasi</label>
+                                    @elseif($inovasi->status == 3 )
+                                        <label class="label label-success">Proses Penilaian</label>
                                     @else
-                                    <label class="label label-success">sudah terimplementasi</label>
+                                        <label class="label label-success">Selesai</label>
                                     @endif
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Status Registrasi</td>
-                                <td>: @if($inovasi->status_registrasi == 1 )
-                                        <label class="label label-warning">proses verifikasi admin</label>
-                                    @elseif($inovasi->status_registrasi == 2 )
-                                        <label class="label label-success">Masuk Tahap Penilaian</label>
-                                          @else
-                                        <label class="label label-danger">Belum Teregistrasi</label>
-                                    @endif</td>
-                            </tr>
+                            @if($inovasi->status==2)
+                                <tr>
+                                    <td>Stream</td>
+                                    <td>: @if($inovasi->stream_id == null)
+                                              <label class="label label-danger">Belum Gabung Stram mana pun</label>
+                                              @else
+                                              <label>{{$inovasi->nama_stream}}</label>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endif
                         </table>
                     </div>
                 </div>
@@ -105,15 +112,14 @@
                 <div class="box box-primary">
                     <div class="box-body box-profile">
                         <h5>Aksi Data Inovasi</h5>
-                        @if($inovasi->status_implementasi == 1)
-                            @if($inovasi->status_registrasi != 2)
+                        @if($inovasi->status == 1)
                                 {!! Form::model($inovasi, ['route' => ['listInovasis.update', $inovasi->inovasi_id], 'method' => 'patch']) !!}
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group col-sm-12">
-                                            {!! Form::label('Status Registrasi', 'Status Registrasi :') !!}
-                                            {!! Form::select('status_registrasi', ['0' => 'belum terverifikasi', '2' => 'registrasi terverifikasi'], null, ['class' => 'form-control']) !!}
+                                            {!! Form::label('Status', 'Status Registrasi :') !!}
+                                            {!! Form::select('status', ['0' => 'belum terverifikasi', '2' => 'registrasi terverifikasi'], null, ['class' => 'form-control']) !!}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -122,8 +128,7 @@
                                     </div>
                                 </div>
                                 {!! Form::close() !!}
-                            @endif
-                        @else
+                        @elseif($inovasi->status == 0)
                             Inovasi Masih belum Terimplementasi
                         @endif
                         <a class="btn btn-primary pull-right" href="{{route('listInovasis.index')}}">Selesai</a>

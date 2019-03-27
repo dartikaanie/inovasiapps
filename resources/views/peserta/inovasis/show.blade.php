@@ -76,30 +76,26 @@
                             </tr>
 
                             <tr>
-                                <td>Status Implementasi</td>
-                                <td>: @if($inovasi->status_implementasi == 0 )
-                                    <label class="label label-danger">belum terimplementasi</label>
+                                <td>Status</td>
+                                <td>: @if($inovasi->status == 0 )
+                                        <label class="label label-danger">Belum Terimplementasi</label>
+                                    @elseif($inovasi->status == 1 )
+                                        <label class="label label-warning">Terimplementasi</label>
+                                        <label class="label label-warning">Proses Verifikasi oleh admin</label>
+                                    @elseif($inovasi->status == 2 )
+                                        <label class="label label-success">Terregistrasi</label>
+                                    @elseif($inovasi->status == 3 )
+                                        <label class="label label-success">Proses Penilaian</label>
                                     @else
-                                    <label class="label label-success">sudah terimplementasi</label>
+                                        <label class="label label-success">Selesai</label>
                                     @endif
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Status Registrasi</td>
-                                <td>: @if($inovasi->status_registrasi == 1 )
-                                        <label class="label label-warning">proses verifikasi admin</label>
-                                    @elseif($inovasi->status_registrasi == 2 )
-                                        <label class="label label-success">Masuk Tahap Penilaian</label>
-                                          @else
-                                        <label class="label label-danger">Belum Teregistrasi</label>
-                                    @endif</td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
-            @if($inovasi->status_registrasi == 0)
-                @if($inovasi->status_implementasi == 0)
+            @if($inovasi->status == 0)
                     <div class="col-md-6">
                         <!-- Dokumen Preview -->
                         <div class="box box-primary">
@@ -107,8 +103,8 @@
                             {!! Form::model($inovasi, ['route' => ['editStatus', $inovasi->inovasi_id], 'method' => 'patch']) !!}
                                 <!-- Status Implementasi Field -->
                                 <div class="form-group col-sm-12">
-                                    {!! Form::label('status_implementasi', 'Status Implementasi:') !!}
-                                    {!! Form::select('status_implementasi', ['0' => 'belum Terimplementasi','1' => 'sudah terimplementasi'],null, ['class' => 'form-control']) !!}
+                                    {!! Form::label('status', 'Status Implementasi:') !!}
+                                    {!! Form::select('status', ['0' => 'belum Terimplementasi','1' => 'sudah terimplementasi'],null, ['class' => 'form-control']) !!}
                                     <small class="list-group-item-danger">Jika inovasi berstatus terimplementasi, Anda tidak dapat mengubah(edit) inovasi</small>
                                 </div>
                                 <div class="col-md-12">
@@ -119,7 +115,6 @@
                             </div>
                         </div>
                     </div>
-                @endif
             @endif
             <div class="col-md-6">
                 <!-- Dokumen Preview -->
@@ -127,15 +122,13 @@
                     <div class="box-body box-profile">
                         <h5>Aksi Data Inovasi</h5>
 
-                        @if($inovasi->status_registrasi == 0)
-                            @if($inovasi->status_implementasi == 0)
+                        @if($inovasi->status == 0)
                                 <a class="btn btn-warning" href="{!! route('inovasis.edit', [$inovasi->inovasi_id]) !!}">Ubah</a>
-                            @endif
                         @endif
                         <a class="btn btn-primary" href="{{route('tims.show',[$inovasi->tim_id])}}">Selesai</a>
 
                     </div>
-                    @if($inovasi->status_implementasi == 0)
+                    @if($inovasi->status == 0)
                     <div class="box-body box-profile">
                         <h5>Apakah ada kendala ?</h5>
                         <p>Sampaikan kendala anda kepada admin.</p>
@@ -151,8 +144,9 @@
                 <!-- Dokumen Preview -->
                 <div class="box box-primary">
                     <div class="box-body box-profile">
+
                         @if($inovasi->dokumen_tim)
-                        <iframe src="{{asset('/dokumen_tim/'.$inovasi->dokumen_tim)}}#toolbar=0" width="100%"  height="800px" scrolling="auto" ></iframe>
+                        <iframe src="{{asset('dokumen_tim/'.$inovasi->dokumen_tim)}}#toolbar=0" width="100%"  height="800px" scrolling="auto" ></iframe>
                         @else
                         Dokumen Inovasi belum diupload
                         @endif

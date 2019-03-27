@@ -11,15 +11,26 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Auth;
+
 
 class subKriteriaController extends AppBaseController
 {
     /** @var  subKriteriaRepository */
     private $subKriteriaRepository;
 
-    public function __construct(subKriteriaRepository $subKriteriaRepo)
+    public function __construct()
     {
-        $this->subKriteriaRepository = $subKriteriaRepo;
+        $this->middleware(function ($request, $next) {
+
+            $this->user = Auth::user();
+
+            if($this->user['role_id'] != 0 || Auth::user() === null){
+                return redirect()->back();
+            }
+
+            return $next($request);
+        });
     }
 
     /**

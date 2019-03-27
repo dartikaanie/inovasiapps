@@ -18,9 +18,18 @@ class kategoriController extends AppBaseController
     /** @var  kategoriRepository */
     private $kategoriRepository;
 
-    public function __construct(kategoriRepository $kategoriRepo)
+    public function __construct()
     {
-        $this->kategoriRepository = $kategoriRepo;
+        $this->middleware(function ($request, $next) {
+
+            $this->user = Auth::user();
+
+            if($this->user['role_id'] != 0 || Auth::user() === null){
+                return redirect()->back();
+            }
+
+            return $next($request);
+        });
     }
 
     /**

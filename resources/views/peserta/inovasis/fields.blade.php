@@ -18,6 +18,7 @@
         {!! Form::label('sub_kategori_id', 'Sub Kategori Id:') !!}
         {!! Form::select('sub_kategori_id', $sub, null, ['class' => 'form-control']) !!}
     </div>
+
 {!! Form::hidden('tim_id', $tim->tim_id, ['class' => 'form-control']) !!}
     <!-- Submit Field -->
     <div class="form-group col-sm-12">

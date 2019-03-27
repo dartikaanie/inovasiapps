@@ -27,7 +27,7 @@ class tim extends Model
 
 
     public $fillable = [
-        'nama',
+        'nama_tim',
         'departemen',
         'nip'
     ];
@@ -49,7 +49,7 @@ class tim extends Model
      * @var array
      */
     public static $rules = [
-        'nama' => 'required',
+        'nama_tim' => 'required',
         'departemen' => 'required',
         'nip' => 'required'
     ];

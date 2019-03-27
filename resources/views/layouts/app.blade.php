@@ -18,34 +18,43 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/AdminLTE.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/skins/_all-skins.min.css">
-
+    <link rel="stylesheet" href="{{asset("css/AdminLTE.css")}}">
+    <link rel="stylesheet" href="{{asset("css/_all-skins.css")}}">
 
     <!-- iCheck -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/_all.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
-    <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/select2.css')}}">
+
+
+
+    <link rel="stylesheet" href="{{asset('js/datatables.net-bs/css/dataTables.bootstrap.css')}}">
 
     @yield('css')
 </head>
 
-<body class="skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 @if (!Auth::guest())
     <div class="wrapper">
         <!-- Main Header -->
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="#" class="logo">
-                <b>Inovasi</b>
+            <a href="index2.html" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>SP</b>IE</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Inovasi</b>SP</span>
             </a>
 
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
+
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
@@ -100,7 +109,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © 2016 <a href="#">Company</a>.</strong> All rights reserved.
+            <strong>Copyright © 2019 <a href="#">Semen Padang</a>.</strong>Made With <i class="fa fa-heart pulse2"></i> .
         </footer>
 
     </div>
@@ -162,8 +171,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
     <!-- DataTables -->
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+
+
+<!-- DataTables -->
+<script src=".{{asset('js/datatables.net/js/jquery.dataTables.js')}}"></script>
+<script src="{{asset('js/datatables.net-bs/js/dataTables.bootstrap.js')}}"></script>
+
 <!-- Select2 -->
-<script src="{{asset('js/select2.full.min.js')}}"></script>
+<script src="{{asset('js/select2.full.js')}}"></script>
+
+
+<script>
+    $(function () {
+        $('#example1').DataTable()
+        $('#example2').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false
+        })
+    })
+</script>
+
+<script>
+    $(function () {
+        $('.select2').select2()
+    });
+</script>
+
 
     @yield('scripts')
 </body>

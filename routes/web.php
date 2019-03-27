@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('kriterias', 'admin\kriteriaController');
     Route::resource('kriteraiaKategoriPenilaians', 'kriteraiaKategoriPenilaianController');
     Route::resource('listInovasis', 'admin\listInovasiController');
+    Route::get('listNilaiInovasis', 'admin\listInovasiController@nilai')->name('listNilaiInovasi');
+    Route::get('showNilaiInovasis/{inovasi_id}', 'admin\listInovasiController@showNilai')->name('showNilaiInovasi');
     Route::resource('streams', 'admin\streamController');
     Route::get('streams/delete/{id}', 'admin\streamController@delete')->name('deleteStream');
 
@@ -58,6 +60,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('juris', 'admin\juriController');
     Route::get('juris/statusJuri/{nip}','admin\juriController@ubahStatus')->name('statusJuri');
+    Route::get('dashboard','admin\dashboardController@index')->name('dashboard');
+
+    Route::get('laporan','admin\laporanController@bulan')->name('laporanBulan');
+    Route::get('laporan/semua','admin\laporanController@semua')->name('laporanSemua');
+    Route::get('laporan/tahun','admin\laporanController@tahun')->name('laporanTahun');
+    Route::get('laporan/tigaBulan','admin\laporanController@tigaBulan')->name('laporan3Bulan');
+
+    Route::get('exportInovasi',  'laporanController@bulanExportExcel')->name('exportInovasi');
+
 
 
 //-------------------------peserta--------------------------------------------
@@ -76,12 +87,15 @@ Route::resource('inovasiPesertas', 'peserta\inovasiPesertaController');
 
 Route::get('tambahInovasi/{tim_tid}','peserta\inovasiController@create');
 
+
 //-------------------------------------JURI-----------------------------------------
 
     Route::resource('penilaianTims', 'juri\penilaianTimController');
     Route::resource('inovasiJuris', 'juri\inovasiJuriController');
     Route::get('showPenilaian/{id}', 'juri\inovasiJuriController@showPenilaian')->name('showPenilaian');
     Route::get('kunciNilai/{inovasi_id}', 'juri\penilaianTimController@kunciNilai')->name('kunciNilai');
+    Route::get('showNilaiInovasiJuri/{inovasi_id}', 'juri\penilaianTimController@showNilai')->name('showNilaiInovasiJuri');
+
 
 //---------------------------------------------------------------------------------
 

@@ -4,6 +4,11 @@
 {{--//ADMIN--}}
 @if(Auth::user()->role_id == 0)
 
+    <li>
+        <a href="{!! route('dashboard') !!}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+    </li>
+
+
     <li class="{{ Request::is('kategoris*') ? 'active' : '' }}">
         <a href="{!! route('kategoris.index') !!}"><i class="fa fa-edit"></i><span>Kategoris</span></a>
     </li>
@@ -13,22 +18,59 @@
         <a href="{!! route('kriterias.index') !!}"><i class="fa fa-edit"></i><span>Kriteraia Penilaians</span></a>
     </li>
 
-    <li class="{{ Request::is('list_inovasi*') ? 'active' : '' }}">
-        <a href="{!! route('listInovasis.index') !!}"><i class="fa fa-edit"></i><span>List Inovasi</span></a>
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-star"></i>
+            <span>Inovasi</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li>
+                <a href="{!! route('listInovasis.index') !!}"><i class="fa  fa-lightbulb-o"></i><span>List Inovasi</span></a>
+            </li>
+            <li>
+                <a href="{!! route('listNilaiInovasi') !!}"><i class="fa   fa-check-square"></i><span>List Nilai Inovasi</span></a>
+            </li>
+            <li>
+                <a href="{!! route('kendalas.index') !!}"><i class="fa  fa-envelope-o"></i><span>Kendala Tim</span></a>
+            </li>
+        </ul>
     </li>
 
-    <li class="{{ Request::is('kendalas*') ? 'active' : '' }}">
-        <a href="{!! route('kendalas.index') !!}"><i class="fa fa-edit"></i><span>Kendalas</span></a>
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa  fa-edit"></i> <span>Manajemen Penilaian</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li class="{{ Request::is('juris*') ? 'active' : '' }}">
+                <a href="{!! route('juris.index') !!}"><i class="fa   fa-user"></i><span>Kelola Juri</span></a>
+            </li>
+            <li class="{{ Request::is('streams*') ? 'active' : '' }}">
+                <a href="{!! route('streams.index') !!}"><i class="fa  fa-users"></i><span>Kelola Stream</span></a>
+            </li>
+        </ul>
     </li>
 
-    <li class="{{ Request::is('streams*') ? 'active' : '' }}">
-        <a href="{!! route('streams.index') !!}"><i class="fa fa-edit"></i><span>Streams</span></a>
-    </li>
-
-
-    <li class="{{ Request::is('juris*') ? 'active' : '' }}">
-        <a href="{!! route('juris.index') !!}"><i class="fa fa-edit"></i><span>Juris</span></a>
-    </li>
+    {{--<li class="treeview">--}}
+        {{--<a href="#">--}}
+            {{--<i class="fa fa-file"></i> <span>Laporan</span>--}}
+            {{--<span class="pull-right-container">--}}
+              {{--<i class="fa fa-angle-left pull-right"></i>--}}
+            {{--</span>--}}
+        {{--</a>--}}
+        {{--<ul class="treeview-menu">--}}
+            {{--<li>--}}
+                {{--<a href="{!! route('laporanBulan') !!}"><i class="fa   fa-user"></i><span>Per Bulan</span></a>--}}
+            {{--</li>--}}
+        {{--</ul>--}}
+    {{--</li>--}}
 
 
 
@@ -44,13 +86,12 @@
     </li>
 
     <?php
-        $juri = \App\Models\juri::join('users','users.nip','=','juris.nip')->where('users.nip', Auth::user()->nip);
+        $juri = \App\Models\juri::join('users','users.nip','=','juris.nip')
+                                ->where('users.nip', Auth::user()->nip)
+                                ->where('juris.status_aktif',1)->first();
     ?>
         {{----------------------------//JURI-------------------------------------------------------}}
         @if($juri)
-        <li class="{{ Request::is('penilaianTims*') ? 'active' : '' }}">
-            <a href="{!! route('penilaianTims.index') !!}"><i class="fa fa-edit"></i><span>Penilaian Tims</span></a>
-        </li>
         <li class="{{ Request::is('inovasiJuri*') ? 'active' : '' }}">
             <a href="{!! route('inovasiJuris.index') !!}"><i class="fa fa-edit"></i><span>Inovasi Tims</span></a>
         </li>

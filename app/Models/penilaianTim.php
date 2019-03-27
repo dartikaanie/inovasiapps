@@ -23,15 +23,14 @@ class penilaianTim extends Model
 {
     use SoftDeletes;
 
-    public $table = 'penilaian_tims';
+    public $table = 'detail_penilaian';
     
 
     protected $dates = ['deleted_at'];
 
 
     public $fillable = [
-        'inovasi_id',
-        'nip_juri',
+        'penilaian_inovasi_id',
         'krikat_id',
         'nilai',
         'saran'

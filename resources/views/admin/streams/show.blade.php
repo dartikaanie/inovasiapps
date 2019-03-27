@@ -41,13 +41,14 @@
                                 INOVASI</h3>
                         </section>
 
-                        <table class="table table-hover">
+                        <table class="table table-striped">
                             @foreach($streamInovasis as $inovasi)
                                 <tr>
-                                    <td><i class="glyphicon glyphicon-play">&nbsp;</i> {{$inovasi->timInovasi->nama_tim}}</td>
-                                    <td>{{$inovasi->judul}}</td>
+                                    <td><i class="glyphicon glyphicon-users">&nbsp;</i> {{$inovasi->timInovasi->nama_tim}}</td>
+                                    <td> <a href="{{route('detailStreamInovasi',[$inovasi->inovasi_id, $stream->stream_id])}}" >{{$inovasi->judul}} </a>
+                                        </td>
+                                    <td>{{$inovasi->subKategoris->nama_sub_kategori}}</td>
                                     <td>
-                                        <a href="{{route('detailStreamInovasi',[$inovasi->inovasi_id, $stream->stream_id])}}" class="btn btn-info btn-xs" ><i class="glyphicon glyphicon-eye-open"></i> </a>
                                         <a href="{{route('delStreamInovasi',[$inovasi->inovasi_id, $stream->stream_id])}}" class="btn btn-danger btn-xs" onclick="return confirm('Kamu yakin menghapus inovasi ini?')"><i class="glyphicon glyphicon-trash"></i> </a>
                                     </td>
                                 </tr>

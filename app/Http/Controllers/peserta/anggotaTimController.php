@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Auth;
 
 class anggotaTimController extends AppBaseController
 {
@@ -21,7 +22,15 @@ class anggotaTimController extends AppBaseController
 
     public function __construct()
     {
+        $this->middleware(function ($request, $next) {
 
+            $this->user = Auth::user();
+            if($this->user['role_id'] != 1 ){
+                return redirect()->back();
+            }
+
+            return $next($request);
+        });
     }
 
     /**
@@ -69,19 +78,27 @@ class anggotaTimController extends AppBaseController
     public function store(Request $request)
     {
         $input = $request->all();
+       $jum =$input['jum'];
+        while( $jum>0) {
+            $at = anggotaTim::where('tim_id', $input['tim_id'])->where('nip', $input['nip'][$jum])->first();
 
-        $at = anggotaTim::where('tim_id',$input['tim_id'])->where('nip',$input['nip'])->first();
-        $statusKetua = anggotaTim::where('tim_id',$input['tim_id'])->where('status_anggota_id',1)->first();
-        if($statusKetua){
-            Flash::error('Ketua Tim Telah ada');
-        }else{
-            if($at){
-                Flash::error('Anggota Tim Telah terdaftar');
+            if($at!=null){
+                Flash::error( $at->Users->nama.'Telah terdaftar');
             }else{
-                anggotaTim::create($input);
+                $statusKetua = anggotaTim::where('tim_id', $input['tim_id'])->where('status_anggota_id', 1)->first();
+                if( $input['status_anggota_id'][$jum] == 1){
+                    Flash::error('Ketua Tim Telah ada');
+                }else{
+                    anggotaTim::create([
+                            'nip' => $input['nip'][$jum],
+                            'tim_id' => $input['tim_id'],
+                            'status_anggota_id' => $input['status_anggota_id'][$jum]
+                        ]
+                    );
+                }
             }
+            $jum--;
         }
-
 
 
 
@@ -135,19 +152,33 @@ class anggotaTimController extends AppBaseController
      */
     public function update($id, UpdateanggitaTimRequest $request)
     {
-//        $anggitaTim = $this->anggitaTimRepository->findWithoutFail($id);
 
-        if (empty($anggitaTim)) {
-            Flash::error('Anggita Tim not found');
+        $input = $request->all();
+        $jum =$input['jum'];
 
-            return redirect(route('anggitaTims.index'));
+        while( $jum>0) {
+            $at = anggotaTim::where('tim_id',$id)->where('nip', $input['nip'][$jum])->first();
+            if($at==null){
+                Flash::error( 'tidak terdaftar');
+            }else{
+                $statusKetua = anggotaTim::where('tim_id', $id)->where('status_anggota_id', 1)->first();
+                if( $input['status_anggota_id'][$jum] == 1){
+                    Flash::error('Ketua Tim Telah ada');
+                }else{
+                    $at->update([
+                            'nip' => $input['nip'][$jum],
+                            'tim_id' => $input['tim_id'],
+                            'status_anggota_id' => $input['status_anggota_id'][$jum]
+                        ]
+                    );
+                }
+            }
+            $jum--;
         }
 
-        $anggitaTim = $this->anggitaTimRepository->update($request->all(), $id);
 
-        Flash::success('Anggita Tim updated successfully.');
 
-        return redirect(route('anggitaTims.index'));
+        return redirect(route('tims.show',[$input['tim_id']]));
     }
 
     /**

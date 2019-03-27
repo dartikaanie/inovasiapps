@@ -14,15 +14,24 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Auth;
 
 class inovasiController extends AppBaseController
 {
     /** @var  inovasiRepository */
     private $inovasiRepository;
 
-    public function __construct(inovasiRepository $inovasiRepo)
+    public function __construct()
     {
-        $this->inovasiRepository = $inovasiRepo;
+        $this->middleware(function ($request, $next) {
+
+            $this->user = Auth::user();
+            if($this->user['role_id'] != 1 ){
+                return redirect()->back();
+            }
+
+            return $next($request);
+        });
     }
 
     /**
@@ -79,7 +88,7 @@ class inovasiController extends AppBaseController
      */
     public function show($id)
     {
-        $inovasi = $this->inovasiRepository->findWithoutFail($id);
+        $inovasi = inovasi::find($id);
 
         if (empty($inovasi)) {
             Flash::error('Inovasi not found');
@@ -99,7 +108,7 @@ class inovasiController extends AppBaseController
      */
     public function edit($id)
     {
-        $inovasi = $this->inovasiRepository->findWithoutFail($id);
+        $inovasi = inovasi::find($id);
         $anggota = anggotaTim::where('tim_id', $inovasi->tim_id)->join('users','users.nip','=','anggota_tims.nip')->pluck('users.nama','users.nip');
 
         if (empty($inovasi)) {
@@ -124,7 +133,7 @@ class inovasiController extends AppBaseController
     public function update($id, UpdateinovasiRequest $request)
     {
 
-        $inovasi = $this->inovasiRepository->findWithoutFail($id);
+        $inovasi = inovasi::find($id);
 
         $input = $request->all();
         if($request->hasFile('dokumen_tim')) {
@@ -213,12 +222,6 @@ class inovasiController extends AppBaseController
            ($inovasi->revenue != null) &&
            ($inovasi->dokumen_tim != null) &&
            ($inovasi->judul != null)) {
-
-           if($update['status_implementasi']){
-               if($update['status_implementasi'] == 1){
-                   $update['status_registrasi'] =1 ;
-               }
-           }
 
            $inovasi->update($update);
            Flash::success('status implementasi inovasi berhasil diubah');

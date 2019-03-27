@@ -17,7 +17,7 @@
             <div class="box-body">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"> <a href="#belum" data-toggle="tab"> <span class="label label-danger">{{count($inovasi_belum)}}</span> Belum Dinilai</a>   </li>
+                        <li class="active"> <a href="#belum" data-toggle="tab"> <span class="label label-danger">{{count($inovBelum)}}</span> Belum Dinilai</a>   </li>
                         <li><a href="#sudah" data-toggle="tab">Done</a></li>
                     </ul>
                     <div class="tab-content">

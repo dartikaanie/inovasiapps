@@ -55,7 +55,8 @@ class inovasi extends Model
         'dokumen_pendukung',
         'revenue',
         'stream_id',
-        'status_penilaian'
+        'status_penilaian',
+        'status'
 
     ];
 
@@ -114,5 +115,10 @@ class inovasi extends Model
     public function subKategoris()
     {
         return $this->belongsTo(subKategori::class, 'sub_kategori_id', 'sub_kategori_id');
+    }
+
+    public function kendalas()
+    {
+        return $this->belongsTo(kendala::class, 'inovasi_id', 'inovasi_id');
     }
 }

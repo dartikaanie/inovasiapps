@@ -24,9 +24,18 @@ class timController extends AppBaseController
     /** @var  timRepository */
     private $timRepository;
 
-    public function __construct(timRepository $timRepo)
+    public function __construct()
     {
-        $this->timRepository = $timRepo;
+        $this->middleware(function ($request, $next) {
+
+            $this->user = Auth::user();
+
+            if($this->user['role_id'] != 1 ){
+                return redirect()->back();
+            }
+
+            return $next($request);
+        });
     }
 
     /**
@@ -37,9 +46,7 @@ class timController extends AppBaseController
      */
     public function index(Request $request)
     {
-//        $tims = DB::select("select * from  tims join anggota_tims on tims.tim_id = anggota_tims.tim_id join users on users.nip = anggota_tims.nip WHERE users.nip = ?",[Auth::user()->nip]);
-//        $anggota_tims = anggotaTim::where('nip', Auth::user()->nip);
-        $tims = tim::join('anggota_tims','anggota_tims.tim_id','=','tims.tim_id')->join('users','users.nip','=','anggota_tims.nip')->where('anggota_tims.nip', Auth::user()->nip)->get();
+       $tims = tim::join('anggota_tims','anggota_tims.tim_id','=','tims.tim_id')->join('users','users.nip','=','anggota_tims.nip')->where('anggota_tims.nip', Auth::user()->nip)->get();
         $status = statusAnggota::pluck('status_anggota','status_anggota_id');
         $peserta = User::all();
 
@@ -67,8 +74,7 @@ class timController extends AppBaseController
     public function store(CreatetimRequest $request)
     {
         $input = $request->all();
-
-        $tim = $this->timRepository->create($input);
+        tim::create($input);
         $timL = tim::all()->last();
 
         anggotaTim::create([
@@ -91,7 +97,7 @@ class timController extends AppBaseController
      */
     public function show($id)
     {
-        $tim = $this->timRepository->findWithoutFail($id);
+        $tim = tim::find($id);
         $inovasis = inovasi::where('tim_id', $tim->tim_id)->get();
         $stat_ketua = statusAnggota::where('status_anggota', 'Ketua')->first();
         $stat_fasilitator = statusAnggota::where('status_anggota', 'Fasilitator')->first();
@@ -100,6 +106,8 @@ class timController extends AppBaseController
         $anggota = anggotaTim::where('tim_id', $tim->tim_id)->get();
         $kendalas = kendala::join('inovasis','inovasis.inovasi_id','=','kendalas.inovasi_id')
                             ->join('tims','tims.tim_id','=','inovasis.tim_id')
+                            ->where('tims.tim_id',$tim->tim_id)
+                                ->where('inovasis.deleted_at',null)
                             ->get();
 
         if (empty($tim)) {

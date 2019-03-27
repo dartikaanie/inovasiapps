@@ -10,8 +10,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach($inovasis as $inovasi)
-        @if($inovasi->status_penilaian == 1)
+    @foreach($inovSudah as $inovasi)
             <tr>
                 <td>{{date_format(date_create($inovasi->created_at), 'd-m-Y')}}</td>
                 <td>{!! $inovasi->TimInovasi->nama_tim !!}</td>
@@ -26,12 +25,12 @@
                     {!! Form::open(['route' => ['listInovasis.destroy', $inovasi->inovasi_id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
                         <a href="{!! route('inovasiJuris.show', [$inovasi->inovasi_id]) !!}" class='btn btn-default'><i class="glyphicon glyphicon-eye-open"></i> Nilai</a>
+                        <a href="{!! route('showNilaiInovasiJuri', [$inovasi->inovasi_id]) !!}" class='btn btn-primary'><i class="glyphicon glyphicon-check"></i> Juri lain</a>
                         {{--{!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}--}}
                     </div>
                     {!! Form::close() !!}
                 </td>
             </tr>
-        @endif
     @endforeach
     </tbody>
 </table>

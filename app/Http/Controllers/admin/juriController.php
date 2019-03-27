@@ -14,15 +14,26 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Auth;
 
 class juriController extends AppBaseController
 {
     /** @var  juriRepository */
     private $juriRepository;
 
-    public function __construct(juriRepository $juriRepo)
+    public function __construct()
     {
-        $this->juriRepository = $juriRepo;
+        $this->middleware(function ($request, $next) {
+
+            $this->user = Auth::user();
+
+            if($this->user['role_id'] != 0 || Auth::user() === null){
+                return redirect()->back();
+            }
+
+            return $next($request);
+        });
+
     }
 
     /**
@@ -46,7 +57,11 @@ class juriController extends AppBaseController
      */
     public function create()
     {
-        $user = User::pluck('nama','nip');
+        $juris = juri::all();
+        foreach ($juris as $juri) {
+            $data[] = $juri->nip;
+        }
+        $user = User::where('role_id',1)->whereNotIn('nip', $data)->get();
         $kategoris = kategori::pluck('nama_kategori','kategori_id');
         return view('admin.juris.create', compact('user','kategoris'));
     }
@@ -62,8 +77,7 @@ class juriController extends AppBaseController
     {
         $input = $request->all();
 
-
-        $juri = $this->juriRepository->create($input);
+        juri::create($input);
 
         Flash::success('Juri saved successfully.');
 
@@ -99,7 +113,7 @@ class juriController extends AppBaseController
      */
     public function edit($id)
     {
-        $juri = $this->juriRepository->findWithoutFail($id);
+        $juri = juri::find($id);
         $user = User::pluck('nama','nip');
         $kategoris = kategori::pluck('nama_kategori','kategori_id');
 
@@ -146,7 +160,7 @@ class juriController extends AppBaseController
      */
     public function destroy($id)
     {
-        $juri = $this->juriRepository->findWithoutFail($id);
+        $juri = juri::find($id);
 
         if (empty($juri)) {
             Flash::error('Juri not found');
@@ -154,7 +168,7 @@ class juriController extends AppBaseController
             return redirect(route('juris.index'));
         }
 
-        $this->juriRepository->delete($id);
+       $juri->delete();
 
         Flash::success('Juri deleted successfully.');
 
