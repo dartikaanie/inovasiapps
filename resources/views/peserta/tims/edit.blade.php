@@ -11,9 +11,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($tim, ['route' => ['tims.update', $tim->id], 'method' => 'patch']) !!}
+                   {!! Form::model($tim, ['route' => ['tims.update', $tim->tim_id], 'method' => 'patch']) !!}
 
-                        @include('tims.fields')
+                        @include('peserta.tims.fields')
 
                    {!! Form::close() !!}
                </div>

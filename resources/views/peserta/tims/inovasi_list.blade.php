@@ -8,6 +8,7 @@
         <th>Tanggal Submit</th>
         <th>Judul</th>
         <th>Kategori</th>
+        <th>Inisiator</th>
         <th>Status Registrasi</th>
         <th colspan="3">Action</th>
     </tr>
@@ -22,6 +23,10 @@
                     @endif
             </td>
             <td>{!! $inovasi->subKategoris->nama_sub_kategori!!}</td>
+            <td>@if($inovasi->nip_inisiator != NULL)
+                    {!! $inovasi->users->nama!!}
+                @endif
+            </td>
             <td>
                 @if($inovasi->status == 0 )
                     <label class="label label-danger">Belum Terimplementasi</label>
@@ -38,13 +43,13 @@
                 {!! Form::open(['route' => ['inovasis.destroy', $inovasi->inovasi_id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     {!! Form::hidden('tim_id', $tim->tim_id) !!}
-                    <a href="{!! route('inovasis.show', [$inovasi->inovasi_id]) !!}" class='btn btn-default'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    @if($inovasi->status_registrasi == 0 )
-                        <a href="{!! route('inovasis.edit', [$inovasi->inovasi_id]) !!}" class='btn btn-default'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! route('inovasis.show', [$inovasi->inovasi_id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    @if($inovasi->statusi == 0 )
+                        <a href="{!! route('inovasis.edit', [$inovasi->inovasi_id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     @else
-                        <a class='btn btn-default' disabled="yes"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a class='btn btn-default btn-xs' disabled="yes"><i class="glyphicon glyphicon-edit btn-xs"></i></a>
                     @endif
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}
             </td>

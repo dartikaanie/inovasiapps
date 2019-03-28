@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th>Nama Tim</th>
-            <th>Departemen</th>
             <th>Anggota</th>
             <th>Tanggal tim dibentuk</th>
         </tr>
@@ -10,8 +9,8 @@
     <tbody>
     @foreach($tims as $tim)
         <tr>
+
             <td>{!! $tim->nama_tim   !!}</td>
-            <td>{!! $tim->departemen !!}</td>
             <td>
                 <?php $anggota = \App\Models\anggotaTim::where('tim_id', $tim->tim_id)->get();?>
                 <ul>

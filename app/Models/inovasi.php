@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -106,7 +107,7 @@ class inovasi extends Model
      **/
     public function users()
     {
-        return $this->hasMany(\App\Models\users::class, ' nip', 'nip_inisiator');
+        return $this->belongsTo(User::class, 'nip_inisiator', 'nip');
     }
 
     /**

@@ -18,7 +18,7 @@
 
                         <h3 class="profile-username text-center">{{$tim->nama_tim}}</h3>
 
-                        <p class="text-muted text-center">{{$tim->departemen}}</p>
+                        <p class="text-muted text-center">{{$tim->departemens}}</p>
 
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
@@ -34,16 +34,17 @@
                                 <b>Anggota</b>
                             </li>
                             @foreach($anggota as $a)
-                            <li class="list-group-item"><a><i class="fa fa-user"></i> {{$a->users->nama}}</a>
+                            <li class="list-group-item"><a><i class="fa fa-user"></i> {{$a->users->nama}}</a> &nbsp
+                                {{--{{$a->statusAnggota->status_anggota}}--}}
                              </li>
                             @endforeach
                         </ul>
-                        <a class="btn btn-warning" href="{{route('anggotaTims.edit', [$tim->tim_id])}}"><i class="fa fa-edit"> </i>   Ubah   </a>
-{{--                        <a class="btn btn-primary" href="{{route('anggotaTims.edit')}}"><i class="fa fa-plus"> </i>   Anggota   </a>--}}
+                        <a class="btn btn-warning btn-xs" href="{{route('tims.edit', [$tim->tim_id])}}"> </i>  Data Tim  </a>
 
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#modalTambah-{{$tim->tim_id}}">
+                        <a class="btn btn-warning btn-xs" href="{{route('anggotaTims.edit', [$tim->tim_id])}}"><i class="fa fa-edit"> </i>  Anggota  </a>
+                       <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalTambah-{{$tim->tim_id}}">
                             <i class="fa fa-plus"> </i>   Anggota   </a>
-                        @include("peserta.tims.modal.modal_tambah")
+                           @include("peserta.tims.modal.modal_tambah")
 
 
                     </div>
@@ -72,19 +73,19 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-12 col-xs-12">
-                            <!-- small box -->
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3>150</h3>
+                        {{--<div class="col-lg-12 col-xs-12">--}}
+                            {{--<!-- small box -->--}}
+                            {{--<div class="small-box bg-green">--}}
+                                {{--<div class="inner">--}}
+                                    {{--<h3>150</h3>--}}
 
-                                    <p>Jumlah Reward</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-star"></i>
-                                </div>
-                            </div>
-                        </div>
+                                    {{--<p>Jumlah Reward</p>--}}
+                                {{--</div>--}}
+                                {{--<div class="icon">--}}
+                                    {{--<i class="ion ion-star"></i>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                     <!-- /.box-body -->
                 </div>

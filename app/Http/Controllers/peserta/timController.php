@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\peserta;
 
+
 use App\Http\Requests\CreatetimRequest;
 use App\Http\Requests\UpdatetimRequest;
 use App\Models\anggotaTim;
+use App\Models\departemen;
 use App\Models\inovasi;
 use App\Models\kendala;
 use App\Models\statusAnggota;
@@ -49,6 +51,7 @@ class timController extends AppBaseController
        $tims = tim::join('anggota_tims','anggota_tims.tim_id','=','tims.tim_id')->join('users','users.nip','=','anggota_tims.nip')->where('anggota_tims.nip', Auth::user()->nip)->get();
         $status = statusAnggota::pluck('status_anggota','status_anggota_id');
         $peserta = User::all();
+
 
         return view('peserta.tims.index', compact('tims', 'peserta','status'));
     }
@@ -128,15 +131,15 @@ class timController extends AppBaseController
      */
     public function edit($id)
     {
-        $tim = $this->timRepository->findWithoutFail($id);
-
+        $tim = tim::find($id);
+        $nip = Auth::user()->nip;
         if (empty($tim)) {
             Flash::error('Tim not found');
 
             return redirect(route('tims.index'));
         }
 
-        return view('tims.edit')->with('tim', $tim);
+        return view('peserta.tims.edit', compact('tim','nip'));
     }
 
     /**
@@ -149,7 +152,7 @@ class timController extends AppBaseController
      */
     public function update($id, UpdatetimRequest $request)
     {
-        $tim = $this->timRepository->findWithoutFail($id);
+        $tim = tim::find($id);
 
         if (empty($tim)) {
             Flash::error('Tim not found');
@@ -157,11 +160,11 @@ class timController extends AppBaseController
             return redirect(route('tims.index'));
         }
 
-        $tim = $this->timRepository->update($request->all(), $id);
+        $tim->update($request->all());
 
         Flash::success('Tim updated successfully.');
 
-        return redirect(route('tims.index'));
+        return redirect(route('tims.show',[$tim->tim_id]));
     }
 
     /**

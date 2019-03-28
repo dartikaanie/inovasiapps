@@ -45,7 +45,8 @@
             {!! csrf_field() !!}
 
             <div class="form-group has-feedback{{ $errors->has('name') ? ' has-error' : '' }}">
-                                                                                                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Full Name">
+
+                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Full Name">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
 
                 @if ($errors->has('name'))
@@ -55,8 +56,8 @@
                 @endif
             </div>
             <div class="form-group has-feedback{{ $errors->has('nip') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="nip" value="{{ old('nip') }}" placeholder="NIP">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                <input type="text" class="form-control" name="nip" value="{{ old('nip') }}" maxlength="9" placeholder="NIP">
+
 
                 @if ($errors->has('nip'))
                     <span class="help-block">
@@ -65,8 +66,11 @@
                 @endif
             </div>
             <div class="form-group has-feedback{{ $errors->has('jekel') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="jekel" value="{{ old('jekel') }}" placeholder="Jenis Kelamin">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                <select name="jekel" class="form-control">
+                    <option disabled>Jenis Kelamain</option>
+                    <option value="0">Laki - laki</option>
+                    <option value="1">Perempuan</option>
+                </select>
 
                 @if ($errors->has('jekel'))
                     <span class="help-block">
@@ -74,20 +78,14 @@
                     </span>
                 @endif
             </div>
-            <div class="form-group has-feedback{{ $errors->has('role_id') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="role_id" value="{{ old('role_id') }}" placeholder="Role">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-
-                @if ($errors->has('role_id'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('role_id') }}</strong>
-                    </span>
-                @endif
-            </div>
 
             <div class="form-group has-feedback{{ $errors->has('unit_biro') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="unit_biro" value="{{ old('unit_biro') }}" placeholder="Unit Biro">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                <select name="unit_biro" class="form-control">
+                    <?php  $units = \App\Models\unitBiro::all(); ?>
+                    @foreach($units as $unit)
+                        <option value="{{$unit->unit_biro_id}}">{{$unit->unit_biro}}</option>
+                     @endforeach
+                </select>
 
                 @if ($errors->has('unit_biro'))
                     <span class="help-block">
@@ -96,16 +94,15 @@
                 @endif
             </div>
 
-            <div class="form-group has-feedback{{ $errors->has('jabatan') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="jabatan" value="{{ old('jabatan') }}" placeholder="Jabatan">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            {{--<div class="form-group has-feedback{{ $errors->has('jabatan') ? ' has-error' : '' }}">--}}
+                {{--<input type="text" class="form-control" name="jabatan" value="{{ old('jabatan') }}" placeholder="Jabatan">--}}
 
-                @if ($errors->has('jabatan'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('jabatan') }}</strong>
-                    </span>
-                @endif
-            </div>
+                {{--@if ($errors->has('jabatan'))--}}
+                    {{--<span class="help-block">--}}
+                        {{--<strong>{{ $errors->first('jabatan') }}</strong>--}}
+                    {{--</span>--}}
+                {{--@endif--}}
+            {{--</div>--}}
 
             <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
@@ -141,13 +138,6 @@
             </div>
 
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> I agree to the <a href="#">terms</a>
-                        </label>
-                    </div>
-                </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
@@ -156,7 +146,7 @@
             </div>
         </form>
 
-        <a href="{{ url('/login') }}" class="text-center">I already have a membership</a>
+        <a href="{{ url('/login') }}" class="text-center">Sudah memiliki akun</a>
     </div>
     <!-- /.form-box -->
 </div>

@@ -66,9 +66,8 @@ class RegisterController extends Controller
             'nip' => $data['nip'],
             'jekel' => $data['jekel'],
             'unit_biro' => $data['unit_biro'],
-            'jabatan' => $data['jabatan'],
             'nama' => $data['name'],
-            'role_id' => $data['role_id'],
+            'role_id' => 1,
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
 

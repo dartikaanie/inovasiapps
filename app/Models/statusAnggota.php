@@ -44,5 +44,9 @@ class statusAnggota extends Model
         'status_anggota' => 'required'
     ];
 
+    public function statusAnggota()
+    {
+        return $this->belongsTo(statusAnggota::class, 'status_anggota_id', 'status_anggota_id');
+    }
     
 }

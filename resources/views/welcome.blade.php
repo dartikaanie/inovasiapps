@@ -30,20 +30,17 @@
 
 <body id="top">
 <!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 <section class="hero">
     <section class="navigation">
         <header>
             <div class="header-content">
-                <div class="logo"><a href="#"><img src="{{asset('landing/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js')}}" alt="Sedna logo"></a></div>
+                <div class="logo"><a href="#"></a></div>
                 <div class="header-nav">
                     <nav>
                         <ul class="primary-nav">
                             <li><a href="#assets">Tentang</a></li>
                             <li><a href="#features">Kategori</a></li>
-                            <!--<li><a href="#blog">Blog</a></li>-->
-                            <!--<li><a href="#download">Download</a></li>-->
                         </ul>
                         <ul class="member-actions">
                             <li><a href="{{route('login')}}" class="login">Masuk</a></li>
@@ -63,8 +60,7 @@
                 <div class="hero-content text-center">
                     <h1>TPM OFFICER</h1>
                     <p class="intro">Introducing “Sedna”. A responsive one page website, designed & developed exclusively for Codrops.</p>
-                    <!--<a href="#" class="btn btn-fill btn-large btn-margin-right">Download</a> <a href="#" class="btn btn-accent btn-large">Learn more</a>-->
-                </div>
+                 </div>
             </div>
         </div>
     </div>
