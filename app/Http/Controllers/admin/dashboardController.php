@@ -13,7 +13,7 @@ class dashboardController extends AppBaseController
    public function index(){
        $juri = juri::where('status_aktif', 1)->get();
        $inovasi_terdaftar = inovasi::all();
-       $inovasi_teregister = inovasi::where('status', 2)->get();
+       $inovasi_teregister = inovasi::where('status', '!=', 0)->where('status', '!=', 1)->get();
        $tim = tim::all();
 
 //       $gchart = new Echart;

@@ -70,4 +70,9 @@ class tim extends Model
     public function anggotaTims(){
         return $this->belongsTo(anggotaTim::class, 'tim_id', 'tim_id');
     }
+
+    public function departemens(){
+        return $this->belongsTo(departemen::class, 'departemen', 'departemen_id');
+    }
+
 }

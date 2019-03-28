@@ -14,7 +14,7 @@
             <td>{!! $stream->kategoris->nama_kategori !!}</td>
             <td>{!! $stream->nama_stream !!}</td>
             <td>
-                <?php $juri = \App\Models\juri::where('stream_id', $stream->stream_id)->get(); ?>
+                <?php $juri = \App\Models\juri::where('stream_id', $stream->stream_id)->where('status_aktif',1)->get(); ?>
                 {{count($juri)}}
             </td>
             <td>

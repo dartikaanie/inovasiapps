@@ -7,7 +7,7 @@
 <!-- Departemen Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('departemen', 'Departemen:') !!}
-    {!! Form::text('departemen', $departemen, null, ['class' => 'form-control']) !!}
+    {!! Form::select('departemen', $departemen, null, ['class' => 'form-control']) !!}
 </div>
 {{----<!-- Nip Field -->--}}
 <div class="form-group col-sm-6">

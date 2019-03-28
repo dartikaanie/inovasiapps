@@ -11,7 +11,7 @@
                 <div class="tab-pane" id="tab-{{$kategori->kategori_id}}">
                     <div class="box-body">
                         <div class="box-group" id="accordion-{{$kategori->kategori_id}}">
-                                <a href="" class="btn btn-warning"> Ubah Kriteria Penilaian - {{$kategori->nama_kategori}} </a>
+                                {{--<a href="" class="btn btn-warning"> Ubah Kriteria Penilaian - {{$kategori->nama_kategori}} </a>--}}
                             <br><br>
                             @foreach($subKategoris as $subKategori)
                                 @if($subKategori->kategori_id == $kategori->kategori_id)

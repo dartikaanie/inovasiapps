@@ -23,7 +23,7 @@ class anggotaTim extends Model
     use SoftDeletes;
 
     public $table = 'anggota_tims';
-    
+    protected $primaryKey = "anggota_tim_id";
 
     protected $dates = ['deleted_at'];
 
@@ -75,7 +75,7 @@ class anggotaTim extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function statusAnggotas()
+    public function statusAnggota()
     {
         return $this->belongsTo(statusAnggota::class, 'status_anggota_id', 'status_anggota_id');
     }

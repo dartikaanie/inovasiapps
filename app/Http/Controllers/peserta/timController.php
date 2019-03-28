@@ -48,11 +48,9 @@ class timController extends AppBaseController
      */
     public function index(Request $request)
     {
-       $tims = tim::join('anggota_tims','anggota_tims.tim_id','=','tims.tim_id')->join('users','users.nip','=','anggota_tims.nip')->where('anggota_tims.nip', Auth::user()->nip)->get();
+       $tims = tim::join('anggota_tims','anggota_tims.tim_id','=','tims.tim_id')->join('users','users.nip','=','anggota_tims.nip')->where('anggota_tims.nip', Auth::user()->nip)->get()->sortByDesc('updated_at');
         $status = statusAnggota::pluck('status_anggota','status_anggota_id');
         $peserta = User::all();
-
-
         return view('peserta.tims.index', compact('tims', 'peserta','status'));
     }
 
@@ -64,7 +62,8 @@ class timController extends AppBaseController
     public function create()
     {
         $nip = Auth::user()->nip;
-        return view('peserta.tims.create',compact('nip'));
+        $departemen = departemen::pluck('departemen', 'departemen_id');
+        return view('peserta.tims.create',compact('nip','departemen'));
     }
 
     /**
@@ -138,8 +137,8 @@ class timController extends AppBaseController
 
             return redirect(route('tims.index'));
         }
-
-        return view('peserta.tims.edit', compact('tim','nip'));
+        $departemen = departemen::pluck('departemen', 'departemen_id');
+        return view('peserta.tims.edit', compact('tim','nip','departemen'));
     }
 
     /**

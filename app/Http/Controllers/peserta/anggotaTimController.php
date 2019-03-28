@@ -83,7 +83,7 @@ class anggotaTimController extends AppBaseController
             $at = anggotaTim::where('tim_id', $input['tim_id'])->where('nip', $input['nip'][$jum])->first();
 
             if($at!=null){
-                Flash::error( $at->Users->nama.'Telah terdaftar');
+                Flash::warning( $at->Users->nama.' Telah terdaftar');
             }else{
                 $statusKetua = anggotaTim::where('tim_id', $input['tim_id'])->where('status_anggota_id', 1)->first();
                 if( $input['status_anggota_id'][$jum] == 1){
@@ -116,13 +116,13 @@ class anggotaTimController extends AppBaseController
     {
 //        $anggitaTim = $this->anggitaTimRepository->findWithoutFail($id);
 
-        if (empty($anggitaTim)) {
-            Flash::error('Anggita Tim not found');
+        $anggitaTim = anggotaTim::find($id);
+        $tim_id = $anggitaTim->tim_id;
+        $anggitaTim->delete();
+        Flash::success('Anggota Tim Berhasil dihapus');
 
-            return redirect(route('anggitaTims.index'));
-        }
 
-        return view('anggita_tims.show')->with('anggitaTim', $anggitaTim);
+        return view('tims.show', compact($tim_id));
     }
 
     /**

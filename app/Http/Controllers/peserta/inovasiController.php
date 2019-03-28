@@ -12,6 +12,7 @@ use App\Repositories\inovasiRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Mail;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Auth;
@@ -221,6 +222,7 @@ class inovasiController extends AppBaseController
            ($inovasi->opp_lost != 0) &&
            ($inovasi->revenue != null) &&
            ($inovasi->dokumen_tim != null) &&
+           ($inovasi->nip_inisiator != null) &&
            ($inovasi->judul != null)) {
 
            $inovasi->update($update);
@@ -229,6 +231,29 @@ class inovasiController extends AppBaseController
            Flash::error('pengisian form belum lengkap');
        }
 
+       $anggota = anggotaTim::where('tim_id',$inovasi->tim_id)->where('status_anggota_id',1)->first();
+
+
+        Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi) {
+            $message->subject("Inovasi SP -".$inovasi->judul);
+            $message->from($inovasi->users->email, $inovasi->users->nama);
+            $message->to('inovasisp19@gmail.com');
+        });
+
        return redirect(route('inovasis.show',[$inovasi->inovasi_id]));
+    }
+
+    public function sendEmail($inovasi)
+    {
+        try {
+            Mail::send('email', ['nama' => $inovasi->users->nama, 'pesan' => "ini Pesan"], function ($message) use ($inovasi) {
+                $message->subject($inovasi->judul);
+                $message->from('donotreply@kiddy.com', 'Kiddy');
+                $message->to('pbd2018@gmail.com');
+            });
+            return back()->with('alert-success', 'Berhasil Kirim Email');
+        } catch (Exception $e) {
+            return response(['status' => false, 'errors' => $e->getMessage()]);
+        }
     }
 }

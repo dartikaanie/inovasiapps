@@ -75,7 +75,7 @@ class kendalaController extends AppBaseController
      */
     public function show($id)
     {
-        $kendala = $this->kendalaRepository->findWithoutFail($id);
+        $kendala = kendala::find($id);
 
         if (empty($kendala)) {
             Flash::error('Kendala not found');

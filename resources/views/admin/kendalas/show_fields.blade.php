@@ -9,7 +9,7 @@
     </tr>
     <tr>
         <td>Ketua Tim</td>
-        <td>: @if($kendala->inovasis->timInovasi->anggotaTims->statusAnggotas->status_anggota == "Ketua")
+        <td>: @if($kendala->inovasis->timInovasi->anggotaTims->statusAnggota->status_anggota == "Ketua")
               {{$kendala->inovasis->timInovasi->anggotaTims->users->nama}}
               @endif
         </td>

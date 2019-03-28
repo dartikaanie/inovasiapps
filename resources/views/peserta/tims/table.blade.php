@@ -15,7 +15,7 @@
                 <?php $anggota = \App\Models\anggotaTim::where('tim_id', $tim->tim_id)->get();?>
                 <ul>
                     @foreach($anggota as $a)
-                    <li>{{$a->users->nama}} ( {{$a->statusAnggotas->status_anggota}} )</li>
+                    <li>{{$a->users->nama}} ( {{$a->statusAnggota->status_anggota}} )</li>
                     @endforeach
                 </ul>
             </td>

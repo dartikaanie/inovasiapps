@@ -18,28 +18,20 @@
 
                         <h3 class="profile-username text-center">{{$tim->nama_tim}}</h3>
 
-                        <p class="text-muted text-center">{{$tim->departemens}}</p>
+                        <p class="text-muted text-center">{{$tim->departemens->departemen}}</p>
 
                         <ul class="list-group list-group-unbordered">
-                            <li class="list-group-item">
-                                <b>Ketua Tim</b> <a class="pull-right">{{$ketua->users->nama}}</a>
-                            </li>
-                            @if($fasilitator)
-                            <li class="list-group-item">
-                                    <b>Fasilitator</b> <a class="pull-right">{{$fasilitator->users->nama}}</a>
-                            </li>
-                            @endif
-
                             <li class="list-group-item">
                                 <b>Anggota</b>
                             </li>
                             @foreach($anggota as $a)
                             <li class="list-group-item"><a><i class="fa fa-user"></i> {{$a->users->nama}}</a> &nbsp
-                                {{--{{$a->statusAnggota->status_anggota}}--}}
-                             </li>
+                                <small>({{$a->statusAnggota->status_anggota}})</small>
+                                <span class="pull-right"> <a href="{{route('anggotaTims.show', [$a->anggota_tim_id])}}" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> </a> </span>
+                               </li>
                             @endforeach
                         </ul>
-                        <a class="btn btn-warning btn-xs" href="{{route('tims.edit', [$tim->tim_id])}}"> </i>  Data Tim  </a>
+                        <a class="btn btn-warning btn-xs" href="{{route('tims.edit', [$tim->tim_id])}}"> <i class="fa fa-edit"> </i>    Data Tim  </a>
 
                         <a class="btn btn-warning btn-xs" href="{{route('anggotaTims.edit', [$tim->tim_id])}}"><i class="fa fa-edit"> </i>  Anggota  </a>
                        <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalTambah-{{$tim->tim_id}}">

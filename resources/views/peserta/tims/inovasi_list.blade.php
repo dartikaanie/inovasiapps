@@ -44,7 +44,7 @@
                 <div class='btn-group'>
                     {!! Form::hidden('tim_id', $tim->tim_id) !!}
                     <a href="{!! route('inovasis.show', [$inovasi->inovasi_id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    @if($inovasi->statusi == 0 )
+                    @if($inovasi->status == 0 )
                         <a href="{!! route('inovasis.edit', [$inovasi->inovasi_id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     @else
                         <a class='btn btn-default btn-xs' disabled="yes"><i class="glyphicon glyphicon-edit btn-xs"></i></a>

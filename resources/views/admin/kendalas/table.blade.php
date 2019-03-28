@@ -29,8 +29,7 @@
                 @endif</td>
             <td>
                 <div class='btn-group'>
-                    <a href="{!! route('kendalas.show', [$kendala->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('kendalas.edit', [$kendala->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! route('kendalas.show', [$kendala->id]) !!}" class='btn btn-primary btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     </div>
             </td>
         </tr>
