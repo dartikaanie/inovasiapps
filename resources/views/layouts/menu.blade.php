@@ -93,7 +93,7 @@
         {{----------------------------//JURI-------------------------------------------------------}}
         @if($juri)
         <li class="{{ Request::is('inovasiJuri*') ? 'active' : '' }}">
-            <a href="{!! route('inovasiJuris.index') !!}"><i class="fa fa-edit"></i><span>Inovasi Tims</span></a>
+            <a href="{!! route('inovasiJuris.index') !!}"><i class="fa fa-edit"></i><span>Penilaian Inovasi</span></a>
         </li>
 
         @endif
