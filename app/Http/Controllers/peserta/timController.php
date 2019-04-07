@@ -11,6 +11,7 @@ use App\Models\inovasi;
 use App\Models\kendala;
 use App\Models\statusAnggota;
 use App\Models\tim;
+use App\Models\unitBiro;
 use App\Repositories\timRepository;
 use App\Http\Controllers\AppBaseController;
 use App\User;
@@ -32,7 +33,7 @@ class timController extends AppBaseController
 
             $this->user = Auth::user();
 
-            if($this->user['role_id'] != 1 ){
+            if($this->user['role_id'] != 0 ){
                 return redirect()->back();
             }
 
@@ -61,9 +62,9 @@ class timController extends AppBaseController
      */
     public function create()
     {
-        $nip = Auth::user()->nip;
-        $departemen = departemen::pluck('departemen', 'departemen_id');
-        return view('peserta.tims.create',compact('nip','departemen'));
+        $user = Auth::user();
+        $departemen = unitBiro::where('kd_level','DEPT')->pluck('nama', 'kode');
+        return view('peserta.tims.create',compact('user','departemen'));
     }
 
     /**
@@ -85,9 +86,10 @@ class timController extends AppBaseController
             'status_anggota_id' => 1
         ]);
 
-        Flash::success('Tim saved successfully.');
 
-        return redirect(route('tims.index'));
+        Flash::success('Tim saved successfully.');
+        return redirect(url('tambahInovasi/'.$timL->tim_id));
+
     }
 
     /**

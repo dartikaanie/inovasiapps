@@ -38,7 +38,7 @@
                     <div class='btn-group'>
                         {!! Form::hidden('tim_id', $inovasi->tim_id) !!}
                         <a href="{!! route('inovasis.show', [$inovasi->inovasi_id]) !!}" class='btn btn-default'><i class="glyphicon glyphicon-eye-open"></i></a>
-                        @if($inovasi->status_registrasi == 0 )
+                        @if($inovasi->status== 0 )
                             <a href="{!! route('inovasis.edit', [$inovasi->inovasi_id]) !!}" class='btn btn-default'><i class="glyphicon glyphicon-edit"></i></a>
                         @else
                             <a class='btn btn-default' disabled="yes"><i class="glyphicon glyphicon-edit"></i></a>

@@ -23,6 +23,14 @@
                                 <td>: {{$inovasi->area_implementasi}} </td>
                             </tr>
                             <tr>
+                                <td>Inisiator</td>
+                                <td>: {{$inovasi->users->nama}} </td>
+                            </tr>
+                            <tr>
+                                <td>Departemen</td>
+                                <td>: {{$inovasi->timInovasi->departemens->nama}} </td>
+                            </tr>
+                            <tr>
                                 <td>Latar belakang</td>
                                 <td>: {{$inovasi->latar_belakang}}</td>
                             </tr>

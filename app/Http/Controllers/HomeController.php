@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\inovasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,10 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role_id == 0 ){
-            return redirect(route('dashboard'));
+        if(Auth::user()->role_id == 1 ){
+            return redirect(route('dashboard', compact('inovasi')));
         }else{
-            return view('home');
+            return redirect(route('dashboardPeserta'));
         }
 
     }

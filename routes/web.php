@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('kriterias', 'admin\kriteriaController');
     Route::resource('kriteraiaKategoriPenilaians', 'kriteraiaKategoriPenilaianController');
     Route::resource('listInovasis', 'admin\listInovasiController');
+    Route::get('listInovasiTerimplementasi','admin\listInovasiController@implemen')->name('listInovasis.implemen');
+    Route::get('timInovasi','admin\dashboardController@tim')->name('timInovasi');
     Route::get('listNilaiInovasis', 'admin\listInovasiController@nilai')->name('listNilaiInovasi');
     Route::get('showNilaiInovasis/{inovasi_id}', 'admin\listInovasiController@showNilai')->name('showNilaiInovasi');
     Route::resource('streams', 'admin\streamController');
@@ -80,12 +82,18 @@ Route::patch('statusUpdate/{inovasi_id}', 'peserta\inovasiController@editStatus'
 Route::resource('anggotaTims', 'peserta\anggotaTimController');
 
 Route::get('/anggotaTimjum','peserta\anggotaTimController@directToForm')->name('directToForm');
+Route::get('/anggotaTimAdd/{jum}/{inovasi}','peserta\inovasiController@addAnggota')->name('addAnggota');
+Route::post('/anggotaTimStore','peserta\inovasiController@storeAnggota')->name('storeAnggota');
 
 Route::resource('inovasis', 'peserta\inovasiController');
 
 Route::resource('inovasiPesertas', 'peserta\inovasiPesertaController');
 
 Route::get('tambahInovasi/{tim_tid}','peserta\inovasiController@create');
+
+Route::get('dashboardPeserta','peserta\dashboardPesertaController@index')->name('dashboardPeserta');
+    Route::post('kendalaButuh','kendalaController@kendalaButuh')->name('kendalaButuh');
+    Route::post('areaAdd','peserta\inovasiController@areaAdd')->name('areaAdd');
 
 
 //-------------------------------------JURI-----------------------------------------

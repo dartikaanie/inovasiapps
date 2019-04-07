@@ -49,6 +49,7 @@ class inovasi extends Model
         'tujuan_inovasi',
         'saving',
         'opp_lost',
+        'biaya',
         'status_implementasi',
         'tgl_pelaksanaan',
         'dokumen_tim',
@@ -121,5 +122,10 @@ class inovasi extends Model
     public function kendalas()
     {
         return $this->belongsTo(kendala::class, 'inovasi_id', 'inovasi_id');
+    }
+
+    public function  areas()
+    {
+        return $this->belongsTo(kendala::class, '  area_implementasi', ' area_implementasi_id');
     }
 }

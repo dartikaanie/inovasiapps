@@ -11,7 +11,7 @@
 <body class="">
 <div class="row">
     <div class="col-md-12">
-        <p>Ada Inovasi yang telah terimplementasi masuk. Silakan Lakukan Verifikasi Inovasi. Adapaun Detail Inovasi yang masuk adalah sebagai berikut:</p>
+        <p>Ada Inovasi yang telah terimplementasi masuk. Silakan Lakukan Verifikasi Inovasi. Adapaun Detail Inovasi yang masuk adalah sebagai berikut.</p>
     </div>
     <div class="col-md-6">
         <table class="table table-responsive">

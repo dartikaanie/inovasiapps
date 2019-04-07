@@ -60,6 +60,12 @@
                                    {!! Form::number('opp_lost', null, ['class' => 'form-control', 'id' => 'opp_lost', 'onChange' => 'change();']) !!}
                                </div>
 
+                               <!-- Opp Lost Field -->
+                               <div class="form-group col-sm-12">
+                                   {!! Form::label('biaya', 'Biaya:') !!}
+                                   {!! Form::number('biaya', null, ['class' => 'form-control', 'id' => 'biaya', 'onChange' => 'change();']) !!}
+                               </div>
+
                                <!-- Total Field -->
                                <div class="form-group col-sm-12">
                                    {!! Form::label('opp_lost', 'Total:') !!}
@@ -76,17 +82,20 @@
                                <div class="form-group col-sm-12">
                                    {!! Form::label('dokumen_tim', 'Dokumen Tim:') !!}
                                    {!! Form::file('dokumen_tim', null, ['class' => 'form-control']) !!}
+                                   <small class="list-group-item-danger">*Dokumen tim merupakan dokumen yang berisi informasi inovasi yang telah disesuaikan dengan template yang disediakan</small>
+                                   <br> <small class="list-group-item-danger">*format <label class="label label-danger">.pdf </label></small>
                                </div>
 
                                <!-- Dokumen Tim Field -->
                                <div class="form-group col-sm-12">
-                                   {!! Form::label('dokumen_pendukung', 'Dokumen Pendung:') !!}
+                                   {!! Form::label('dokumen_pendukung', 'Dokumen Pendukung:') !!}
                                    {!! Form::file('dokumen_pendukung', null, ['class' => 'form-control']) !!}
                                    <small class="list-group-item-danger">*Dokumen pendukung dapat berupa foto,laporan,dsb. jika ada</small>
+                                   <br> <small class="list-group-item-danger">*format <label class="label label-danger">.zip / .rar </label></small>
                                </div>
 
                                <div class="form-group col-sm-12">
-                                    <a href="" class="btn btn-warning"><i class="fa fa-download"></i> Download template - {{$inovasi->subKategoris->nama_sub_kategori}}</a>
+                                    <a href="{{asset('template/'.$inovasi->subKategoris->file)}}" class="btn btn-warning"><i class="fa fa-download"></i> Download template - {{$inovasi->subKategoris->nama_sub_kategori}}</a>
                                </div>
 
                                <!-- Status Registrasi Field -->
@@ -112,9 +121,10 @@
     function change() {
         var saving = document.getElementById("saving");
         var opp_lost = document.getElementById("opp_lost");
+        var biaya = document.getElementById('biaya');
         var total = document.getElementById('total');
 
-        var t = saving.value - opp_lost.value;
+        var t = parseInt(saving.value) + parseInt(opp_lost.value) - parseInt(biaya.value);
         total.value = t;
     }
 </script>

@@ -72,7 +72,7 @@ class tim extends Model
     }
 
     public function departemens(){
-        return $this->belongsTo(departemen::class, 'departemen', 'departemen_id');
+        return $this->belongsTo(unitBiro::class, 'departemen', 'kode');
     }
 
 }

@@ -18,7 +18,7 @@
 
                         <h3 class="profile-username text-center">{{$tim->nama_tim}}</h3>
 
-                        <p class="text-muted text-center">{{$tim->departemens->departemen}}</p>
+                        <p class="text-muted text-center">{{$tim->departemens->nama}}</p>
 
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">

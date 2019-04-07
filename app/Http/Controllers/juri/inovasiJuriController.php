@@ -29,7 +29,7 @@ class inovasiJuriController extends AppBaseController
             $juri = juri::where('nip',Auth::user()->nip)->first();
 
 
-            if($this->user['role_id'] != 1 || $juri == null){
+            if($this->user['role_id'] != 0 || $juri == null){
                 return redirect()->back();
             }
 

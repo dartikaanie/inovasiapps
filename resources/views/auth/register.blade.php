@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>InfyOm Laravel Generator | Registration Page</title>
+    <title>Register akun</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -34,11 +34,11 @@
 <body class="hold-transition register-page">
 <div class="register-box">
     <div class="register-logo">
-        <a href="{{ url('/home') }}"><b>InfyOm </b>Generator</a>
+        <a href="{{ url('/home') }}"><b>Inovasi </b>Semen Padang</a>
     </div>
 
     <div class="register-box-body">
-        <p class="login-box-msg">Register a new membership</p>
+        <p class="login-box-msg">Daftar Akun Baru </p>
 
         <form method="post" action="{{ url('/register') }}">
 
@@ -81,9 +81,10 @@
 
             <div class="form-group has-feedback{{ $errors->has('unit_biro') ? ' has-error' : '' }}">
                 <select name="unit_biro" class="form-control">
+                    <option disabled="yes">--Depertemen--</option>
                     <?php  $units = \App\Models\unitBiro::all(); ?>
                     @foreach($units as $unit)
-                        <option value="{{$unit->unit_biro_id}}">{{$unit->unit_biro}}</option>
+                        <option value="{{$unit->kode}}">{{$unit->nama}}</option>
                      @endforeach
                 </select>
 
@@ -139,14 +140,16 @@
 
             <div class="row">
                 <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-flat">Register</button>
                 </div>
                 <!-- /.col -->
             </div>
+        <br>
+        <div class="text-center">
+         Sudah memiliki akun HIRS<a href="{{ url('/login') }}" class="text-center">&nbsp;Klik disini</a>
+        </div>
         </form>
-
-        <a href="{{ url('/login') }}" class="text-center">Sudah memiliki akun</a>
     </div>
     <!-- /.form-box -->
 </div>

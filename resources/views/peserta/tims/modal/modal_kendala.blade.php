@@ -4,18 +4,20 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Jumlah Anggota</h4>
+                <h4 class="modal-title">Apakah butuh konsultasi dengan tim expert?</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            {!! Form::open(['route' => 'kendalas.store']) !!}
+            {!! Form::open(['route' => 'kendalaButuh']) !!}
                 <!-- Modal body -->
                 <div class="modal-body">
                     <!-- Isi Kendala Field -->
                     <div class="row">
-                        <div class="form-group col-sm-12">
-                            {!! Form::label('isi_kendala', 'Isi Kendala:') !!}
-                            {!! Form::textarea('isi_kendala', null, ['class' => 'form-control']) !!}
-                            {!! Form::hidden('inovasi_id', $inovasi->inovasi_id ,null, ['class' => 'form-control']) !!}
+                        <div class="text-center">
+                            <input hidden name="inovasi_id" value="{{$inovasi->inovasi_id}}">
+                            <input type="submit" name="butuh"  value="ya" class="btn btn-primary">
+                            <input type="submit" name="butuh" value="tidak" class="btn btn-primary">
+                            {{--{!! Form::submit('Ya', ['class' => 'btn btn-primary']) !!}--}}
+                            {{--{!! Form::submit('Tidak', ['class' => 'btn btn-primary']) !!}--}}
                         </div>
 
                     </div>
@@ -24,7 +26,6 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                 </div>
 
             {!! Form::close() !!}

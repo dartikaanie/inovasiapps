@@ -2,7 +2,7 @@
     {{--<a href="{!! route('roles.index') !!}"><i class="fa fa-edit"></i><span>Roles</span></a>--}}
 {{--</li>--}}
 {{--//ADMIN--}}
-@if(Auth::user()->role_id == 0)
+@if(Auth::user()->role_id == 1)
 
     <li>
         <a href="{!! route('dashboard') !!}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
@@ -29,7 +29,12 @@
         </a>
         <ul class="treeview-menu">
             <li>
-                <a href="{!! route('listInovasis.index') !!}"><i class="fa  fa-lightbulb-o"></i><span>List Inovasi</span></a>
+                <a href="{!! route('listInovasis.index') !!}"><i class="fa  fa-lightbulb-o"></i><span>Semua Inovasi</span></a>
+            </li>
+            <li>
+                <?php
+                $inovasi = \App\Models\inovasi::where('status', 1)->get();?>
+                <a href="{!! route('listInovasis.implemen') !!}"><i class="fa  fa-lightbulb-o"></i><span>Inovasi Terimplementasi</span> <label class="label label-danger">{{count($inovasi)}}</label> </a>
             </li>
             <li>
                 <a href="{!! route('listNilaiInovasi') !!}"><i class="fa   fa-check-square"></i><span>List Nilai Inovasi</span></a>
@@ -75,7 +80,11 @@
 
 
     {{-----------------------------//PESRETA------------------------------------------}}
-@elseif(Auth::user()->role_id =1)
+@elseif(Auth::user()->role_id == 0)
+
+    <li>
+        <a href="{!! route('dashboardPeserta') !!}"><i class="fa fa-dashboard"></i><span>Informasi Umum</span></a>
+    </li>
 
     <li class="{{ Request::is('tims*') ? 'active' : '' }}">
         <a href="{!! route('tims.index') !!}"><i class="fa fa-edit"></i><span>Tims</span></a>

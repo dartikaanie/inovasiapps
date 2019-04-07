@@ -18,7 +18,7 @@
                 </td>
                 <td>{{$user->nip}}</td>
                 <td>{{$user->nama}}</td>
-                <td>{{$user->unit_biro}}</td>
+                <td>{{$user->departemens->nama}}</td>
             </tr>
         @endforeach
         </tbody>

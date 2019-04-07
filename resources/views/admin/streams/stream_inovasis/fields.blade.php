@@ -19,7 +19,7 @@
                     </td>
                     <td>{{$inovasi->timInovasi->nama_tim}}</td>
                     <td>{{$inovasi->judul}}</td>
-                    <td>{{$inovasi->timInovasi->departemen}}</td>
+                    <td>{{$inovasi->timInovasi->departemens->nama}}</td>
                 </tr>
                 @endforeach
             </tbody>

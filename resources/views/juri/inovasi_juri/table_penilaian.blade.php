@@ -12,11 +12,8 @@
    @if($penilaianInovasi->status_penilaian ==0)
     <div class="small-box bg-red">
         <div class="inner">
-            <h3>BELUM SELESAI</h3>
+            <h3>BELUM</h3>
             <p>Kunci nilai untuk menyelesaikan</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-alert"></i>
         </div>
     </div>
        @else
@@ -24,9 +21,6 @@
             <div class="inner">
                 <h3>Selesai</h3>
                 <p>Nilai tidak dapat diubah lagi</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-locked"></i>
             </div>
         </div>
 
@@ -38,9 +32,6 @@
         <div class="inner">
             <h3>{{$total}}</h3>
             <p>Total Nilai</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-android-menu"></i>
         </div>
     </div>
 </div>

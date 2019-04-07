@@ -7,6 +7,7 @@
     <tr>
         <th>Judul Inovasi</th>
         <th>Kendala</th>
+        <th>Butuh bantuan</th>
         <th colspan="3">Action</th>
     </tr>
     </thead>
@@ -14,12 +15,22 @@
     @foreach($kendalas as $kendala)
 
         <tr>
-            <td>{{$kendala->judul}}</td>
+            <td>{!! substr($kendala->judul,0,30) !!}
+                @if(strlen($kendala->judul) > 30)
+                    ...
+                @endif
+            </td>
             <td>{{$kendala->isi_kendala}}</td>
             <td>
-                {!! Form::open(['route' => ['kendalas.destroy', $kendala->kendala_id], 'method' => 'delete']) !!}
+                @if($kendala->tim_expert_id != null){{$kendala->expert->nama}}
+            @else
+                    -
+                    @endif
+            </td>
+            <td>
+                {!! Form::open(['route' => ['kendalas.destroy', $kendala->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Kamu yakin?')"]) !!}
                 </div>
                 {!! Form::close() !!}
             </td>

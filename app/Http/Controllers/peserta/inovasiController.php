@@ -5,11 +5,14 @@ namespace App\Http\Controllers\peserta;
 use App\Http\Requests\CreateinovasiRequest;
 use App\Http\Requests\UpdateinovasiRequest;
 use App\Models\anggotaTim;
+use App\Models\areaImplementasi;
 use App\Models\inovasi;
+use App\Models\statusAnggota;
 use App\Models\subKategori;
 use App\Models\tim;
 use App\Repositories\inovasiRepository;
 use App\Http\Controllers\AppBaseController;
+use App\User;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Mail;
@@ -27,7 +30,7 @@ class inovasiController extends AppBaseController
         $this->middleware(function ($request, $next) {
 
             $this->user = Auth::user();
-            if($this->user['role_id'] != 1 ){
+            if($this->user['role_id'] != 0 ){
                 return redirect()->back();
             }
 
@@ -59,7 +62,8 @@ class inovasiController extends AppBaseController
     {
         $tim = tim::where('tim_id', $tim_id)->first();
         $sub = subKategori::pluck('nama_sub_kategori','sub_kategori_id');
-        return view('peserta.inovasis.create',compact('tim','sub'));
+        $area = areaImplementasi::pluck('area_implementasi','area_implementasi_id');
+        return view('peserta.inovasis.create',compact('tim','sub','area'));
     }
 
     /**
@@ -77,7 +81,9 @@ class inovasiController extends AppBaseController
 
         Flash::success('Inovasi saved successfully.');
 
-        return redirect( route('inovasis.edit', [$inovasi->inovasi_id]));
+//        return redirect( route('inovasis.edit', [$inovasi->inovasi_id]));
+        return redirect( route('addAnggota', [$input['jum'], $inovasi->inovasi_id]));
+
     }
 
     /**
@@ -141,9 +147,9 @@ class inovasiController extends AppBaseController
            $file = $request->file('dokumen_tim');
            if($file->getClientOriginalExtension() == "pdf") {
               $tahun = date_format(date_create($inovasi->created_at), 'Y');
-              $filename = $tahun . '_' . $inovasi->tim_id . '_' . $inovasi->inovasi_id . '_' . $inovasi->judul . '.' . $file->getClientOriginalExtension();
-              $file->move('dokumen_tim/', $filename);
-              $input['dokumen_tim'] = $filename;
+              $filename = $tahun . '_' . $inovasi->tim_id . '_' . $inovasi->inovasi_id . '_' . substr($inovasi->judul,0,20) . '.' . $file->getClientOriginalExtension();
+              $file->move('dokumen_tim/'.$tahun, $filename);
+              $input['dokumen_tim'] = $tahun.'/'.$filename;
             }else{
                     $input['dokumen_tim']=null;
                     Flash::error('Dokumen tim harus .pdf');
@@ -198,7 +204,7 @@ class inovasiController extends AppBaseController
      */
     public function destroy($id)
     {
-        $inovasi = $this->inovasiRepository->findWithoutFail($id);
+        $inovasi = inovasi::find($id);
 
         if (empty($inovasi)) {
             Flash::error('Inovasi not found');
@@ -206,7 +212,7 @@ class inovasiController extends AppBaseController
             return redirect(route('tims.show',[$inovasi->tim_id]));
         }
 
-        $this->inovasiRepository->delete($id);
+        $inovasi->delete($id);
 
         Flash::success('Inovasi deleted successfully.');
 
@@ -234,10 +240,16 @@ class inovasiController extends AppBaseController
        $anggota = anggotaTim::where('tim_id',$inovasi->tim_id)->where('status_anggota_id',1)->first();
 
 
-        Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi) {
-            $message->subject("Inovasi SP -".$inovasi->judul);
-            $message->from($inovasi->users->email, $inovasi->users->nama);
-            $message->to('inovasisp19@gmail.com');
+//        Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi, $anggota) {
+//            $message->subject("Inovasi SP -".$inovasi->judul);
+//            $message->from($anggota->users->email, $inovasi->users->nama);
+//            $message->to('inovasisp19@gmail.com');
+//        });
+
+        Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi, $anggota) {
+            $message->subject("Inovasi Semen Padang -".$anggota->users->nama);
+            $message->from($anggota->users->email, $anggota->users->nama);
+            $message->to('pengelolainovasi.sp@SEMENINDONESIA.COM');
         });
 
        return redirect(route('inovasis.show',[$inovasi->inovasi_id]));
@@ -256,4 +268,53 @@ class inovasiController extends AppBaseController
             return response(['status' => false, 'errors' => $e->getMessage()]);
         }
     }
+
+    public function addAnggota ($jum, $inovasi){
+        $inov=inovasi::find($inovasi);
+        $inovasi_id = $inov->inovasi_id;
+        $status = statusAnggota::pluck('status_anggota','status_anggota_id');
+        $peserta = User::all();
+        $tim = tim::where('tim_id', $inov->tim_id)->first();
+        return view('peserta.inovasis.anggota_tims.create', compact('status','peserta','tim','jum','inovasi_id'));
+    }
+
+    public function storeAnggota (Request $request)
+    {
+        $input = $request->all();
+        $jum =$input['jum'];
+        while( $jum>0) {
+            $at = anggotaTim::where('tim_id', $input['tim_id'])->where('nip', $input['nip'][$jum])->first();
+
+            if($at!=null){
+                Flash::warning( $at->Users->nama.' Telah terdaftar');
+            }else{
+                $statusKetua = anggotaTim::where('tim_id', $input['tim_id'])->where('status_anggota_id', 1)->first();
+                if( $input['status_anggota_id'][$jum] == 1){
+                    Flash::error('Ketua Tim Telah ada');
+                }else{
+                    anggotaTim::create([
+                            'nip' => $input['nip'][$jum],
+                            'tim_id' => $input['tim_id'],
+                            'status_anggota_id' => $input['status_anggota_id'][$jum]
+                        ]
+                    );
+                }
+            }
+            $jum--;
+        }
+
+        $inovasi_id =$input['inovasi_id'];
+        return redirect( route('inovasis.edit', [$inovasi_id]));
+//        return redirect(route('tims.show',[$input['tim_id']]));
+    }
+
+
+    public function areaAdd(Request $request){
+        $input = $request->all();
+        $area = strtoupper($request->area_implementasi);
+        areaImplementasi::create([
+            'area_implementasi' => $area ]);
+        return redirect( url('tambahInovasi/'.$input['tim_id']));
+    }
+
 }

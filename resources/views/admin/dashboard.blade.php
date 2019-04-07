@@ -27,7 +27,7 @@
                     <div class="icon">
                         <i class="fa fa-users"></i>
                     </div>
-                    <a href="{{route('tims.index')}}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{route('timInovasi')}}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">
@@ -46,14 +46,14 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3>{{count($inovasi_teregister)}}</h3>
+                        <h3>{{count($inovasi_terimplementasi)-1}}</h3>
 
-                        <p>Inovasi Teregistrasi</p>
+                        <p>Inovasi Terimplementasi</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-paper-plane"></i>
                     </div>
-                    <a href="{{route('listInovasis.index')}}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{route('listInovasis.implemen')}}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>

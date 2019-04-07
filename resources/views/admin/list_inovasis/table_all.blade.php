@@ -1,6 +1,7 @@
-<table class="table table-responsive" id="inovasis-table">
+<table class="table table-striped" id="inovasis-table">
     <thead>
         <tr>
+            <th>No</th>
             <th>Tanggal submit</th>
             <th>Nama Tim</th>
             <th>Departemen</th>
@@ -10,11 +11,13 @@
         </tr>
     </thead>
     <tbody>
+    <?php $n=0; ?>
     @foreach($inovasis as $inovasi)
             <tr>
+                <td>{{++$n}}</td>
                 <td>{{date_format(date_create($inovasi->created_at), 'd-m-Y')}}</td>
                 <td>{!! $inovasi->TimInovasi->nama_tim !!}</td>
-                <td>{!! $inovasi->TimInovasi->departemen !!}</td>
+                <td>{!! $inovasi->TimInovasi->departemens->departemen !!}</td>
                 <td>{!! $inovasi->subKategoris->nama_sub_kategori!!}</td>
                 <td>{!! substr($inovasi->judul,0,50) !!}
                     @if(strlen($inovasi->judul) > 50)
@@ -36,3 +39,5 @@
     @endforeach
     </tbody>
 </table>
+
+{{ $inovasis->links() }}

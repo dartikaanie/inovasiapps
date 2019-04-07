@@ -1,11 +1,11 @@
 <table class="table table-responsive" id="juris-table">
     <thead>
         <tr>
-            <th class="text-center">Nip</th>
-        <th class="text-center">Kategori</th>
+            <th>Nama</th>
+        <th>Kategori</th>
         <th class="text-center">Stream</th>
         <th class="text-center">Status Aktif</th>
-            <th colspan="3"  class="text-center">Action</th>
+            <th colspan="3">Action</th>
         </tr>
     </thead>
     <tbody>

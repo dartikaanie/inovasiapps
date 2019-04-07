@@ -25,7 +25,7 @@ class anggotaTimController extends AppBaseController
         $this->middleware(function ($request, $next) {
 
             $this->user = Auth::user();
-            if($this->user['role_id'] != 1 ){
+            if($this->user['role_id'] != 0 ){
                 return redirect()->back();
             }
 
@@ -122,7 +122,7 @@ class anggotaTimController extends AppBaseController
         Flash::success('Anggota Tim Berhasil dihapus');
 
 
-        return view('tims.show', compact($tim_id));
+        return redirect(route('tims.show', [$tim_id]));
     }
 
     /**

@@ -25,7 +25,7 @@ class listInovasiController extends AppBaseController
 
             $this->user = Auth::user();
 
-            if($this->user['role_id'] != 0 || Auth::user() === null){
+            if($this->user['role_id'] != 1 || Auth::user() === null){
                 return redirect()->back();
             }
 
@@ -35,12 +35,15 @@ class listInovasiController extends AppBaseController
 
     public function index()
     {
-        $inovasis = inovasi::all()->sortBy('status');
-        $inovBelum =inovasi::where('status',3)->get();
+        $inovasis = inovasi::paginate(12);
 
-        return view('admin.list_inovasis.index', compact('inovasis','inovBelum'));
+        return view('admin.list_inovasis.index', compact('inovasis'));
     }
 
+    public function implemen(){
+        $inovasis =inovasi::where('status',1)->paginate(20);
+        return view('admin.list_inovasis.table', compact('inovasis'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -70,7 +73,7 @@ class listInovasiController extends AppBaseController
      */
     public function show($id)
     {
-        $inovasi = inovasi::join('streams','streams.stream_id','=','inovasis.stream_id')->where('inovasi_id', $id)->first();
+        $inovasi = inovasi::where('inovasi_id', $id)->first();
 
         if (empty($inovasi)) {
             Flash::error('Inovasi not found');

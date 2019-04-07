@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
     <link rel="stylesheet" href="{{asset('css/select2.css')}}">
 
+    <link rel="shortcut icon" href="{{asset('logo2.png')}}">
 
 
     <link rel="stylesheet" href="{{asset('js/datatables.net-bs/css/dataTables.bootstrap.css')}}">
@@ -80,9 +81,6 @@
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
                                     <div class="pull-right">
                                         <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -109,6 +107,8 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
+            <a class="btn btn-default pull-left" onclick=" window.history.back();"><li class="glyphicon glyphicon-step-backward"></li> Kembali</a>
+
             <strong>Copyright © 2019 <a href="#">Semen Padang</a>.</strong>Made With <i class="fa fa-heart pulse2"></i> .
         </footer>
 

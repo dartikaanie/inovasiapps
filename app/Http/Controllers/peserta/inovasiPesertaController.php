@@ -21,7 +21,7 @@ class inovasiPesertaController extends AppBaseController
         $this->middleware(function ($request, $next) {
 
             $this->user = Auth::user();
-            if($this->user['role_id'] != 1 ){
+            if($this->user['role_id'] != 0 ){
                 return redirect()->back();
             }
             return $next($request);

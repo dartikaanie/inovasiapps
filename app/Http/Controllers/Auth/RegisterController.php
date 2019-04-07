@@ -67,7 +67,7 @@ class RegisterController extends Controller
             'jekel' => $data['jekel'],
             'unit_biro' => $data['unit_biro'],
             'nama' => $data['name'],
-            'role_id' => 1,
+            'role_id' => 0,
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
 

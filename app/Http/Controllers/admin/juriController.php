@@ -27,7 +27,7 @@ class juriController extends AppBaseController
 
             $this->user = Auth::user();
 
-            if($this->user['role_id'] != 0 || Auth::user() === null){
+            if($this->user['role_id'] != 1 || Auth::user() === null){
                 return redirect()->back();
             }
 
@@ -61,7 +61,7 @@ class juriController extends AppBaseController
         foreach ($juris as $juri) {
             $data[] = $juri->nip;
         }
-        $user = User::where('role_id',1)->whereNotIn('nip', $data)->get();
+        $user = User::where('role_id',0)->whereNotIn('nip', $data)->get();
         $kategoris = kategori::pluck('nama_kategori','kategori_id');
         return view('admin.juris.create', compact('user','kategoris'));
     }

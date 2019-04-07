@@ -30,7 +30,7 @@ class kriteriaController extends AppBaseController
 
             $this->user = Auth::user();
 
-            if($this->user['role_id'] != 0 || Auth::user() === null){
+            if($this->user['role_id'] != 1 || Auth::user() === null){
                 return redirect()->back();
             }
 

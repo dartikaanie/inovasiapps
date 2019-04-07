@@ -14,7 +14,7 @@
             <tr>
                 <td>{{date_format(date_create($inovasi->created_at), 'd-m-Y')}}</td>
                 <td>{!! $inovasi->TimInovasi->nama_tim !!}</td>
-                <td>{!! $inovasi->TimInovasi->departemen !!}</td>
+                <td>{!! $inovasi->TimInovasi->departemens->departemen !!}</td>
                 <td>{!! $inovasi->subKategoris->nama_sub_kategori!!}</td>
                 <td>{!! substr($inovasi->judul,0,50) !!}
                     @if(strlen($inovasi->judul) > 50)
@@ -23,8 +23,8 @@
 
                 <td>
                     <div class='btn-group'>
-                        <a href="{!! route('inovasiJuris.show', [$inovasi->inovasi_id]) !!}" class='btn btn-default'><i class="glyphicon glyphicon-eye-open"></i> Nilai</a>
-                        <a href="{!! route('showNilaiInovasiJuri', [$inovasi->inovasi_id]) !!}" class='btn btn-primary'><i class="glyphicon glyphicon-check"></i> Juri lain</a>
+                        <a href="{!! route('inovasiJuris.show', [$inovasi->inovasi_id]) !!}" class='btn btn-default'><i class="glyphicon glyphicon-eye-open"></i> </a>
+                        <a href="{!! route('showNilaiInovasiJuri', [$inovasi->inovasi_id]) !!}" class='btn btn-primary'><i class="glyphicon glyphicon-check"></i> </a>
                     </div>
                 </td>
             </tr>

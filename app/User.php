@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\juri;
+use App\Models\unitBiro;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -31,5 +32,13 @@ class User extends Authenticatable
 
     public function juris(){
         return $this->belongsTo(juri::class, 'nip', 'nip');
+    }
+
+    public function units(){
+        return $this->belongsTo(unitBiro::class, 'unit_biro', 'kode');
+    }
+
+    public function departemens(){
+        return $this->belongsTo(unitBiro::class, 'departemen_id', 'kode');
     }
 }

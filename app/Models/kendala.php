@@ -28,6 +28,7 @@ class kendala extends Model
     public $fillable = [
         'inovasi_id',
         'isi_kendala',
+        'tim_expert_id',
         'solusi'
     ];
 
@@ -55,5 +56,10 @@ class kendala extends Model
     public function inovasis()
     {
         return $this->belongsTo(inovasi::class, 'inovasi_id', 'inovasi_id');
+    }
+
+    public function expert()
+    {
+        return $this->belongsTo(expert::class, 'tim_expert_id', 'tim_expert_id');
     }
 }

@@ -16,7 +16,7 @@
         <tr>
             <td>{{date_format(date_create($inovasi->created_at), 'd-m-Y')}}</td>
             <td>{!! $inovasi->TimInovasi->nama_tim !!}</td>
-            <td>{!! $inovasi->TimInovasi->departemen !!}</td>
+            <td>{!! $inovasi->TimInovasi->departemens->departemen !!}</td>
             <td>{!! $inovasi->subKategoris->nama_sub_kategori!!}</td>
             <td>{!! substr($inovasi->judul,0,50) !!}
                 @if(strlen($inovasi->judul) > 50)

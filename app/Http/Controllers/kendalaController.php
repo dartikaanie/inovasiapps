@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatekendalaRequest;
 use App\Http\Requests\UpdatekendalaRequest;
+use App\Models\expert;
+use App\Models\inovasi;
 use App\Models\kendala;
 use App\Repositories\kendalaRepository;
 use App\Http\Controllers\AppBaseController;
@@ -59,7 +61,7 @@ class kendalaController extends AppBaseController
     {
         $input = $request->all();
 
-        $kendala = $this->kendalaRepository->create($input);
+        $kendala =kendala::create($input);
 
         Flash::success('Kendala saved successfully.');
 
@@ -140,7 +142,8 @@ class kendalaController extends AppBaseController
      */
     public function destroy($id)
     {
-        $kendala = $this->kendalaRepository->findWithoutFail($id);
+        $kendala = kendala::find($id);
+        $inovasi  = inovasi::where('inovasi_id', $kendala->inovasi_id)->first();
 
         if (empty($kendala)) {
             Flash::error('Kendala not found');
@@ -148,11 +151,11 @@ class kendalaController extends AppBaseController
             return redirect(route('kendalas.index'));
         }
 
-        $this->kendalaRepository->delete($id);
+        $kendala->delete($id);
 
         Flash::success('Kendala deleted successfully.');
 
-        return redirect(route('kendalas.index'));
+        return redirect(route('tims.show',[$inovasi->tim_id]));
     }
 
     public function addSolusi($kendala_id){
@@ -160,4 +163,12 @@ class kendalaController extends AppBaseController
 
 
     }
+
+    public function kendalaButuh(Request $request){
+        $butuh=$request->butuh;
+        $inovasi = inovasi::find($request->inovasi_id);
+        $expert = expert::pluck('nama','tim_expert_id');
+        return view('peserta.inovasis.kendala.create', compact('butuh','inovasi','expert'));
+    }
+
 }
