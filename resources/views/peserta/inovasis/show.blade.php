@@ -52,7 +52,7 @@
                             </tr>
                             <tr>
                                 <td>Total</td>
-                                <td>: Rp {{number_format($inovasi->saving - $inovasi->opp_lost  ,2,',','.')}} </td>
+                                <td>: Rp {{number_format($inovasi->saving + $inovasi->opp_lost - $inovasi->biaya  ,2,',','.')}} </td>
                             </tr>
                             <tr>
                                 <td>Tanggal Submit</td>
