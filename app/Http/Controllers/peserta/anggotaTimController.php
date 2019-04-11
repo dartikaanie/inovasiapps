@@ -86,8 +86,8 @@ class anggotaTimController extends AppBaseController
                 Flash::warning( $at->Users->nama.' Telah terdaftar');
             }else{
                 $statusKetua = anggotaTim::where('tim_id', $input['tim_id'])->where('status_anggota_id', 1)->first();
-                dd($statusKetua);
-                if( $input['status_anggota_id'][$jum] == 1){
+
+                if( $statusKetua != null && $input['status_anggota_id'][$jum] == 1){
                     Flash::error('Ketua Tim Telah ada');
                 }else{
                     anggotaTim::create([
@@ -153,12 +153,12 @@ class anggotaTimController extends AppBaseController
      */
     public function update($id, UpdateanggitaTimRequest $request)
     {
-
         $input = $request->all();
+
         $jum =$input['jum'];
 
         while( $jum>0) {
-            $at = anggotaTim::where('tim_id',$id)->where('nip', $input['nip'][$jum])->first();
+            $at = anggotaTim::where('anggota_tim_id', $input['anggota_tim_id'][$jum])->first();
             if($at==null){
                 Flash::error( 'tidak terdaftar');
             }else{

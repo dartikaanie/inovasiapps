@@ -226,7 +226,11 @@ class inovasiController extends AppBaseController
     public function editStatus ($id, Request $r){
        $update = $r->all();
        $inovasi = inovasi::where('inovasi_id', $id)->first();
-       if( ($inovasi->latar_belakang != null) &&
+
+        $anggota = anggotaTim::where('tim_id',$inovasi->tim_id)->where('status_anggota_id',1)->first();
+        $userLogin = anggotaTim::where('tim_id',$inovasi->tim_id)->where('nip',auth::user()->nip)->first();
+
+        if( ($inovasi->latar_belakang != null) &&
            ($inovasi->tujuan_inovasi != null) &&
            ($inovasi->saving != 0) &&
            ($inovasi->opp_lost != 0) &&
@@ -234,22 +238,27 @@ class inovasiController extends AppBaseController
            ($inovasi->dokumen_tim != null) &&
            ($inovasi->nip_inisiator != null) &&
            ($inovasi->judul != null)) {
+            if($userLogin != null){
+                if($anggota != null){
+                    if($update['status'] == 'Ajukan'){
+                        $inovasi->update(['status' => '1']);
+                    }else{
+                        $inovasi->update(['status' => '0']);
+                    }
 
-           if($update['status'] == 'Ajukan'){
-               $inovasi->update(['status' => '1']);
-           }else{
-               $inovasi->update(['status' => '0']);
-           }
+                    Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi, $anggota) {
+                        $message->subject("Inovasi Semen Padang -".$anggota->users->nama);
+                        $message->from($anggota->users->nama.'@SEMENINDONESIA.COM', $anggota->users->nama);
+                        $message->to('pengelolainovasi.sp@SEMENINDONESIA.COM');
+                    });
+                    Flash::success('status implementasi inovasi berhasil diubah');
 
-           Flash::success('status implementasi inovasi berhasil diubah');
-
-           $anggota = anggotaTim::where('tim_id',$inovasi->tim_id)->where('status_anggota_id',1)->first();
-
-           Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi, $anggota) {
-               $message->subject("Inovasi Semen Padang -".$anggota->users->nama);
-               $message->from($anggota->users->email, $anggota->users->nama);
-               $message->to('pengelolainovasi.sp@SEMENINDONESIA.COM');
-           });
+                }else{
+                    Flash::error('Ketua tim belum ada');
+                }
+            }else{
+                Flash::error('Anda belum tergabng dalam tim ini');
+            }
        }else{
            Flash::error('pengisian form belum lengkap');
        }

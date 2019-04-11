@@ -54,11 +54,11 @@
                                    {!! Form::label('tgl_pelaksanaan', 'Tanggal Implementasi / Rencana Implementasi :') !!}
                                    {!! Form::date('tgl_pelaksanaan',  null, ['class' => 'form-control']) !!}
                                </div>
-
+                               <div class="form-group col-sm-12">
                            {!! Form::label('status', 'Implementasi Inovasi ?:') !!}
                            {!! Form::select('status_implementasi', ['0' => 'Belum Implementasi','1' => 'Sudah Implementasi'],null, ['class' => 'form-control']) !!}
 
-
+                               </div>
                            <!-- Latar Belakang Field -->
                                <div class="form-group col-sm-12">
                                {!! Form::label('latar_belakang', 'Latar Belakang:') !!}

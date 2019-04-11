@@ -71,7 +71,7 @@
                                 </tr>
                                 <tr>
                                     <td>Tanggal Implementasi / Rencana</td>
-                                    <td>: {{$inovasi->tgl_pelaksanaan}}</td>
+                                    <td>: {{date_format($inovasi->tgl_pelaksanaan,'d-M-Y' )}}</td>
                                 </tr>
                                 <tr>
                                     <td>Status Implementasi</td>

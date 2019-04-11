@@ -15,6 +15,7 @@
                 @endforeach
             </select>
         </div>
+        <input hidden name="anggota_tim_id[{{$i}}]" id="id" value="{{$anggotaTim->anggota_tim_id}}" >
             <div class="form-group col-sm-6">
                 <label name="status">Status Anggota {{$i}} :</label>
                     <select name="status_anggota_id[{{$i}}]" class="form-control">

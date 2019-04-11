@@ -11,7 +11,7 @@
 
     <div class="form-group col-sm-3">
         {!! Form::label('area_implementasi', 'Area Implementasi:') !!}
-        {!! Form::select('area_implementasi', $area, null, ['class' => 'form-control']) !!}
+        {!! Form::select('area_implementasi', $area, null, ['class' => 'form-control select2']) !!}
     </div>
 
 

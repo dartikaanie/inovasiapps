@@ -20,6 +20,14 @@
 
                         <p class="text-muted text-center">{{$tim->departemens->nama}}</p>
 
+                            <div class="small-box bg-blue">
+                                <a href="{!! route('tims.create') !!}" class="small-box-footer">
+                                    <div class="text-center">
+                                        <h4><i class="fa fa-plus-square"></i> Inovasi </h4>
+                                    </div>
+                                </a>
+                            </div>
+
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
                                 <b>Anggota</b>
@@ -27,7 +35,11 @@
                             @foreach($anggota as $a)
                             <li class="list-group-item"><a><i class="fa fa-user"></i> {{$a->users->nama}}</a> &nbsp
                                 <small>({{$a->statusAnggota->status_anggota}})</small>
-                                <span class="pull-right"> <a href="{{route('anggotaTims.show', [$a->anggota_tim_id])}}" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> </a> </span>
+                                <span class="pull-right">
+                                    @if($a->nip != auth::user()->nip)
+                                    <a href="{{route('anggotaTims.show', [$a->anggota_tim_id])}}" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> </a>
+                                    @endif
+                                </span>
                                </li>
                             @endforeach
                         </ul>

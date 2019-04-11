@@ -70,7 +70,7 @@
                             </tr>
                             <tr>
                                 <td>Tanggal Implementasi / Rencana</td>
-                                <td>: {{$inovasi->tgl_pelaksanaan}}</td>
+                                <td>: {{date_format($inovasi->tgl_pelaksanaan, 'd-M-Y')}}</td>
                             </tr>
                             <tr>
                                 <td>Status Implementasi</td>
@@ -132,7 +132,6 @@
                                         <label class="label label-warning">tidak ada</label>
                                     @endif
                                 </td>
-                                </td>
                             </tr>
 
                             <tr>
@@ -156,25 +155,7 @@
                 </div>
             </div>
 
-                    {{--<div class="col-md-6">--}}
-                        {{--<!-- Dokumen Preview -->--}}
-                        {{--<div class="box box-primary">--}}
-                            {{--<div class="box-body box-profile">--}}
-                            {{--{!! Form::model($inovasi, ['route' => ['editStatus', $inovasi->inovasi_id], 'method' => 'patch']) !!}--}}
-                                {{--<!-- Status Implementasi Field -->--}}
-                                {{--<div class="form-group col-sm-12">--}}
-                                    {{--{!! Form::label('status', 'Ajukan Inovasi ?:') !!}--}}
-                                    {{--{!! Form::select('status', ['0' => 'Tidak','1' => 'Ajukan'],null, ['class' => 'form-control']) !!}--}}
-                                    {{--<small class="list-group-item-danger">Jika inovasi diajukan, Anda tidak dapat mengubah(edit) inovasi</small>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-12">--}}
-                                    {{--{!! Form::submit('Simpan', ['class' => 'btn btn-primary', "onclick" => "return confirm('Anda yakin? Data tidak dapat diubah lagi')"]) !!}--}}
-                                {{--</div>--}}
-                            {{--{!! Form::close() !!}--}}
 
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
             <div class="col-md-6">
                 <!-- Dokumen Preview -->
                 <div class="box box-primary">
@@ -182,18 +163,20 @@
                         <h4>Aksi Data Inovasi</h4>
 
                         @if($inovasi->status == 0)
+                            <p>Jika data inovasi sudah lengkap (tidak ada perubahan lagi), Silakaan klik tombol ajukan inovasi </p>
+
+                            <small class="list-group-item-danger">Jika inovasi diajukan, Anda tidak dapat mengubah(edit) inovasi</small>
+                            <br><br>
                             <a class="btn btn-info" data-toggle="modal" data-target="#ajukan-{{$inovasi->inovasi_id}}">
                                 <i class="fa fa-lock"> </i>   Ajukan Inovasi    </a>
                             <a class="btn btn-warning" href="{!! route('inovasis.edit', [$inovasi->inovasi_id]) !!}">Ubah</a>
+                            <a href="{!! route('tims.show', [$inovasi->tim_id]) !!}" class='btn btn-primary'><i class="glyphicon glyphicon-eye-open"></i> Lihat Tim </a>
 
                             @include('peserta.inovasis.modal.modal_ajukan')
-                        @endif
+                         @endif
                         <a class="btn btn-primary" href="{{route('tims.show',[$inovasi->tim_id])}}">Selesai</a>
-                        <br>
-                        <small class="list-group-item-danger">Jika inovasi diajukan, Anda tidak dapat mengubah(edit) inovasi</small>
-
-                    </div>
-                    <hr>
+                        </div>
+                    <hr style="height: 20px;">
                     @if($inovasi->status == 0)
                     <div class="box-body box-profile">
                         <h4>Apakah ada kendala ?</h4>

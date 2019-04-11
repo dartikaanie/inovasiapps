@@ -22,13 +22,13 @@
             <td>{{date_format(date_create($tim->created_at),"d-m-Y")}}</td>
             <td>
 
-                {{--{!! Form::open(['route' => ['tims.destroy', $tim->tim_id], 'method' => 'delete']) !!}--}}
+                {!! Form::open(['route' => ['tims.destroy', $tim->tim_id], 'method' => 'delete']) !!}
 
                       {{--@include ('peserta.tims.modal.modal_tambah')--}}
                 <a href="{!! route('tims.show', [$tim->tim_id]) !!}" class='btn btn-info'><i class="glyphicon glyphicon-eye-open"></i> Lihat </a>
 
-                {{--                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger ', 'onclick' => "return confirm('Are you sure?')"]) !!}--}}
-                {{--{!! Form::close() !!}--}}
+                                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger ', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                {!! Form::close() !!}
             </td>
         </tr>
     @endforeach

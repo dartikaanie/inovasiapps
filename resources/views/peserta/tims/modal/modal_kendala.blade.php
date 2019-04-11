@@ -16,8 +16,6 @@
                             <input hidden name="inovasi_id" value="{{$inovasi->inovasi_id}}">
                             <input type="submit" name="butuh"  value="ya" class="btn btn-primary">
                             <input type="submit" name="butuh" value="tidak" class="btn btn-primary">
-                            {{--{!! Form::submit('Ya', ['class' => 'btn btn-primary']) !!}--}}
-                            {{--{!! Form::submit('Tidak', ['class' => 'btn btn-primary']) !!}--}}
                         </div>
 
                     </div>

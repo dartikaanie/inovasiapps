@@ -20,7 +20,7 @@
 </div>
 <!-- Modal footer -->
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+    <button type="button" class="btn btn-default" onclick="history.back();">Batal</button>
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
 </div>
 

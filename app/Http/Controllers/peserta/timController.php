@@ -83,7 +83,7 @@ class timController extends AppBaseController
         anggotaTim::create([
            'nip' => $request->nip,
             'tim_id' => $timL->tim_id,
-            'status_anggota_id' => 1
+            'status_anggota_id' => 3
         ]);
 
 
@@ -175,7 +175,7 @@ class timController extends AppBaseController
      */
     public function destroy($id)
     {
-        $tim = $this->timRepository->findWithoutFail($id);
+        $tim = tim::find($id);
 
         if (empty($tim)) {
             Flash::error('Tim not found');
@@ -183,7 +183,7 @@ class timController extends AppBaseController
             return redirect(route('tims.index'));
         }
 
-        $this->timRepository->delete($id);
+        $tim->delete($id);
 
         Flash::success('Tim deleted successfully.');
 

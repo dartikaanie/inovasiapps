@@ -87,7 +87,7 @@
     </li>
 
     <li class="{{ Request::is('tims*') ? 'active' : '' }}">
-        <a href="{!! route('tims.index') !!}"><i class="fa fa-edit"></i><span>Tims</span></a>
+        <a href="{!! route('tims.index') !!}"><i class="fa fa-edit"></i><span>Tim</span></a>
     </li>
 
     <li class="{{ Request::is('list_inovasi_peserta*') ? 'active' : '' }}">
