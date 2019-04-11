@@ -4,7 +4,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Apakah butuh konsultasi dengan tim expert?</h4>
+                <h4 class="modal-title">Tambahkan Area?</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             {!! Form::open(['route' => 'areaAdd']) !!}

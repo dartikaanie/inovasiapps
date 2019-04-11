@@ -21,15 +21,66 @@
                                 </tr>
                                 <tr>
                                     <td>Area Implementasi</td>
-                                    <td>: {{$inovasi->area_implementasi}} </td>
+
+                                    <td>:
+
+                                        @if($inovasi->area_implementasi != null)
+                                            {{$inovasi->areas->area_implementasi}}
+                                        @endif
+                                    </td>
                                 </tr>
                                 <tr>
+
                                     <td>Inisiator</td>
-                                    <td>: {{$inovasi->users->nama}} </td>
+
+                                    <td>:
+                                        @if($inovasi->nip_inisiator  != null)
+                                            {{$inovasi->users->nama}}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>Fasilitator</td>
+
+                                    <td>:
+                                        @if($inovasi->nip_fasilitator  != null)
+                                            {{$inovasi->fasilitators->nama}}
+                                        @endif
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Departemen</td>
-                                    <td>: {{$inovasi->timInovasi->departemens->nama}} </td>
+                                    <td>:
+                                        @if($inovasi->timInovasi->departemens  != null)
+                                            {{$inovasi->timInovasi->departemens->nama}}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Anggota</td>
+                                    <td>:
+                                        @foreach($anggota as $a)
+                                            <label class="label label-primary"> {{$a->users->nama}}</label>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kategori</td>
+                                    <td>: {{$inovasi->subKategoris->nama_sub_kategori}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal Implementasi / Rencana</td>
+                                    <td>: {{$inovasi->tgl_pelaksanaan}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Status Implementasi</td>
+                                    <td>: @if($inovasi->status_implementasi==0)
+                                            Belum Terimplementasi
+                                        @else
+                                            Sudah Terimplementasi
+                                        @endif
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Latar belakang</td>
@@ -53,36 +104,52 @@
                                 </tr>
                                 <tr>
                                     <td>Total</td>
-                                    <td>: Rp {{number_format($inovasi->saving - $inovasi->opp_lost  ,2,',','.')}} </td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal pelaksanaan inovasi</td>
-                                    <td>: {{date_format(date_create($inovasi->tgl_pelaksanaan),'d-m-Y')}} </td>
+                                    <td>: Rp {{number_format($inovasi->saving + $inovasi->opp_lost - $inovasi->biaya  ,2,',','.')}} </td>
                                 </tr>
                                 <tr>
                                     <td>Tanggal Submit</td>
                                     <td>: {{date_format(date_create($inovasi->created_at),'d-m-Y')}}</td>
                                 </tr>
+
                                 <tr>
                                     <td>Dokumen Tim</td>
                                     <td>:
                                         @if($inovasi->dokumen_tim)
-                                        <a class="label label-success">Sudah di Upload</a>
+                                            <label class="label label-success">Sudah di Upload</label>
+                                            <a class="btn btn-default" href="{{asset('dokumen_tim/'.$inovasi->dokumen_tim)}}"> <i class="fa fa-download"></i></a>
                                         @else
                                             <label class="label label-danger">tidak ada</label>
                                         @endif
                                     </td>
                                 </tr>
 
+
                                 <tr>
                                     <td>Dokumen Pendukung</td>
                                     <td>:
                                         @if($inovasi->dokumen_pendukung)
-                                            <a class="label label-success">Sudah di Upload</a>
+                                            <label class="label label-success">Sudah di Upload</label>
                                         @else
                                             <label class="label label-warning">tidak ada</label>
-                                            @endif
+                                        @endif
                                     </td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Status</td>
+                                    <td>: @if($inovasi->status == 0 )
+                                            <label class="label label-danger">Belum Terimplementasi</label>
+                                        @elseif($inovasi->status == 1 )
+                                            <label class="label label-warning">Terimplementasi</label>
+                                            <label class="label label-warning">Proses Verifikasi oleh admin</label>
+                                        @elseif($inovasi->status == 2 )
+                                            <label class="label label-success">Terregistrasi</label>
+                                        @elseif($inovasi->status == 3 )
+                                            <label class="label label-success">Proses Penilaian</label>
+                                        @else
+                                            <label class="label label-success">Selesai</label>
+                                        @endif
                                     </td>
                                 </tr>
                             </table>

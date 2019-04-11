@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\anggotaTim;
 use App\Models\inovasi;
 use App\Models\kriteraiaKategoriPenilaian;
 use App\Models\penilaianInovasi;
@@ -74,6 +75,7 @@ class listInovasiController extends AppBaseController
     public function show($id)
     {
         $inovasi = inovasi::where('inovasi_id', $id)->first();
+        $anggota = anggotaTim::where('tim_id', $inovasi->tim_id)->get();
 
         if (empty($inovasi)) {
             Flash::error('Inovasi not found');
@@ -81,7 +83,7 @@ class listInovasiController extends AppBaseController
             return redirect(route('inovasis.index'));
         }
 
-        return view('admin.list_inovasis.show')->with('inovasi', $inovasi);
+        return view('admin.list_inovasis.show', compact('inovasi','anggota'));
     }
 
     /**

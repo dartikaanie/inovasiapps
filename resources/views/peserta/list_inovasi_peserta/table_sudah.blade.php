@@ -13,26 +13,25 @@
         @if($inovasi->status != 0)
             <tr>
                 <td>{{date_format(date_create($inovasi->created_at), 'd-m-Y')}}</td>
-                <td>{{$inovasi->nama_tim}}</td>
+                <td><a href="{!! route('tims.show', [$inovasi->tim_id]) !!}">{{$inovasi->nama_tim}}</a></td>
                 <td>{!! substr($inovasi->judul,0,30) !!}
                     @if(strlen($inovasi->judul) > 30)
                         ...
                     @endif
                 </td>
                 <td>{!! $inovasi->subKategoris->nama_sub_kategori!!}</td>
-                <td>
-                    @if($inovasi->status == 0 )
-                        <label class="label label-danger">Belum Terimplementasi</label>
+                <td>  @if($inovasi->status == 0 )
+                        <label class="label label-danger">Terdaftar</label>
                     @elseif($inovasi->status == 1 )
-                        <label class="label label-warning">Terimplementasi</label>
+                        <label class="label label-warning">Dikirim</label>
                     @elseif($inovasi->status == 2 )
-                        <label class="label label-info">Terregistrasi</label>
+                        <label class="label label-info">Terverifikasi</label>
                     @elseif($inovasi->status == 3 )
                         <label class="label label-primary">Proses Penilaian</label>
                     @else
                         <label class="label label-success">Selesai</label>
-                @endif
-                <td>
+                    @endif
+                </td>
                 <td>
                     {!! Form::open(['route' => ['inovasis.destroy', $inovasi->inovasi_id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

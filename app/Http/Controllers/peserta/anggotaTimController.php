@@ -86,6 +86,7 @@ class anggotaTimController extends AppBaseController
                 Flash::warning( $at->Users->nama.' Telah terdaftar');
             }else{
                 $statusKetua = anggotaTim::where('tim_id', $input['tim_id'])->where('status_anggota_id', 1)->first();
+                dd($statusKetua);
                 if( $input['status_anggota_id'][$jum] == 1){
                     Flash::error('Ketua Tim Telah ada');
                 }else{
@@ -162,7 +163,7 @@ class anggotaTimController extends AppBaseController
                 Flash::error( 'tidak terdaftar');
             }else{
                 $statusKetua = anggotaTim::where('tim_id', $id)->where('status_anggota_id', 1)->first();
-                if( $input['status_anggota_id'][$jum] == 1){
+                if( $statusKetua != null && $input['status_anggota_id'][$jum] == 1){
                     Flash::error('Ketua Tim Telah ada');
                 }else{
                     $at->update([

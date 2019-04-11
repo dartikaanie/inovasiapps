@@ -12,9 +12,9 @@
             <br>
             <span class="text-danger">*Dokumen pendukung dapat berupa dokumentasi (foto) atau dokumen yang berkaitan dengan inovasi. Dokumen pendukung diunggah dengan format <strong class="label label-danger">.zip/.rar</strong>, Dokumen pendukung tidak wajib diunggah. </span>
         </li>
-        <li>Setelah data inovasi semua diisi, silakan tentukan status implementasi dari ide inovasi ( terimplementasi atau belum). status implementasi dapat diubah jika semua data telah terisi </li>
+        <li>Setelah data inovasi semua diisi, silakan ajukan inovasi. Inovasi dapat diajukan jika semua data telah terisi </li>
         <li>Jika ada kendala dalam menulis ide, Dapat menyampaikan kendala kepada admin. Tim dapat menginformasikan kendala jika status inovasi belum terimplementasi</li>
-       <li>Inovasi dapat diubah selama status inovasi belum terimplementasi</li>
-        <li>Jika status inovasi telah terimplementasi, Ide inovasi tim akan diverifikasi oleh admin terlebih dahulu.</li>
+       <li>Inovasi dapat diubah selama inovasi belum diajukan</li>
+        <li>Jika inovasi telah diajukan, Ide inovasi tim akan diverifikasi oleh admin terlebih dahulu.</li>
     </ol>
 </div>

@@ -33,6 +33,7 @@ class penilaianInovasi extends Model
     public $fillable = [
         'inovasi_id',
         'nip_juri',
+        'saran',
 
         'status_penilaian'
     ];

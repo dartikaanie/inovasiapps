@@ -48,7 +48,7 @@
                     <div class="inner">
                         <h3>{{count($inovasi_terimplementasi)-1}}</h3>
 
-                        <p>Inovasi Terimplementasi</p>
+                        <p>Inovasi Terajukan</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-paper-plane"></i>

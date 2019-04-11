@@ -24,16 +24,40 @@
                                {!! Form::text('judul', null, ['class' => 'form-control']) !!}
                            </div>
                            <!-- Area Implementasi Field -->
-                           <div class="form-group col-sm-12">
-                           {!! Form::label('area_implementasi', 'Area Implementasi:') !!}
-                           {!! Form::text('area_implementasi', null, ['class' => 'form-control']) !!}
-                           </div>
+                               <div class="form-group col-sm-12">
+                                   {!! Form::label('area_implementasi', 'Area Implementasi:') !!}
+                                   {!! Form::select('area_implementasi', $area, null, ['class' => 'form-control select2']) !!}
+                               </div>
+                               <div class="form-group col-sm-12">
+                                   <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#tambahArea">
+                                       <i class="fa fa-plus"> </i>   Area Implementasi   </a>
+
+                               </div>
 
                            <!-- Nip Inisiator Field -->
                            <div class="form-group col-sm-12">
                            {!! Form::label('nip_inisiator', 'Inisiator:') !!}
                            {!! Form::select('nip_inisiator', $anggota, null, ['class' => 'form-control']) !!}
                            </div>
+
+                               <div class="form-group col-sm-12">
+                                   <label name="nip">Fasilitator :</label>
+                                   <select name="nip_fasilitator" id="nip" class="form-control select2">
+                                       @foreach($users as $p)
+                                           <option value="{{$p->nip}}">{{$p->nama}}</option>
+                                           @endforeach
+                                   </select>
+                               </div>
+
+                               <!-- tgl Implementasi Field -->
+                               <div class="form-group col-sm-12">
+                                   {!! Form::label('tgl_pelaksanaan', 'Tanggal Implementasi / Rencana Implementasi :') !!}
+                                   {!! Form::date('tgl_pelaksanaan',  null, ['class' => 'form-control']) !!}
+                               </div>
+
+                           {!! Form::label('status', 'Implementasi Inovasi ?:') !!}
+                           {!! Form::select('status_implementasi', ['0' => 'Belum Implementasi','1' => 'Sudah Implementasi'],null, ['class' => 'form-control']) !!}
+
 
                            <!-- Latar Belakang Field -->
                                <div class="form-group col-sm-12">
@@ -110,7 +134,7 @@
                                {!! Form::close() !!}
                            </div>
                        </div>
-
+                   @include("peserta.inovasis.modal.modal_area")
                </div>
            </div>
        </div>

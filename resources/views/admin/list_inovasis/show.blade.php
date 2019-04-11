@@ -20,15 +20,55 @@
                             </tr>
                             <tr>
                                 <td>Area Implementasi</td>
-                                <td>: {{$inovasi->area_implementasi}} </td>
+
+                                <td>:
+                                    @if($inovasi->area_implementasi != null)
+                                        {{$inovasi->areas->nama}}
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
+
                                 <td>Inisiator</td>
-                                <td>: {{$inovasi->users->nama}} </td>
+
+                                <td>:
+                                    @if($inovasi->nip_inisiator  != null)
+                                        {{$inovasi->users->nama}}
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Departemen</td>
-                                <td>: {{$inovasi->timInovasi->departemens->nama}} </td>
+                                <td>:
+                                    @if($inovasi->timInovasi->departemens  != null)
+                                        {{$inovasi->timInovasi->departemens->nama}}
+                                  @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Anggota</td>
+                                <td>:
+                                    @foreach($anggota as $a)
+                                        <label class="label label-primary"> {{$a->users->nama}}</label>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Implementasi / Rencana</td>
+                                <td>: {{$inovasi->tgl_pelaksanaan}}</td>
+                            </tr>
+                            <tr>
+                                <td>Status Implementasi</td>
+                                <td>: @if($inovasi->status_implementasi==0)
+                                        Belum Terimplementasi
+                                    @else
+                                        Sudah Terimplementasi
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Kategori</td>
+                                <td>: {{$inovasi->subKategoris->nama_sub_kategori}}</td>
                             </tr>
                             <tr>
                                 <td>Latar belakang</td>
@@ -137,7 +177,7 @@
                                 </div>
                                 {!! Form::close() !!}
                         @elseif($inovasi->status == 0)
-                            Inovasi Masih belum Terimplementasi
+                            Inovasi Masih belum Diajukan
                         @endif
                         <a class="btn btn-primary pull-right" href="{{route('listInovasis.index')}}">Selesai</a>
                     </div>

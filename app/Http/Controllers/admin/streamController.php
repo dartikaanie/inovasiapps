@@ -75,7 +75,7 @@ class streamController extends AppBaseController
     {
         $input = $request->all();
 
-        $stream = $this->streamRepository->create($input);
+        stream::create($input);
 
         Flash::success('Stream saved successfully.');
 

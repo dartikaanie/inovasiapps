@@ -5,8 +5,8 @@
     <table class="table table-bordered">
         <thead>
         <th>check</th>
-        <th>Nama Tim</th>
-        <th>Judul Inovasi</th>
+        <th>Nik </th>
+        <th>Nama </th>
         <th>Departemen tim</th>
         </thead>
         <tbody>

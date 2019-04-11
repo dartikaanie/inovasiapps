@@ -58,7 +58,8 @@ class inovasi extends Model
         'revenue',
         'stream_id',
         'status_penilaian',
-        'status'
+        'status',
+        'nip_fasilitator'
 
     ];
 
@@ -111,6 +112,11 @@ class inovasi extends Model
         return $this->belongsTo(User::class, 'nip_inisiator', 'nip');
     }
 
+    public function fasilitators()
+    {
+        return $this->belongsTo(User::class, 'nip_fasilitator', 'nip');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
@@ -126,6 +132,6 @@ class inovasi extends Model
 
     public function  areas()
     {
-        return $this->belongsTo(kendala::class, '  area_implementasi', ' area_implementasi_id');
+        return $this->belongsTo(areaImplementasi::class, 'area_implementasi', 'area_implementasi_id');
     }
 }

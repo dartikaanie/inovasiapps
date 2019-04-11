@@ -16,6 +16,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Auth;
@@ -96,6 +97,7 @@ class inovasiController extends AppBaseController
     public function show($id)
     {
         $inovasi = inovasi::find($id);
+        $anggota = anggotaTim::where('tim_id', $inovasi->tim_id)->get();
 
         if (empty($inovasi)) {
             Flash::error('Inovasi not found');
@@ -103,7 +105,7 @@ class inovasiController extends AppBaseController
             return redirect(route('inovasis.index'));
         }
 
-        return view('peserta.inovasis.show')->with('inovasi', $inovasi);
+        return view('peserta.inovasis.show', compact('inovasi', 'anggota'));
     }
 
     /**
@@ -117,14 +119,16 @@ class inovasiController extends AppBaseController
     {
         $inovasi = inovasi::find($id);
         $anggota = anggotaTim::where('tim_id', $inovasi->tim_id)->join('users','users.nip','=','anggota_tims.nip')->pluck('users.nama','users.nip');
-
+        $area = areaImplementasi::pluck('area_implementasi','area_implementasi_id');
+        $tim =tim::where('tim_id', $inovasi->tim_id)->first();
+        $users = User::all();
         if (empty($inovasi)) {
             Flash::error('Inovasi not found');
 
             return redirect(route('inovasis.index'));
         }
 
-        return view('peserta.inovasis.edit', compact('inovasi', 'anggota'));
+        return view('peserta.inovasis.edit', compact('inovasi', 'anggota','area','tim','users'));
     }
 
     /**
@@ -231,13 +235,24 @@ class inovasiController extends AppBaseController
            ($inovasi->nip_inisiator != null) &&
            ($inovasi->judul != null)) {
 
-           $inovasi->update($update);
+           if($update['status'] == 'Ajukan'){
+               $inovasi->update(['status' => '1']);
+           }else{
+               $inovasi->update(['status' => '0']);
+           }
+
            Flash::success('status implementasi inovasi berhasil diubah');
+
+           $anggota = anggotaTim::where('tim_id',$inovasi->tim_id)->where('status_anggota_id',1)->first();
+
+           Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi, $anggota) {
+               $message->subject("Inovasi Semen Padang -".$anggota->users->nama);
+               $message->from($anggota->users->email, $anggota->users->nama);
+               $message->to('pengelolainovasi.sp@SEMENINDONESIA.COM');
+           });
        }else{
            Flash::error('pengisian form belum lengkap');
        }
-
-       $anggota = anggotaTim::where('tim_id',$inovasi->tim_id)->where('status_anggota_id',1)->first();
 
 
 //        Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi, $anggota) {
@@ -246,11 +261,6 @@ class inovasiController extends AppBaseController
 //            $message->to('inovasisp19@gmail.com');
 //        });
 
-        Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi, $anggota) {
-            $message->subject("Inovasi Semen Padang -".$anggota->users->nama);
-            $message->from($anggota->users->email, $anggota->users->nama);
-            $message->to('pengelolainovasi.sp@SEMENINDONESIA.COM');
-        });
 
        return redirect(route('inovasis.show',[$inovasi->inovasi_id]));
     }
@@ -314,7 +324,7 @@ class inovasiController extends AppBaseController
         $area = strtoupper($request->area_implementasi);
         areaImplementasi::create([
             'area_implementasi' => $area ]);
-        return redirect( url('tambahInovasi/'.$input['tim_id']));
+        return Redirect::back();
     }
 
 }

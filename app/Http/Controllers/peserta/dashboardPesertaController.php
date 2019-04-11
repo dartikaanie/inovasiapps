@@ -43,7 +43,7 @@ class dashboardPesertaController extends AppBaseController
            ->where('anggota_tims.nip', $user->nip)
            ->where('inovasis.status','==',0)->get();
 
-       $juri = juri::where('nip',$user->nip)->where('status_aktif',1)->first();
+       $juri = juri::where('nip', $user->nip)->first();
 
        $kategoris = kategori::join('sub_kategoris','sub_kategoris.kategori_id','=','kategoris.kategori_id')->get();
        return view('peserta.dashboard.dashboardPeserta', compact('juri','user','inovasis','inovasisBelum','inovasisTerimplementasi','kategoris'));

@@ -8,7 +8,9 @@
         <div class="form-group col-sm-6">
             <label name="nip">Nama Juri :</label>
             <select name="nip" id="nip" class="form-control select2">
-                @foreach($user as $p)
+
+                @foreach($user as $p )
+
                     <option value="{{$p->nip}}">{{$p->nama}}</option>
                 @endforeach
             </select>

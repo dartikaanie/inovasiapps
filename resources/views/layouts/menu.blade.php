@@ -10,12 +10,12 @@
 
 
     <li class="{{ Request::is('kategoris*') ? 'active' : '' }}">
-        <a href="{!! route('kategoris.index') !!}"><i class="fa fa-edit"></i><span>Kategoris</span></a>
+        <a href="{!! route('kategoris.index') !!}"><i class="fa fa-edit"></i><span>Kategori</span></a>
     </li>
 
 
     <li class="{{ Request::is('kriterias*') ? 'active' : '' }}">
-        <a href="{!! route('kriterias.index') !!}"><i class="fa fa-edit"></i><span>Kriteraia Penilaians</span></a>
+        <a href="{!! route('kriterias.index') !!}"><i class="fa fa-edit"></i><span>Kriteria Penilaian</span></a>
     </li>
 
 
@@ -34,7 +34,7 @@
             <li>
                 <?php
                 $inovasi = \App\Models\inovasi::where('status', 1)->get();?>
-                <a href="{!! route('listInovasis.implemen') !!}"><i class="fa  fa-lightbulb-o"></i><span>Inovasi Terimplementasi</span> <label class="label label-danger">{{count($inovasi)}}</label> </a>
+                <a href="{!! route('listInovasis.implemen') !!}"><i class="fa  fa-lightbulb-o"></i><span>Inovasi terdaftar</span> <label class="label label-danger">{{count($inovasi)}}</label> </a>
             </li>
             <li>
                 <a href="{!! route('listNilaiInovasi') !!}"><i class="fa   fa-check-square"></i><span>List Nilai Inovasi</span></a>

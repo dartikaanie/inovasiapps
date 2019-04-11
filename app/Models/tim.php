@@ -71,8 +71,8 @@ class tim extends Model
         return $this->belongsTo(anggotaTim::class, 'tim_id', 'tim_id');
     }
 
-    public function departemens(){
-        return $this->belongsTo(unitBiro::class, 'departemen', 'kode');
-    }
+   public function departemens(){
+        return $this->belongsTo(unitBiro::class, 'departemen','kode');
+   }
 
 }

@@ -104,9 +104,7 @@ class timController extends AppBaseController
         $tim = tim::find($id);
         $inovasis = inovasi::where('tim_id', $tim->tim_id)->get();
         $stat_ketua = statusAnggota::where('status_anggota', 'Ketua')->first();
-        $stat_fasilitator = statusAnggota::where('status_anggota', 'Fasilitator')->first();
         $ketua = anggotaTim::where('tim_id', $tim->tim_id)->where('status_anggota_id', $stat_ketua->status_anggota_id )->first();
-        $fasilitator = anggotaTim::where('tim_id', $tim->tim_id)->where('status_anggota_id', $stat_fasilitator->status_anggota_id )->first();
         $anggota = anggotaTim::where('tim_id', $tim->tim_id)->get();
         $kendalas = kendala::join('inovasis','inovasis.inovasi_id','=','kendalas.inovasi_id')
                             ->join('tims','tims.tim_id','=','inovasis.tim_id')

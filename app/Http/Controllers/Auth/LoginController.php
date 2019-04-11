@@ -65,7 +65,7 @@ class LoginController extends Controller
         if ($bind) {
             $filter = "(sAMAccountName=$username)";
             $result = ldap_search($ldap, $dcName, $filter);
-            $info = ldap_get_entries($ldap, $result);
+//            $info = ldap_get_entries($ldap, $result);
             ldap_close($ldap);
 //            dd($info);
             $user = User::where('email', strtoupper($log['email']))->first();

@@ -18,8 +18,11 @@
 
                         <h3 class="profile-username text-center">{{$user->nama}}</h3>
 
-                        <p class="text-muted text-center"><span class=" text-info "> {{$user->departemens->nama}} </span> -  {{$user->units->nama}}</p>
 
+                        <p class="text-muted text-center"><span class=" text-info "> {{$user->departemens->nama}}  </span>
+                        @if($user->units != null)
+                           -  {{$user->units->nama}}</p>
+                        @endif
                         <div class="row">
                             <div class="col-lg-12 col-xs-12">
                                 <!-- small box -->
@@ -37,7 +40,7 @@
                                     <div class="inner">
                                         <h3>{{count($inovasis)}}</h3>
 
-                                        <p>Jumlah ikut Inovasi</p>
+                                        <p>Jumlah Inovasi Terdaftar</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-lightbulb"></i>
@@ -53,7 +56,7 @@
                                     <div class="inner">
                                         <h3>{{count($inovasisTerimplementasi)}}</h3>
 
-                                        <p>Jumlah Inovasi Terimplementasi</p>
+                                        <p>Jumlah Inovasi Terajukan</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-checkmark"></i>
@@ -69,7 +72,7 @@
                                     <div class="inner">
                                         <h3>{{count($inovasisBelum)}}</h3>
 
-                                        <p>Jumlah Inovasi Belum terimplementasi</p>
+                                        <p>Jumlah Inovasi Belum Diajukan</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-alert"></i>

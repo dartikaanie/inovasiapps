@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\juri;
 
 use App\Http\Controllers\AppBaseController;
+use App\Models\anggotaTim;
 use App\Models\inovasi;
 use App\Models\juri;
 use App\Models\kriteraiaKategoriPenilaian;
@@ -52,12 +53,12 @@ class inovasiJuriController extends AppBaseController
 
 
 
-        $inovSudah= inovasi::where('status', 3)
+        $inovSudah= inovasi::where('status', '>=', 3)
                             ->where('stream_id', Auth::user()->juris->stream_id)
                             ->where('stream_id', '!=',null)
                             ->join('penilaian_inovasi','penilaian_inovasi.inovasi_id','=','inovasis.inovasi_id')
                             ->where('penilaian_inovasi.status_penilaian',1)
-                            ->where('nip_juri',Auth::user()->nip)->get();
+                            ->where('penilaian_inovasi.nip_juri',Auth::user()->nip)->get();
 
         $inovBelumPenilaian = inovasi::where('status', 3)
                                     ->where('stream_id', Auth::user()->juris->stream_id)
@@ -66,6 +67,7 @@ class inovasiJuriController extends AppBaseController
                                         $query->select('inovasi_id')->from('penilaian_inovasi')
                                         ->where('nip_juri',Auth::user()->nip);})
                                     ->get();
+
 
 
         foreach ($inovBelumPenilaian as $inovasi){
@@ -116,6 +118,7 @@ class inovasiJuriController extends AppBaseController
         $inovasi = inovasi::where('inovasi_id', $id)->first();
         $juri = Auth::user()->nip;
 
+        $anggota = anggotaTim::where('tim_id', $inovasi->tim_id)->get();
 
 
         $kitkats = kriteraiaKategoriPenilaian::where('sub_kategori_id',$inovasi->sub_kategori_id)->get();
@@ -143,7 +146,7 @@ class inovasiJuriController extends AppBaseController
             $total = $total + $penilaian->nilai;
         }
 
-        return view('juri.inovasi_juri.show', compact('inovasi', 'kitkats','kriterias','i','juri','penilaians' ,'total','penilaianInovasi'));
+        return view('juri.inovasi_juri.show', compact('anggota','inovasi', 'kitkats','kriterias','i','juri','penilaians' ,'total','penilaianInovasi'));
     }
 
     /**

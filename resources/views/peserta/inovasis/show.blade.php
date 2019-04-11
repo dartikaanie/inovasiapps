@@ -20,15 +20,66 @@
                             </tr>
                             <tr>
                                 <td>Area Implementasi</td>
-                                <td>: {{$inovasi->area_implementasi}} </td>
+
+                                <td>:
+
+                                    @if($inovasi->area_implementasi != null)
+                                        {{$inovasi->areas->area_implementasi}}
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
+
                                 <td>Inisiator</td>
-                                <td>: {{$inovasi->users->nama}} </td>
+
+                                <td>:
+                                    @if($inovasi->nip_inisiator  != null)
+                                        {{$inovasi->users->nama}}
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>Fasilitator</td>
+
+                                <td>:
+                                    @if($inovasi->nip_fasilitator  != null)
+                                        {{$inovasi->fasilitators->nama}}
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Departemen</td>
-                                <td>: {{$inovasi->timInovasi->departemens->nama}} </td>
+                                <td>:
+                                    @if($inovasi->timInovasi->departemens  != null)
+                                        {{$inovasi->timInovasi->departemens->nama}}
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Anggota</td>
+                                <td>:
+                                @foreach($anggota as $a)
+                                    <label class="label label-primary"> {{$a->users->nama}}</label>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Kategori</td>
+                                <td>: {{$inovasi->subKategoris->nama_sub_kategori}}</td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Implementasi / Rencana</td>
+                                <td>: {{$inovasi->tgl_pelaksanaan}}</td>
+                            </tr>
+                            <tr>
+                                <td>Status Implementasi</td>
+                                <td>: @if($inovasi->status_implementasi==0)
+                                          Belum Terimplementasi
+                                    @else
+                                          Sudah Terimplementasi
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Latar belakang</td>
@@ -64,6 +115,7 @@
                                 <td>:
                                     @if($inovasi->dokumen_tim)
                                         <label class="label label-success">Sudah di Upload</label>
+                                        <a class="btn btn-default" href="{{asset('dokumen_tim/'.$inovasi->dokumen_tim)}}"> <i class="fa fa-download"></i></a>
                                     @else
                                         <label class="label label-danger">tidak ada</label>
                                     @endif
@@ -103,42 +155,48 @@
                     </div>
                 </div>
             </div>
-            @if($inovasi->status == 0)
-                    <div class="col-md-6">
-                        <!-- Dokumen Preview -->
-                        <div class="box box-primary">
-                            <div class="box-body box-profile">
-                            {!! Form::model($inovasi, ['route' => ['editStatus', $inovasi->inovasi_id], 'method' => 'patch']) !!}
-                                <!-- Status Implementasi Field -->
-                                <div class="form-group col-sm-12">
-                                    {!! Form::label('status', 'Status Implementasi:') !!}
-                                    {!! Form::select('status', ['0' => 'belum Terimplementasi','1' => 'sudah terimplementasi'],null, ['class' => 'form-control']) !!}
-                                    <small class="list-group-item-danger">Jika inovasi berstatus terimplementasi, Anda tidak dapat mengubah(edit) inovasi</small>
-                                </div>
-                                <div class="col-md-12">
-                                    {!! Form::submit('Simpan', ['class' => 'btn btn-primary', "onclick" => "return confirm('Anda yakin? Data tidak dapat diubah lagi')"]) !!}
-                                </div>
-                            {!! Form::close() !!}
 
-                            </div>
-                        </div>
-                    </div>
-            @endif
+                    {{--<div class="col-md-6">--}}
+                        {{--<!-- Dokumen Preview -->--}}
+                        {{--<div class="box box-primary">--}}
+                            {{--<div class="box-body box-profile">--}}
+                            {{--{!! Form::model($inovasi, ['route' => ['editStatus', $inovasi->inovasi_id], 'method' => 'patch']) !!}--}}
+                                {{--<!-- Status Implementasi Field -->--}}
+                                {{--<div class="form-group col-sm-12">--}}
+                                    {{--{!! Form::label('status', 'Ajukan Inovasi ?:') !!}--}}
+                                    {{--{!! Form::select('status', ['0' => 'Tidak','1' => 'Ajukan'],null, ['class' => 'form-control']) !!}--}}
+                                    {{--<small class="list-group-item-danger">Jika inovasi diajukan, Anda tidak dapat mengubah(edit) inovasi</small>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-12">--}}
+                                    {{--{!! Form::submit('Simpan', ['class' => 'btn btn-primary', "onclick" => "return confirm('Anda yakin? Data tidak dapat diubah lagi')"]) !!}--}}
+                                {{--</div>--}}
+                            {{--{!! Form::close() !!}--}}
+
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
             <div class="col-md-6">
                 <!-- Dokumen Preview -->
                 <div class="box box-primary">
                     <div class="box-body box-profile">
-                        <h5>Aksi Data Inovasi</h5>
+                        <h4>Aksi Data Inovasi</h4>
 
                         @if($inovasi->status == 0)
-                                <a class="btn btn-warning" href="{!! route('inovasis.edit', [$inovasi->inovasi_id]) !!}">Ubah</a>
+                            <a class="btn btn-info" data-toggle="modal" data-target="#ajukan-{{$inovasi->inovasi_id}}">
+                                <i class="fa fa-lock"> </i>   Ajukan Inovasi    </a>
+                            <a class="btn btn-warning" href="{!! route('inovasis.edit', [$inovasi->inovasi_id]) !!}">Ubah</a>
+
+                            @include('peserta.inovasis.modal.modal_ajukan')
                         @endif
                         <a class="btn btn-primary" href="{{route('tims.show',[$inovasi->tim_id])}}">Selesai</a>
+                        <br>
+                        <small class="list-group-item-danger">Jika inovasi diajukan, Anda tidak dapat mengubah(edit) inovasi</small>
 
                     </div>
+                    <hr>
                     @if($inovasi->status == 0)
                     <div class="box-body box-profile">
-                        <h5>Apakah ada kendala ?</h5>
+                        <h4>Apakah ada kendala ?</h4>
                         <p>Sampaikan kendala anda kepada admin.</p>
                         <a class="btn btn-primary" data-toggle="modal" data-target="#modalKendala-{{$inovasi->inovasi_id}}">
                             <i class="fa fa-plus"> </i>   Kendala   </a>

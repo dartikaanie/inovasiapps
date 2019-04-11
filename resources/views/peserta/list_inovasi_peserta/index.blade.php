@@ -17,8 +17,8 @@
             <div class="box-body">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#belum" data-toggle="tab">Belum Terimplementasi</a></li>
-                        <li><a href="#sudah" data-toggle="tab">Sudah Terimplementasi</a></li>
+                        <li class="active"><a href="#belum" data-toggle="tab">Belum Diajukan</a></li>
+                        <li><a href="#sudah" data-toggle="tab">Sudah Diajukan</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="active tab-pane" id="belum">

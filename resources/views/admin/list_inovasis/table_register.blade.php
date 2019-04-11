@@ -23,11 +23,11 @@
                         ...
                     @endif</td>
                 <td>  @if($inovasi->status == 0 )
-                        <label class="label label-danger">Belum Terimplementasi</label>
+                        <label class="label label-danger">Terdaftar</label>
                     @elseif($inovasi->status == 1 )
-                        <label class="label label-warning">Terimplementasi</label>
+                        <label class="label label-warning">Dikirim</label>
                     @elseif($inovasi->status == 2 )
-                        <label class="label label-info">Terregistrasi</label>
+                        <label class="label label-info">Terverifikasi</label>
                     @elseif($inovasi->status == 3 )
                         <label class="label label-primary">Proses Penilaian</label>
                     @else
