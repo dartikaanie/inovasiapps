@@ -63,6 +63,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('juris', 'admin\juriController');
     Route::get('juris/statusJuri/{nip}','admin\juriController@ubahStatus')->name('statusJuri');
     Route::get('dashboard','admin\dashboardController@index')->name('dashboard');
+    Route::get('dashboard/chart','admin\dashboardController@chart')->name('chartDashboard');
+    Route::get('dashboard/chartDept/{tahun}','admin\dashboardController@chartDept')->name('chartDashboardDepartemen');
+    Route::get('dashboard/chartJekel/{tahun}','admin\dashboardController@chartjekel')->name('charJekel');
 
     Route::get('laporan','admin\laporanController@bulan')->name('laporanBulan');
     Route::get('laporan/semua','admin\laporanController@semua')->name('laporanSemua');
@@ -92,9 +95,13 @@ Route::resource('inovasiPesertas', 'peserta\inovasiPesertaController');
 Route::get('tambahInovasi/{tim_tid}','peserta\inovasiController@create');
 
 Route::get('dashboardPeserta','peserta\dashboardPesertaController@index')->name('dashboardPeserta');
-    Route::post('kendalaButuh','kendalaController@kendalaButuh')->name('kendalaButuh');
+   Route::post('kendalaButuh','kendalaController@kendalaButuh')->name('kendalaButuh');
     Route::post('areaAdd','peserta\inovasiController@areaAdd')->name('areaAdd');
 
+
+    Route::get('/getDokumen/{path}/{nama}', function ($path, $nama) {
+        return view('peserta.dashboard.dokumen', compact('path','nama'));
+    });
 
 //-------------------------------------JURI-----------------------------------------
 

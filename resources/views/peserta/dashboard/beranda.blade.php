@@ -73,13 +73,28 @@
             </tr>
             <tr>
                 <td width="5%"><i class="fa fa-download"></i> </td>
+                <td><a href="{{asset('referensi/3. Teknik Kendali Mutu')}}" target="_blank">Teknik Kendali Mutu</a></td>
+            </tr>
+            <tr>
+                <td width="5%"><i class="fa fa-download"></i> </td>
+                <td><a href="{{asset('referensi/1. Pengantar PDCA & Kaizen ')}}" target="_blank">Pengantar PDCA & Kaizen </a></td>
+            </tr>
+            <tr>
+                <td width="5%"><i class="fa fa-download"></i> </td>
                 <td><a href="{{asset('referensi/06.Kriteria Nasional QEA Six Sigma 5R TKMPN 2018 - Print2.pdf')}}" target="_blank" >Kriteria QEA</a></td>
             </tr>
             <tr>
                 <td width="5%"><i class="fa fa-download"></i> </td>
                 <td><a href="{{asset('referensi/09.Juklak Kriteria TKMPN 2017 - 5R  5S Landscape - Print2.pdf')}}" target="_blank">Kriteria Penilaian 5P</a></td>
             </tr>
-
+            <tr>
+                <td width="5%"><i class="fa fa-download"></i> </td>
+                <td><a href="{{asset('referensi/3. Teknik Kendali Mutu')}}" target="_blank">Teknik Kendali Mutu</a></td>
+            </tr>
+            <tr>
+                <td width="5%"><i class="fa fa-download"></i> </td>
+                <td><a href="{{asset('referensi/1. Pengantar PDCA & Kaizen ')}}" target="_blank">Pengantar PDCA & Kaizen </a></td>
+            </tr>
         </table>
     </div>
 </div>

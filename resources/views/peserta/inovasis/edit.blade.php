@@ -51,8 +51,8 @@
 
                                <!-- tgl Implementasi Field -->
                                <div class="form-group col-sm-12">
-                                   {!! Form::label('tgl_pelaksanaan', 'Tanggal Implementasi / Rencana Implementasi :') !!}
-                                   {!! Form::date('tgl_pelaksanaan',  null, ['class' => 'form-control']) !!}
+                                   {!! Form::label('tgl_pelaksanaan', 'Tanggal Implementasi / Rencana Implementasi (yyyy-mm-dd)  :') !!}
+                                   {!! Form::date('tgl_pelaksanaan',  null, ['class' => 'form-control', 'required' => 'yes', 'placeholder' => 'tahun-bulan-tanggal']) !!}
                                </div>
                                <div class="form-group col-sm-12">
                            {!! Form::label('status', 'Implementasi Inovasi ?:') !!}
@@ -84,11 +84,19 @@
                                    {!! Form::number('opp_lost', null, ['class' => 'form-control', 'id' => 'opp_lost', 'onChange' => 'change();']) !!}
                                </div>
 
-                               <!-- Opp Lost Field -->
+                               <!-- revenue Field -->
+                               <div class="form-group col-sm-12">
+                                   {!! Form::label('revenue', 'Revenue:') !!}
+                                   {!! Form::number('revenue', null, ['class' => 'form-control', 'id' => 'revenue', 'onChange' => 'change();']) !!}
+                               </div>
+
+                               <!-- bIAYA Field -->
                                <div class="form-group col-sm-12">
                                    {!! Form::label('biaya', 'Biaya:') !!}
                                    {!! Form::number('biaya', null, ['class' => 'form-control', 'id' => 'biaya', 'onChange' => 'change();']) !!}
                                </div>
+
+
 
                                <!-- Total Field -->
                                <div class="form-group col-sm-12">
@@ -96,11 +104,7 @@
                                    {!! Form::number('opp_lost', null, ['class' => 'form-control', 'disabled' => 'yes', 'id' => 'total']) !!}
                                </div>
 
-                               <!-- Opp Lost Field -->
-                               <div class="form-group col-sm-12">
-                                   {!! Form::label('revenue', 'Revenue:') !!}
-                                   {!! Form::number('revenue', null, ['class' => 'form-control']) !!}
-                               </div>
+
 
                                <!-- Dokumen Tim Field -->
                                <div class="form-group col-sm-12">
@@ -146,9 +150,10 @@
         var saving = document.getElementById("saving");
         var opp_lost = document.getElementById("opp_lost");
         var biaya = document.getElementById('biaya');
+        var revenue = document.getElementById('revenue');
         var total = document.getElementById('total');
 
-        var t = parseInt(saving.value) + parseInt(opp_lost.value) - parseInt(biaya.value);
+        var t = parseInt(saving.value) + parseInt(opp_lost.value) +  parseInt(revenue.value) - parseInt(biaya.value);
         total.value = t;
     }
 </script>

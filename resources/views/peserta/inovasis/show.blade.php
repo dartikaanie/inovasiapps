@@ -70,7 +70,11 @@
                             </tr>
                             <tr>
                                 <td>Tanggal Implementasi / Rencana</td>
-                                <td>: {{date_format($inovasi->tgl_pelaksanaan, 'd-M-Y')}}</td>
+                                <td>:
+                                    @if($inovasi->tgl_pelaksanaan != null)
+                                        {{date_format($inovasi->tgl_pelaksanaan, 'd-M-Y')}}
+                                @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Status Implementasi</td>

@@ -107,3 +107,8 @@
 
         @endif
 @endif
+<li>
+    <a href="{!! url('/logout') !!}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-lock"></i><span>Keluar</span></a>
+</li>
+
+

@@ -22,7 +22,7 @@
                 <h3 class="text-center"> Laporan Inovasi </h3>
             @endif
             <br>
-            <body onload="window.print()">
+                <body onload="window.print()">
             <table id="data" class="table table-bordered table-striped">
                 <thead>
                 <tr >

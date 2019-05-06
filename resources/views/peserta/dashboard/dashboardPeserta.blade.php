@@ -93,6 +93,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#beranda" data-toggle="tab" class="bg-gray">Beranda</a></li>
                         <li><a href="#template" data-toggle="tab" class="bg-gray">Kategori Inovasi</a></li>
+                        <li><a href="#contoh" data-toggle="tab" class="bg-gray">Contoh Dokumen</a></li>
                         <li><a href="#tata" data-toggle="tab" class="bg-gray">Tata Cara Pendaftaran</a></li>
                         @if($juri!=null)
                             <li><a href="#nilai" data-toggle="tab" class="bg-gray">Tata Cara Penilaian</a></li>
@@ -105,12 +106,16 @@
                         <div class="tab-pane" id="template">
                             @include('peserta.dashboard.template')
                         </div>
+                        <div class="tab-pane" id="contoh">
+                            @include('peserta.dashboard.contoh')
+                        </div>
                         <div class="tab-pane" id="tata">
                             @include('peserta.dashboard.tata')
                         </div>
                         <div class="tab-pane" id="nilai">
                             @include('peserta.dashboard.nilai')
                         </div>
+
                     </div>
                 </div>
             </div>

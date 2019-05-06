@@ -248,7 +248,7 @@ class inovasiController extends AppBaseController
 
                     Mail::send('email', ['nama' => $anggota->users->nama, 'inovasi' => $inovasi], function ($message) use ($inovasi, $anggota) {
                         $message->subject("Inovasi Semen Padang -".$anggota->users->nama);
-                        $message->from($anggota->users->nama.'@SEMENINDONESIA.COM', $anggota->users->nama);
+                        $message->from('inovasisp2019@gmail.com', $anggota->users->nama);
                         $message->to('pengelolainovasi.sp@SEMENINDONESIA.COM');
                     });
                     Flash::success('status implementasi inovasi berhasil diubah');

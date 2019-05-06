@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <td>Departemen </td>
-                <td>: {{$inovasi->TimInovasi->departemens->departemen}}</td>
+                <td>: {{$inovasi->TimInovasi->departemens->nama}}</td>
             </tr>
             <tr>
                 <td>Ketua tim </td>

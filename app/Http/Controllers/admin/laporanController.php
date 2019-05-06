@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\AppBaseController;
 use App\Models\anggotaTim;
+use App\Models\areaImplementasi;
 use App\Models\inovasi;
 use App\Models\subKategori;
 use App\Models\tim;
@@ -135,17 +136,46 @@ class laporanController extends AppBaseController
                     $anggota_tim[$p] = $a->Users->nama;
                     $p++;
                 }
+                $item['anggota_tim'] = implode(", ",$anggota_tim);
 
                 //inisiator
                 $inisiator =  User::where('nip',$item['nip_inisiator'])->first();
+                $falitator = User::where('nip',$item['nip_fasilitator'])->first();
+
                 if($inisiator == null){
                     $item['Inisiator'] ="";
                 }else{
-                    $item['Inisiator'] = $inisiator->nama;
+                    $item['Inisiator'] = $falitator->nama;
                 }
-                $item['anggota_tim'] = implode(", ",$anggota_tim);
+
+
+                if( $item['area_implementasi'] != null){
+                    $item['area_implementasi'] = $item->areas->area_implementasi;
+                }
+
+                if( $item['tim_id'] != null){
+                    $tim = tim::find($item['tim_id']);
+                    $item['tim'] = $tim->nama_tim;
+                }
+
+                if($falitator == null){
+                    $item['nip_fasilitator'] ="";
+                }else{
+                    $item['nip_fasilitator'] = $falitator->nama;
+                }
+
+                if($item['status_implementasi'] == 0){
+
+                    $item['status implementasi'] = "Belum";
+
+                }else{
+                    $item['status implementasi'] = "Sudah";
+                }
+
+
                 unset($item['tgl_pelaksanaan'],$item['updated_at'],$item['updated_at'],$item['deleted_at'],$item['stream_id'],$item['dokumen_tim'],$item['dokumen_pendukung']);
-                unset($item['status'], $item['nip_inisiator'], $item['sub_kategori_id']);
+                unset($item['nip_inisiator'], $item['sub_kategori_id'], $item['tim_id'], $item['status_implementasi']);
+                unset($item['status'], $item['status_penilaian'], $item['status_registrasi']);
                 $itemsArray[] = $item->toArray();
 
             }
